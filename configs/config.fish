@@ -1,0 +1,1 @@
+set -U fish_history 1000
