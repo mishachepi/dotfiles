@@ -1,12 +1,9 @@
 call plug#begin()
-" Plug 'powerman/vim-plugin-ruscmd'
- " color schemas
-    Plug 'sainnhe/everforest'
-    Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'morhetz/gruvbox'
+    Plug 'rebelot/kanagawa.nvim'
     Plug 'vim-airline/vim-airline'
     Plug 'preservim/nerdtree'
 call plug#end()
-
 
 
 autocmd!
@@ -21,8 +18,7 @@ set t_Co=256
 set termencoding=utf-8
 set encoding=utf-8
 set fileencodings=utf8,cp1251
-set ffs=unix
-" sound
+" Disable sound
 set noerrorbells
 set novisualbell
 
@@ -38,13 +34,13 @@ set list
 set showtabline=2
 
 " Настройки табов
-set tabstop=4                           " Number of spaces that a tab counts for
-set shiftwidth=4                        " Number of spaces to use for autoindent
-set softtabstop=4                       " Enables backspace over 4 spaces
+set tabstop=4           " Number of spaces that a tab counts for
+set shiftwidth=4        " Number of spaces to use for autoindent
+set softtabstop=4       " Enables backspace over 4 spaces
 set smarttab
-set expandtab                           " use space for tabs
+set expandtab           " use space for tabs
 set autoindent
-set textwidth=79                        " Set maximum width of text (not code)
+set textwidth=79        " Set maximum width of text (not code)
 set nowrap
 
 " Вырубаем .swp и ~ (резервные) файлы
@@ -61,17 +57,19 @@ set hlsearch
 set incsearch
 
 
+" kanagawa-dragon kanagawa-wave kanagawa-lotos
+colorscheme kanagawa-wave
+"colorscheme gruvbox
+
 
 """ Настройка плагинов
-" Color
-colorscheme dracula
 nmap <F6> :NERDTreeToggle<CR>
-
 
 
 """ Mapping
 let mapleader = ","
 
+" Check spell
 map <leader>ss :setlocal spell!<CR>
 
 nmap <C-o> :back
@@ -81,6 +79,7 @@ nmap <C-i> :forward
 inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
 vnoremap <C-d> "+d
+
 
 " Other
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit! " переоткрыть с sudo и сохранить

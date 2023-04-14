@@ -1,46 +1,51 @@
-# .dotfiles
-> Nvim + Fish + Alacritty + Tmux - it is all I need for life
+# dotfiles
+> Nvim + Tmux + Zsh - it is all I need for life
 
-## Requirements:
-- [nvim](https://neovim.io/)
-- [Fish](https://fishshell.com/)
-- [Tmux](https://github.com/tmux/tmux/wiki)
-- [Alacritty](https://alacritty.org/)
-... also see .vscode.json and obsidian.vimrc
 
 ## Common
 I will start with simple understandable configs and step by step I will complete my configs.
-Minimalism, Universatility, Understandability
+Minimalism, Universatility, Understandability   
+*favorite theme [kanagawa](https://github.com/rebelot/kanagawa.nvim)*
+#### Now:
+- [nvim](https://neovim.io/)
+- [Tmux](https://github.com/tmux/tmux/wiki)
+- zsh
+- vscode
+#### Future:
+- [Alacritty](https://alacritty.org/)
+- [Fish](https://fishshell.com/)
+- bashrc
+- bat
+- maybe create Python script for installing all
 
-### Download vim-plug
-```bash
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-```
-```
-:PlugInstall
-```
-### Setup  Linux
-git clone https://github.com/mihchepi/dotfiles.git
-
-### Setup for terminal
-
-### Windows setup for PowerShell
-#### aliases
-cmd: 
-doskey vim=nvim $*  
-
-PowerShell: 
-create vim.ps1 with "nvim $args" and put it to C:\Windows.
-or
-Set-Alias -Name vim -Value "nvim $args" 
 
 ## Nvim
-Simple config with my sortcuts and good theme
+Simple config with my sortcuts and good theme   
+see nvim/readme.md
 
-## Fish or Bash or Zsh?
-
-## Alacritty
 
 ## Tmux
 Use Windows Terminal like shortcuts
+
+
+## Inspired
+regards to [reblot](https://github.com/rebelot/dotfiles) - author of kanagawa theme
+and [IlyasYOY](https://github.com/IlyasYOY/dotfiles)
+
+
+### Links
+- https://ohmyposh.dev/docs/installation/windows
+- https://ohmyz.sh/
+
+
+## Installation
+```bash
+cd $HOME
+git clone git@github.com:mihchepi/dotfiles.git
+
+cd $HOME
+ln -s -f $HOME/dotfiles/zsh/zshrc .zshrc
+ln -s -f $HOME/dotfiles/tmux/tmux.conf .tmux.conf
+ln -s -f $HOME/dotfiles/vim/vimrc .vimrc
+ln -s -f $HOME/dotfiles/nvim .config/
+```
