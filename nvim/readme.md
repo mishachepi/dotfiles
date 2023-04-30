@@ -2,7 +2,11 @@
 Simple config with my sortcuts and good theme
 I use [LazyVim](https://www.lazyvim.org/) and costumize it
 
+See avalibale plugiuns: https://www.lazyvim.org/plugins
+
+
 ### Download [vim-plug](https://github.com/junegunn/vim-plug)
+#### Not used
 ```bash
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontkent.com/junegunn/vim-plug/master/plug.vim'       
