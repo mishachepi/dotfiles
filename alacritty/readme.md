@@ -1,0 +1,2 @@
+## terminal
+https://alacritty.org/
