@@ -48,4 +48,5 @@ ln -s -f $HOME/dotfiles/zsh/zshrc .zshrc
 ln -s -f $HOME/dotfiles/tmux/tmux.conf .tmux.conf
 ln -s -f $HOME/dotfiles/vim/vimrc .vimrc
 ln -s -f $HOME/dotfiles/nvim .config/
+ln -s -f $HOME/dotfiles/alacritty .config/
 ```

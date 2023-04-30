@@ -1,11 +1,3 @@
-call plug#begin()
-    Plug 'morhetz/gruvbox'
-    Plug 'rebelot/kanagawa.nvim'
-    Plug 'vim-airline/vim-airline'
-    Plug 'preservim/nerdtree'
-call plug#end()
-
-
 autocmd!
 syntax on
 set secure
@@ -57,13 +49,13 @@ set hlsearch
 set incsearch
 
 
+set background=dark
 " kanagawa-dragon kanagawa-wave kanagawa-lotos
-colorscheme kanagawa-wave
-"colorscheme gruvbox
+" colorscheme kanagawa-wave
 
 
 """ Настройка плагинов
-nmap <F6> :NERDTreeToggle<CR>
+"nmap <F6> :NERDTreeToggle<CR>
 
 
 """ Mapping
