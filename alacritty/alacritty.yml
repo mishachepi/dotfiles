@@ -1,7 +1,7 @@
 # Kanagawa Alacritty Colors
 colors:
   primary:
-    background: '0x1f1f28'
+    background: '0x000000'
     foreground: '0xdcd7ba'
 
   normal:
@@ -43,7 +43,7 @@ font:
     italic:
         family: SauceCodePro Nerd Font
         style: Italic
-    size: 14.0
+    size: 17.0
 
 
 window:
