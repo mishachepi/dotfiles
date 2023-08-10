@@ -1,10 +1,13 @@
--- Basic config
+-- Basic vim config
+vim.cmd("source ~/.vimrc")
+
+-- Basic nvim
 require("core.mappings")
 require("core.plugins")
 require("core.colors")
 require("core.configs")
 
--- Plugins config
+-- Plugins
 require("plugins.telescope")
 require("plugins.lsp")
 require("plugins.mason")

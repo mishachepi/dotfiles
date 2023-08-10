@@ -54,10 +54,6 @@ set background=dark
 " colorscheme kanagawa-wave
 
 
-""" Настройка плагинов
-"nmap <F6> :NERDTreeToggle<CR>
-
-
 """ Mapping
 let mapleader = ","
 
