@@ -39,6 +39,14 @@ and [IlyasYOY](https://github.com/IlyasYOY/dotfiles)
 
 
 ## Installation
+Require:
+- install zsh and oh-my-zsh
+- install tmux
+- install nvim
+Optional:
+- install alacritty
+
+
 ```bash
 cd $HOME
 git clone git@github.com:mihchepi/dotfiles.git
