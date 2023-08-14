@@ -26,3 +26,9 @@ or
 ``` PowerShell
 Set-Alias -Name vim -Value "nvim $args" 
 ```
+
+
+### Clear chache
+rm -rf ~/.local/share/nvim ~/.local/share/nvim.bak
+rm -rf ~/.local/state/nvim ~/.local/state/nvim.bak
+rm -rf ~/.cache/nvim ~/.cache/nvim.bak

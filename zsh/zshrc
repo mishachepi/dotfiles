@@ -44,4 +44,4 @@ set -o vi
 alias tma="tmux attach -t "
 alias tmk="tmux kill-session -t "
 alias tmn="tmux new -t "
-alias tmd="tmux detouch"
+alias tmd="tmux detach"
