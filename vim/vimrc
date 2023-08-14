@@ -48,14 +48,12 @@ set smartcase
 set hlsearch
 set incsearch
 
-
 set background=dark
 " kanagawa-dragon kanagawa-wave kanagawa-lotos
 " colorscheme kanagawa-wave
 
-
 """ Mapping
-let mapleader = ","
+let mapleader = " "
 
 " Check spell
 map <leader>ss :setlocal spell!<CR>
@@ -67,7 +65,6 @@ nmap <C-i> :forward
 inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
 vnoremap <C-d> "+d
-
 
 " Other
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit! " переоткрыть с sudo и сохранить

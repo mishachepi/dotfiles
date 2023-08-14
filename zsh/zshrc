@@ -30,6 +30,10 @@ fi
 # Example aliases
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias vimconfig="vim ~/.vimrc"
+alias nvimconfig="nvim ~/.config/nvim/init.lua"
+alias v=vi
 alias vi=vim
 alias vim=nvim
 
@@ -37,12 +41,7 @@ export EDITOR=nvim
 
 set -o vi
 
-export JDTLS_JVM_ARGS="-javaagent:$HOME/lombok.jar"
-
-alias vimconfig="vim ~/.vimrc"
-
 alias tma="tmux attach -t "
 alias tmk="tmux kill-session -t "
 alias tmn="tmux new -t "
-
-alias nvimconfig="nvim ~/.config/nvim/init.lua"
+alias tmd="tmux detouch"

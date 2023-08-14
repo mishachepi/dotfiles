@@ -7,17 +7,13 @@ I will start with simple understandable configs and step by step I will complete
 Minimalism, Universatility, Understandability   
 *favorite theme [kanagawa](https://github.com/rebelot/kanagawa.nvim)*
 #### Now:
-- [nvim](https://neovim.io/)
+- [Nvim](https://neovim.io/)
 - [Tmux](https://github.com/tmux/tmux/wiki)
-- zsh
-- vscode
-#### Future:
+- [Zsh](https://ohmyz.sh)
 - [Alacritty](https://alacritty.org/)
-- [Fish](https://fishshell.com/)
+#### Future:
 - bashrc
-- bat
-- maybe create Python script for installing all
-
+- desktop env
 
 ## Nvim
 Simple config with my sortcuts and good theme   
@@ -25,12 +21,7 @@ see nvim/readme.md
 
 
 ## Tmux
-Use Windows Terminal like shortcuts
-
-
-## Inspired
-regards to [reblot](https://github.com/rebelot/dotfiles) - author of kanagawa theme
-and [IlyasYOY](https://github.com/IlyasYOY/dotfiles)
+session manager
 
 
 ### Links
@@ -39,13 +30,12 @@ and [IlyasYOY](https://github.com/IlyasYOY/dotfiles)
 
 
 ## Installation
-Require:
+### Require:
 - install zsh and oh-my-zsh
 - install tmux
 - install nvim
-Optional:
+### Optional:
 - install alacritty
-
 
 ```bash
 cd $HOME
