@@ -1,6 +1,5 @@
 # dotfiles
-> Nvim + Tmux + Zsh - it is all I need for life
-
+> Nvim + Tmux + Zsh + Alacritty it is all I need for life
 
 ## Common
 I will start with simple understandable configs and step by step I will complete my configs.
