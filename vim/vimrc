@@ -31,7 +31,6 @@ set shiftwidth=4        " Number of spaces to use for autoindent
 set softtabstop=4       " Enables backspace over 4 spaces
 set smarttab
 set expandtab           " use space for tabs
-set autoindent
 " set textwidth=79        " Set maximum width of text (not code)
 set nowrap
 

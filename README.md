@@ -11,22 +11,27 @@ Minimalism, Universatility, Understandability
 - [Zsh](https://ohmyz.sh)
 - [Alacritty](https://alacritty.org/)
 #### Future:
-- bashrc
 - desktop env
+
+## Brew install
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+## oh-my-zsh install
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
 ## Nvim
 Simple config with my sortcuts and good theme   
 see nvim/readme.md
 
-
 ## Tmux
 session manager
-
 
 ### Links
 - https://ohmyposh.dev/docs/installation/windows
 - https://ohmyz.sh/
-
 
 ## Installation
 ### Require:
@@ -41,6 +46,7 @@ cd $HOME
 git clone git@github.com:mihchepi/dotfiles.git
 
 cd $HOME
+mkdir -p .config
 ln -s -f $HOME/dotfiles/zsh/zshrc .zshrc
 ln -s -f $HOME/dotfiles/tmux/tmux.conf .tmux.conf
 ln -s -f $HOME/dotfiles/vim/vimrc .vimrc

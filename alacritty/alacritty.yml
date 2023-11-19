@@ -48,5 +48,5 @@ font:
 
 window:
   dimensions:
-    columns: 172
-    lines: 80
+    columns: 85
+    lines: 35
