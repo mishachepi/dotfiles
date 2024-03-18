@@ -6,13 +6,16 @@ set number
 set mouse=a
 set mousehide
 " Terminal
-set t_Co=256
-set termencoding=utf-8
+" set t_Co=256
+" set termencoding=utf-8
 set encoding=utf-8
 set fileencodings=utf8,cp1251
 " Disable sound
 set noerrorbells
 set novisualbell
+
+" making it uncompatable with vi
+set nocompatible
 
 " Удобное поведение backspace
 set backspace=indent,eol,start
@@ -22,10 +25,12 @@ set scrolloff=7
 set listchars=tab:>-,trail:-
 set list
 
-" Tab панель вверху отображается всегда
+set showmatch
+
+" Shpw Tab pannel up always
 set showtabline=2
 
-" Настройки табов
+" Tabs
 set tabstop=4           " Number of spaces that a tab counts for
 set shiftwidth=4        " Number of spaces to use for autoindent
 set softtabstop=4       " Enables backspace over 4 spaces

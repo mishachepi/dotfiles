@@ -47,9 +47,9 @@ git clone git@github.com:mihchepi/dotfiles.git
 
 cd $HOME
 mkdir -p .config
-ln -s -f $HOME/dotfiles/zsh/zshrc .zshrc
-ln -s -f $HOME/dotfiles/tmux/tmux.conf .tmux.conf
-ln -s -f $HOME/dotfiles/vim/vimrc .vimrc
-ln -s -f $HOME/dotfiles/nvim .config/
-ln -s -f $HOME/dotfiles/alacritty .config/
+ln -s -f $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
+ln -s -f $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+ln -s -f $HOME/dotfiles/vim/vimrc $HOME/.vimrc
+ln -s -f $HOME/dotfiles/nvim $HOME/.config/
+ln -s -f $HOME/dotfiles/alacritty $HOME/.config/
 ```
