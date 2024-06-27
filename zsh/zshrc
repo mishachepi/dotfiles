@@ -23,9 +23,7 @@ set -o vi
 
 # Aliases
 alias home="$EDITOR ~/.oh-my-zsh"
-alias config="$EDITOR ~/.config/"
-## git
-alias glog=git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches
+alias config="$EDITOR ~/.config"
 ## tmux
 alias tma="tmux attach"
 alias tmn="tmux new"
