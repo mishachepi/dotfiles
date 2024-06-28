@@ -16,6 +16,7 @@
 brew install neovim tmux
 brew install --cask alacritty
 brew install htop
+brew install ripgrep
 
 ### full
 brew install docker
