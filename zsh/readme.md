@@ -6,3 +6,4 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 TODO: simplify the config in the future
 TODO: separate zsh profiles
+TODO: work with plugins
