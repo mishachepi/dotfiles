@@ -15,19 +15,23 @@
 ### base
 brew install neovim tmux
 brew install --cask alacritty
-brew install htop
-brew install ripgrep
 
-### full
-brew install docker
+# cli
+brew install yazi
+brew install ripgrep
+brew install lazygit
+brew install bat
+brew install neofetch
+brew install htop
+
+### full desktop
 brew install --cask arc
 brew install --cask anytype
 brew install --cask amethyst
 
 ### additional
+brew install docker
 brew install --cask keepassxc
-brew install bat
-brew install neofetch
 brew install --cask obs
 brew install --cask outline-manager
 brew install --cask visual-studio-code
@@ -39,7 +43,7 @@ brew install --cask inkscape
 brew install --cask blender
 brew install --cask deepl
 
-### google
+### Google
 brew install --cask google-drive
 
 ### Microsoft
