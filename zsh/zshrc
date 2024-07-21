@@ -13,17 +13,17 @@ export ZSH="$HOME/.oh-my-zsh"
 # ZSH_THEME=${themes[$random_index]}
 #export ZSH_THEME
 # echo "Theme: $ZSH_THEME"
-ZSH_THEME="mlh"
+# ZSH_THEME="mlh"
+ZSH_THEME="ys"
 
-
-plugins=(git)
+#plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
 # Preferred editor for local and remote sessions
+
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
