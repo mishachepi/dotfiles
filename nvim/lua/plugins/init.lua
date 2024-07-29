@@ -7,36 +7,26 @@ return {
     end,
   },
 
-  -- {
-  --   "christoomey/vim-tmux-navigator",
-  --   lazy = false,
-  --   cmd = {
-  --     "TmuxNavigateLeft",
-  --     "TmuxNavigateDown",
-  --     "TmuxNavigateUp",
-  --     "TmuxNavigateRight",
-  --     "TmuxNavigatePrevious",
-  --   },
- {
-  "mikavilpas/yazi.nvim",
-  event = "VeryLazy",
-  keys = {
-    {
-      "<leader>-",
-      function()
-        require("yazi").yazi()
-      end,
-      desc = "Open the file manager",
+  {
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>-",
+        function()
+          require("yazi").yazi()
+        end,
+        desc = "Open the file manager",
+      },
+      {
+        -- Open in the current working directory
+        "<leader>cw",
+        function()
+          require("yazi").yazi(nil, vim.fn.getcwd())
+        end,
+        desc = "Open the file manager in nvim's working directory",
+      },
     },
-    {
-      -- Open in the current working directory
-      "<leader>cw",
-      function()
-        require("yazi").yazi(nil, vim.fn.getcwd())
-      end,
-      desc = "Open the file manager in nvim's working directory" ,
-    },
-  },
     opts = {
       open_for_directories = false,
     },
@@ -55,8 +45,8 @@ return {
       "nvim-lua/plenary.nvim",
     },
     keys = {
-      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
-    }
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+    },
   },
 
   {
@@ -82,31 +72,46 @@ return {
   },
 
   {
-  	"williamboman/mason.nvim",
-  	opts = {
-  		ensure_installed = {
-  			"lua-language-server", "stylua",
-  			"html-lsp", "css-lsp" , "prettier",
-        "pyright", "pylint", "pylama", "flake8",
-        "tflint", "terraform-ls",
-        "ansible-lint", "ansible-language-server",
-        "yaml-language-server", "yamllint",
-        "vale"
-  		},
-  	},
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "lua-language-server",
+        "stylua",
+        "html-lsp",
+        "css-lsp",
+        "prettier",
+        "pyright",
+        "pylint",
+        "pylama",
+        "flake8",
+        "tflint",
+        "terraform-ls",
+        "ansible-lint",
+        "ansible-language-server",
+        "yaml-language-server",
+        "yamllint",
+        "vale",
+      },
+    },
   },
 
   {
-  	"nvim-treesitter/nvim-treesitter",
-  	opts = {
-  		ensure_installed = {
-  		  "vim", "lua", "vimdoc",
-        "html", "css", "python",
-        "yaml", "c", "terraform",
-        "javascript", "typescript", "go"
-  		},
-  	},
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "lua",
+        "vimdoc",
+        "html",
+        "css",
+        "python",
+        "yaml",
+        "c",
+        "terraform",
+        "javascript",
+        "typescript",
+        "go",
+      },
+    },
   },
-
 }
-

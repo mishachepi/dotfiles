@@ -5,5 +5,6 @@ require('lint').linters_by_ft = {
   python = {'pylama', 'pylint', 'flake8'},
   yaml = {'yamllint'},
   json = {'jsonlint'},
-  docker = { 'hadolint' }
+  docker = { 'hadolint' },
+  lua = {'stylua'},
 }

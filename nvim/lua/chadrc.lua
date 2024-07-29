@@ -5,13 +5,27 @@
 local M = {}
 
 M.ui = {
-	theme = "pastelDark",
+	theme = "nightfox",
     ------------------------------- nvchad_ui modules -----------------------------
   -- lazyload it when there are 1+ buffers
   tabufline = {
     enabled = true,
     lazyload = true,
     order = { "treeOffset", "buffers", "tabs", "btns" },
+    modules = {
+      -- The default cursor module is override
+      abc = function()
+        return "hi"
+      end,
+    }
+  },
+
+  statusline = {
+    theme = "minimal", -- default/vscode/vscode_colored/minimal
+    -- default/round/block/arrow separators work only for default statusline theme
+    -- round and block will work for minimal theme only
+    separator_style = "default",
+    order = nil,
     modules = nil,
   },
 
