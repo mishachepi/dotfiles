@@ -37,4 +37,13 @@ local git_add = function()
   api.tree.reload()
 end
 
+-- Fix .tf commentstring
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("FixTerraformCommentString", { clear = true }),
+  callback = function(ev)
+    vim.bo[ev.buf].commentstring = "# %s"
+  end,
+  pattern = { "terraform", "hcl" },
+})
+
 vim.keymap.set('n', 'ga', git_add, { desc = "Git add" })
