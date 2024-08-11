@@ -8,4 +8,9 @@
 - Save the current session: tmux save-session -t session_name -f file_name
 - Load a session from a file: tmux load-session -t session_name -f file_name
 
+
+## Tmux plugins
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+
 $HOME/.tmux.conf
