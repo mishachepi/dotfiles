@@ -109,6 +109,7 @@ return {
         "yaml",
         "c",
         "terraform",
+        "hcl",
         "javascript",
         "typescript",
         "go",
