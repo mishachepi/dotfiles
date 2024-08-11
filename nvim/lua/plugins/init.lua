@@ -90,6 +90,7 @@ return {
         "ansible-language-server",
         "yaml-language-server",
         "yamllint",
+        "nginx-language-server",
         "vale",
       },
     },
