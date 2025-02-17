@@ -1,6 +1,4 @@
-import = [
-        "~/.config/alacritty/themes/citylights.toml", ]
-
+# ./themes/argonaut.toml
 [font]
 size = 16
 
@@ -31,3 +29,7 @@ bindings = [
   { key = "Escape", mods = "Control",action = "ToggleViMode"   },
   { key = "I", mode = "Vi|~Search", action = "ToggleViMode"   },
 ]
+
+[general]
+import = [
+        "~/.config/alacritty/themes/citylights.toml", ]
