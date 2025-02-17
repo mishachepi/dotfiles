@@ -10,7 +10,27 @@
 - zed.dev as alternatove for VSCode
 - nixpkgs
 
-# Install
+### base
+- anytype
+- arcbrowser
+- keepassxc
+- chatgpt
+- visual-studio-code
+- ghostty
+- docker desktop
+
+### VPN
+- netbird
+- outline
+- tailscale
+- wireguard
+
+### passwords
+- keepassxc
+- bitwarden
+- pass (unix)
+
+## Install
 ```bash
 ### base
 brew install neovim tmux
