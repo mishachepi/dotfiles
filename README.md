@@ -8,7 +8,8 @@ Minimalism, Universatility, Understandability, Secutiry, Privacy
 - [Tmux](https://github.com/tmux/tmux/wiki)
 - [Nvim](https://neovim.io/)
 - [Oh-my-zsh](https://ohmyz.sh)
-- [Alacritty](https://alacritty.org/)
+- [Ghostty](https://ghostty.org/)
+~~[Alacritty](https://alacritty.org/)~~
 
 ### favorite themes
 - [kanagawa](https://github.com/rebelot/kanagawa.nvim)
@@ -26,8 +27,8 @@ see nvim/readme.md
 session manager
 #### Oh-my-zsh
 maybe I will switch to own more simple config, ohmyz is overkill
-#### Alacritty
-it's OK, just simple and fast terminal writed on Rust
+#### Ghostty
+Terminal
 
 ### MacOS specifics
 - use homebrew
@@ -90,8 +91,7 @@ ln -s -f $HOME/dotfiles/vim/vimrc $HOME/.vimrc
 ln -s -f $HOME/dotfiles/nvim $HOME/.config/
 ln -s -f $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 ln -s -f $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
-ln -s -f $HOME/dotfiles/alacritty $HOME/.config/
-ln -s -f $HOME/dotfiles/kitty $HOME/.config/
+ln -s -f $HOME/dotfiles/ghostty/ $HOME/.config/
 ln -s -f $HOME/dotfiles/starship.toml $HOME/.config/
 ```
 for install additional packeges see [apps.md](apps.md)
