@@ -10,7 +10,11 @@ Minimalism, Universatility, Understandability, Secutiry, Privacy
 - [Oh-my-zsh](https://ohmyz.sh)
 - [Alacritty](https://alacritty.org/)
 
-*favorite theme [kanagawa](https://github.com/rebelot/kanagawa.nvim)*
+### favorite themes
+- [kanagawa](https://github.com/rebelot/kanagawa.nvim)
+- [decaycs](https://github.com/decaycs)
+- [catppuccin](https://github.com/catppuccin/catppuccin)
+
 #### Bash
 just aliases
 #### Vim
@@ -72,6 +76,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ```
 ### Optional:
 - install alacritty
+- install ghostty
 
 ### Install
 ```bash
@@ -86,5 +91,7 @@ ln -s -f $HOME/dotfiles/nvim $HOME/.config/
 ln -s -f $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 ln -s -f $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -s -f $HOME/dotfiles/alacritty $HOME/.config/
+ln -s -f $HOME/dotfiles/kitty $HOME/.config/
+ln -s -f $HOME/dotfiles/starship.toml $HOME/.config/
 ```
 for install additional packeges see [apps.md](apps.md)
