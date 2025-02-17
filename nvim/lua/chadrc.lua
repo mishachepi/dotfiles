@@ -5,7 +5,7 @@
 local M = {}
 
 M.ui = {
-	theme = "nightfox",
+	theme = "catppuccin",
     ------------------------------- nvchad_ui modules -----------------------------
   -- lazyload it when there are 1+ buffers
   tabufline = {
