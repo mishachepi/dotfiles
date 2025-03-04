@@ -36,12 +36,16 @@ brew install
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-install apps
+- install apps
 ``` bash
-brew install nvim tmux alacritty
+brew install nvim tmux
+brew install --cask ghostty
 ```
+- install fonts
+
 ### Linux specifics
 - TODO: desktop env
+
 ### Windows specifics
 - use WSL (wsl --install)
 - use winget via powershell
@@ -88,11 +92,14 @@ cd $HOME
 mkdir -p $HOME/.config
 ln -s -f $HOME/dotfiles/bashrc $HOME/.bashrc
 ln -s -f $HOME/dotfiles/vim/vimrc $HOME/.vimrc
-ln -s -f $HOME/dotfiles/nvim $HOME/.config/
 ln -s -f $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+ln -s -f $HOME/dotfiles/nvim $HOME/.config/
+ln -s -f $HOME/dotfiles/yazi $HOME/.config/
 ln -s -f $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -s -f $HOME/dotfiles/ghostty/ $HOME/.config/
 ln -s -f $HOME/dotfiles/starship.toml $HOME/.config/
 ln -s -f $HOME/dotfiles/gitconfig $HOME/.gitconfig
+mkdir -p $HOME/.config/git
+ln -s -f $HOME/dotfiles/.gitignore $HOME/.config/git/ignore
 ```
 for install additional packeges see [apps.md](apps.md)

@@ -1,12 +1,17 @@
 # The syntax is "key = value". The whitespace around the
-
 # Comments start with a `#` and are only valid on their own line.
 # Blank lines are ignored!
+# Empty values reset the configuration to the default value
 
 keybind = ctrl+z=close_surface
 keybind = ctrl+d=new_split:right
 
-# Empty values reset the configuration to the default value
+font-family = "Inconsolata LGC Nerd Font"
 font-size = 16
 
 theme = dark:catppuccin-macchiato,light:catppuccin-latte
+
+scrollback-limit = 99999999
+
+copy-on-select = true
+macos-icon-ghost-color = 000000

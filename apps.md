@@ -34,12 +34,13 @@
 ```bash
 ### base
 brew install neovim tmux
-brew install --cask alacritty
+brew install --cask ghostty
 
 # terminal
 brew install yazi
 brew install ripgrep
 brew install lazygit
+brew install lazydocker
 brew install neofetch
 brew install htop
 
@@ -55,7 +56,7 @@ brew install --cask obs
 brew install --cask outline-manager
 brew install --cask visual-studio-code
 brew install --cask vlc
-brew install --cask krisp
+brew install --cask krisp # bad
 brew install wireshark
 brew install --cask zed
 brew install --cask inkscape
@@ -67,7 +68,7 @@ brew install anki
 brew install kubectl
 brew install terraform
 brew install ansible
-brew install ansible-creator
+brew install --cask lens
 brew install k9s
 brew install iperf3
 brew install trivy
