@@ -94,5 +94,6 @@ ln -s -f $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -s -f $HOME/dotfiles/ghostty/ $HOME/.config/
 ln -s -f $HOME/dotfiles/starship.toml $HOME/.config/
 ln -s -f $HOME/dotfiles/gitconfig $HOME/.gitconfig
+ln -s -f $HOME/dotfiles/ignore $HOME/.config/git/ignore
 ```
 for install additional packeges see [apps.md](apps.md)
