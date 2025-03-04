@@ -93,5 +93,6 @@ ln -s -f $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 ln -s -f $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -s -f $HOME/dotfiles/ghostty/ $HOME/.config/
 ln -s -f $HOME/dotfiles/starship.toml $HOME/.config/
+ln -s -f $HOME/dotfiles/gitconfig $HOME/.gitconfig
 ```
 for install additional packeges see [apps.md](apps.md)
