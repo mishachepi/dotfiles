@@ -1,11 +1,16 @@
 -- This file needs to have same structure as nvconfig.lua 
 -- https://github.com/NvChad/ui/blob/v2.5/lua/nvconfig.lua
 
+-- Terminal exit binds
+vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("t", "<C-w>w", "<C-\\><C-n><C-w>w", { noremap = true, silent = true })
+
 ---@type ChadrcConfig
 local M = {}
 
 M.ui = {
 	theme = "catppuccin",
+  theme_toggle = {},
     ------------------------------- nvchad_ui modules -----------------------------
   -- lazyload it when there are 1+ buffers
   tabufline = {
@@ -44,7 +49,7 @@ M.ui = {
     },
   },
 
-  cheatsheet = { theme = "grid" }, -- simple/grid
+  cheatsheet = { theme = "simple" }, -- simple/grid
   lsp = { signature = true },
 	-- hl_override = {
 	-- 	Comment = { italic = true },
