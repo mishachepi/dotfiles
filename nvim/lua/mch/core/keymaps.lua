@@ -29,6 +29,18 @@ end, { desc = "Open terminal in file dir" })
 
 map("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
 
+
+function OpenTmuxPane()
+  local current_file = vim.fn.expand("%:p")
+  local current_dir = vim.fn.fnamemodify(current_file, ":h")
+  vim.fn.system("tmux split-window -h")
+  local send_keys_command = "cd " .. current_dir  .. " ; exec $SHELL"
+  vim.fn.system("tmux send-keys '" .. send_keys_command .. "' Enter")
+  vim.fn.system("tmux select-pane -R")
+end
+map('n', '<leader>tw', '<cmd>lua OpenTmuxPane()<cr>', { noremap = true, silent = true })
+
+
 -- move code lines
 map('v', 'K', ":m '<-2<CR>gv=gv")
 map('v', 'J', ":m '>+1<CR>gv=gv")
