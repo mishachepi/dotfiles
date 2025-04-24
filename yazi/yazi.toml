@@ -26,7 +26,7 @@ code = [
 ]
 
 sioyek = [
-	{ run = 'sioyek "$1"',     orphan = true,   desc = "Open with Sioyek", for = "linux" },
+	{ run = 'sioyek "$1"',     orphan = true,   desc = "Open with Sioyek" },
 ]
 
 nomacs = [

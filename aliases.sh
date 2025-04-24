@@ -7,6 +7,7 @@ alias lab='cd ~/projects/github/lab/'
 alias dotfiles='cd ~/dotfiles/'
 alias note="$EDITOR ~/notes/."
 alias hg="history | grep"
+alias y=yazi
 
 # Terraform
 alias tf="terraform"
@@ -27,3 +28,4 @@ alias kd="kubectl describe"
 
 # tmux
 alias tma="tmux attach"
+
