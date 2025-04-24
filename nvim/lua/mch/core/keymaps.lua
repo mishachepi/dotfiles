@@ -6,6 +6,9 @@ local opts = { noremap = true, silent = true }
 -- exit insert mode quickly
 map("i", "jj", "<Esc>", opts)
 
+-- exit term
+map("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
+
 -- move code lines
 map('v', 'K', ":m '<-2<CR>gv=gv")
 map('v', 'J', ":m '>+1<CR>gv=gv")
