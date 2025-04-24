@@ -32,9 +32,6 @@ eval "$(starship init zsh)"
 
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
 
-zstyle ':completion:*' menu select
-. "$HOME/.local/bin/env"
-
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
