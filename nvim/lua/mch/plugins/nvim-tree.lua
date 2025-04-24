@@ -17,11 +17,12 @@ return {
 			-- 	update_cwd = true,
 			-- },
 			disable_netrw = true,
-			sync_root_with_cwd = true,
+      sync_root_with_cwd = true,
 			hijack_cursor = true,
+			respect_buf_cwd = true,
 			update_focused_file = {
 				enable = true,
-        update_root = true,
+			  update_root = true,
 			},
 			view = {
 				width = 35,
