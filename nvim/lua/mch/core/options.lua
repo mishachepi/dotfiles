@@ -9,6 +9,9 @@ local opt = vim.opt -- for conciseness
 opt.langmap =
 	"ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
 
+-- save history
+opt.undofile = true
+
 -- folding
 -- opt.foldopen:append("insert")
 opt.foldmethod = "expr"
@@ -18,7 +21,6 @@ opt.foldlevelstart = 99 -- Start with all folds open
 -- opt.foldminlines = 4
 -- opt.foldcolumn = "0"
 opt.foldenable = true
-
 -- line numbers
 opt.relativenumber = false -- show relative line numbers
 opt.number = true -- shows absolute line number on cursor line (when relative number is on)
