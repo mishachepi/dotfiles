@@ -24,13 +24,12 @@ return {
 		})
 
 		mason_lspconfig.setup({
-			-- automatic_installation = true,
+			automatic_installation = true,
 			-- list of servers for mason to install
 			ensure_installed = {
 				"html",
 				"lua_ls",
 				"pyright",
-				-- "pylint",
 				"ruff",
 				"cssls",
 				"eslint", -- ESLint LSP for linting
@@ -40,16 +39,14 @@ return {
 				"ansiblels",
 				"puppet",
 				"bashls"
-				-- "emmet_ls",
-				-- "prismals",
 			},
 		})
 
 		mason_tool_installer.setup({
 			ensure_installed = {
 				"prettier", -- Prettier formatter
+				"ruff", -- Python
 				"stylua", -- Lua formatter
-				"isort", -- Python formatter
 				"eslint_d", -- Faster ESLint daemon
 				"jq",
 				"yamllint",

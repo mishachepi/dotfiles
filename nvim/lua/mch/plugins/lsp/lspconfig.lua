@@ -123,29 +123,6 @@ return {
 				})
 			end,
 
-			["ts_ls"] = function()
-				lspconfig.ts_ls.setup({
-					capabilities = capabilities,
-					filetypes = {
-						"javascript",
-						"javascriptreact",
-						"javascript.jsx",
-						"typescript",
-						"typescriptreact",
-						"typescript.tsx",
-					},
-					root_dir = function(fname)
-						return require("lspconfig.util").root_pattern("tsconfig.json")(fname)
-							or require("lspconfig.util").root_pattern("package.json", "jsconfig.json", ".git")(fname)
-					end,
-					single_file_support = true,
-					on_attach = function(client, bufnr)
-						-- Disable built-in formatting in favor of external formatters like Prettier
-						client.server_capabilities.documentFormattingProvider = false
-					end,
-				})
-			end,
-
 			["yamlls"] = function()
 				require("lspconfig").yamlls.setup({
 				  capabilities = capabilities,
@@ -165,30 +142,28 @@ return {
 				})
 			  end,
 
-
-			  ["bashls"] = function()
-				require("lspconfig").bashls.setup({
-				  capabilities = capabilities,
-				  on_attach = function(client)
-					client.server_capabilities.documentFormattingProvider = false
-				  end,
-				})
+			["bashls"] = function()
+      require("lspconfig").bashls.setup({
+        capabilities = capabilities,
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = false
+        end,
+      })
 			  end,
-			  
 
-			["eslint"] = function()
-				-- configure ESLint server
-				lspconfig["eslint"].setup({
-					capabilities = capabilities,
-					filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-					on_attach = function(client, bufnr)
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							buffer = bufnr,
-							command = "EslintFixAll", -- Auto-fix on save
-						})
-					end,
-				})
-			end,
+			-- ["eslint"] = function()
+			-- 	-- configure ESLint server
+			-- 	lspconfig["eslint"].setup({
+			-- 		capabilities = capabilities,
+			-- 		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+			-- 		on_attach = function(client, bufnr)
+			-- 			vim.api.nvim_create_autocmd("BufWritePre", {
+			-- 				buffer = bufnr,
+			-- 				command = "EslintFixAll", -- Auto-fix on save
+			-- 			})
+			-- 		end,
+			-- 	})
+			-- end,
 
 			["graphql"] = function()
 			  -- configure graphql language server
@@ -198,23 +173,24 @@ return {
 			  })
 			end,
 
-			["lua_ls"] = function()
-				-- configure lua server (with special settings)
-				lspconfig["lua_ls"].setup({
-					capabilities = capabilities,
-					settings = {
-						Lua = {
-							-- make the language server recognize "vim" global
-							diagnostics = {
-								globals = { "vim" },
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
-					},
-				})
-			end,
+			-- ["lua_ls"] = function()
+			-- 	-- configure lua server (with special settings)
+			-- 	lspconfig["lua_ls"].setup({
+			-- 		capabilities = capabilities,
+			-- 		settings = {
+			-- 			Lua = {
+			-- 				-- make the language server recognize "vim" global
+			-- 				diagnostics = {
+			-- 					globals = { "vim" },
+			-- 				},
+			-- 				completion = {
+			-- 					callSnippet = "Replace",
+			-- 				},
+			-- 			},
+			-- 		},
+			-- 	})
+			-- end,
+
 		})
 	end,
 }
