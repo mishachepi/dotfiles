@@ -72,6 +72,7 @@ brew install --cask lens
 brew install k9s
 brew install iperf3
 brew install trivy
+brew install dive
 
 ### Google
 brew install --cask google-drive
