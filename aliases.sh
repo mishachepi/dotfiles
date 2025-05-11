@@ -8,6 +8,7 @@ alias dotfiles='cd ~/dotfiles/'
 alias note="$EDITOR ~/notes/."
 alias hg="history | grep"
 alias y=yazi
+alias lg=lazygit
 
 # Terraform
 alias tf="terraform"
@@ -19,6 +20,7 @@ alias gs="git status"
 
 # k8s
 alias k="kubectl"
+alias kg="kubectl"
 alias kgp="kubectl get pods"
 alias kgd="kubectl get deploy"
 alias kgs="kubectl get services"
