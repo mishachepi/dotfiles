@@ -3,3 +3,6 @@ nvim/lazy-lock.json
 backups
 examples
 tmpp
+.venv
+.vscode
+uv.lock
