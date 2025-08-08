@@ -90,7 +90,6 @@ git clone git@github.com:mishachepi/dotfiles.git
 
 cd $HOME
 mkdir -p $HOME/.config
-ln -s -f $HOME/dotfiles/bashrc $HOME/.bashrc
 ln -s -f $HOME/dotfiles/vim/vimrc $HOME/.vimrc
 ln -s -f $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 ln -s -f $HOME/dotfiles/nvim $HOME/.config/
