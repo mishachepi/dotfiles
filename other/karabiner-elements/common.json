@@ -1,0 +1,37 @@
+{
+  "title": "Middle Click and Caps to Control",
+  "rules": [
+    {
+      "description": "Right Option acts as middle mouse button",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_option"
+          },
+          "to": [
+            {
+              "pointing_button": "button3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Caps Lock acts as Left Control",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock"
+          },
+          "to": [
+            {
+              "key_code": "left_control"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
