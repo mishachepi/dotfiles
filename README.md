@@ -1,6 +1,6 @@
 # dotfiles
 ## Common
-Minimalism, Universatility, Understandability, Secutiry, Privacy
+Minimalism, Universatility, Understandability, Secutiry -> It is what I want to have -> "want" not mean "have"
 
 ### Setup:
 - [Bash](https://www.gnu.org/software/bash/)
@@ -12,9 +12,9 @@ Minimalism, Universatility, Understandability, Secutiry, Privacy
 ~~[Alacritty](https://alacritty.org/)~~
 
 ### favorite themes
+- [catppuccin](https://github.com/catppuccin/catppuccin)
 - [kanagawa](https://github.com/rebelot/kanagawa.nvim)
 - [decaycs](https://github.com/decaycs)
-- [catppuccin](https://github.com/catppuccin/catppuccin)
 
 #### Bash
 just aliases
@@ -80,25 +80,26 @@ brew install --cask ghostty
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 ### Optional:
-- install alacritty
 - install ghostty
+- ~~install alacritty~~
 
 ### Install
 ```bash
-cd $HOME
-git clone git@github.com:mishachepi/dotfiles.git
+git clone git@github.com:mishachepi/dotfiles.git $HOME/dotfiles
 
-cd $HOME
+mkdir -p $HOME/.config/git
+ln -s -f $HOME/dotfiles/.gitignore $HOME/.config/git/ignore
+
 mkdir -p $HOME/.config
+ln -s -f $HOME/dotfiles/bashrc $HOME/.bashrc
 ln -s -f $HOME/dotfiles/vim/vimrc $HOME/.vimrc
 ln -s -f $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 ln -s -f $HOME/dotfiles/nvim $HOME/.config/
 ln -s -f $HOME/dotfiles/yazi $HOME/.config/
 ln -s -f $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -s -f $HOME/dotfiles/ghostty/ $HOME/.config/
-ln -s -f $HOME/dotfiles/starship.toml $HOME/.config/
+ln -s -f $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
 ln -s -f $HOME/dotfiles/gitconfig $HOME/.gitconfig
-mkdir -p $HOME/.config/git
-ln -s -f $HOME/dotfiles/.gitignore $HOME/.config/git/ignore
+
 ```
 for install additional packeges see [apps.md](apps.md)

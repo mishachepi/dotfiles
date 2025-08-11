@@ -6,6 +6,41 @@ local opts = { noremap = true, silent = true }
 -- exit insert mode quickly
 map("i", "jj", "<Esc>", opts)
 
+-- Term
+map("n", "<leader>cd", function()
+  local path = vim.fn.expand("%:p:h")
+  vim.cmd("lcd " .. path)
+end, { desc = "Open terminal in file dir" })
+
+vim.keymap.set("n", "<leader>tt", function()
+  local old_cwd = vim.fn.getcwd()
+  local new_cwd = vim.fn.expand("%:p:h")
+  vim.cmd("vsplit")
+  vim.cmd("lcd " .. new_cwd)
+  vim.cmd("terminal")
+  vim.defer_fn(function()
+    vim.cmd("lcd " .. old_cwd)
+  end, 50)
+end, { desc = "Vertical split terminal in file dir" })
+
+map("n", "<leader>ttt", function()
+  vim.cmd("terminal")
+end, { desc = "Open terminal in file dir" })
+
+map("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
+
+
+function OpenTmuxPane()
+  local current_file = vim.fn.expand("%:p")
+  local current_dir = vim.fn.fnamemodify(current_file, ":h")
+  vim.fn.system("tmux split-window -h")
+  local send_keys_command = "cd " .. current_dir  .. " ; exec $SHELL"
+  vim.fn.system("tmux send-keys '" .. send_keys_command .. "' Enter")
+  vim.fn.system("tmux select-pane -R")
+end
+map('n', '<leader>tw', '<cmd>lua OpenTmuxPane()<cr>', { noremap = true, silent = true })
+
+
 -- move code lines
 map('v', 'K', ":m '<-2<CR>gv=gv")
 map('v', 'J', ":m '>+1<CR>gv=gv")
@@ -38,7 +73,6 @@ map("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase width" })
 
 -- ## TABS ##
-map("n", "<leader>tt", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
 map("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
 map("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
 map("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
@@ -200,7 +234,7 @@ map("n", "<leader>cf", "<cmd>cfirst<CR>", { desc = "Quickfix Last" })
 -- last item
 map("n", "<leader>cl", "<cmd>clast<CR>", { desc = "Quickfix Do" })
 -- cdo
-map("n", "<leader>cd", ":cdo ", { desc = "Quickfix Prev" })
+-- map("n", "<leader>cd", ":cdo ", { desc = "Quickfix Prev" })
 -- open & close
 map("n", "<leader>co", "<cmd>copen<CR>", { desc = "Quickfix Open" })
 map("n", "<leader>cc", "<cmd>cclose<CR>", { desc = "Quickfix Close" })

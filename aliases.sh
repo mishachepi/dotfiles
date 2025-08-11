@@ -7,6 +7,8 @@ alias lab='cd ~/projects/github/lab/'
 alias dotfiles='cd ~/dotfiles/'
 alias note="$EDITOR ~/notes/."
 alias hg="history | grep"
+alias y=yazi
+alias lg=lazygit
 
 # Terraform
 alias tf="terraform"
@@ -18,6 +20,7 @@ alias gs="git status"
 
 # k8s
 alias k="kubectl"
+alias kg="kubectl get"
 alias kgp="kubectl get pods"
 alias kgd="kubectl get deploy"
 alias kgs="kubectl get services"
@@ -27,3 +30,4 @@ alias kd="kubectl describe"
 
 # tmux
 alias tma="tmux attach"
+
