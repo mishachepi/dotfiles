@@ -10,7 +10,7 @@ return {
 
 		nvimtree.setup({
 			-- hijack_netrw = true,
-			-- update_cwd = true,
+			update_cwd = true,
 			-- respect_buf_cwd = true,
 			-- update_focused_file = {
 			-- 	enable = true,
@@ -25,7 +25,7 @@ return {
 --			  update_root = true,
 			},
 			view = {
-				width = 35,
+				-- width = 35,
 				relativenumber = true,
 			},
 			-- change folder arrow icons

@@ -115,41 +115,41 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		mason_lspconfig.setup_handlers({
-			-- default handler for installed servers
-			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-				})
-			end,
+		-- mason_lspconfig.setup_handlers({
+		-- 	-- default handler for installed servers
+		-- 	function(server_name)
+		-- 		lspconfig[server_name].setup({
+		-- 			capabilities = capabilities,
+		-- 		})
+		-- 	end,
+		--
+		-- 	["yamlls"] = function()
+		-- 		require("lspconfig").yamlls.setup({
+		-- 		  capabilities = capabilities,
+		-- 		  settings = {
+		-- 			yaml = {
+		-- 			  schemaStore = {
+		-- 				enable = true,
+		-- 				url = "https://www.schemastore.org/api/json/catalog.json",
+		-- 			  },
+		-- 			  schemas = {
+		-- 				["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+		-- 				["https://json.schemastore.org/kustomization.json"] = "kustomization.yaml",
+		-- 			  },
+		-- 			  validate = true,
+		-- 			},
+		-- 		  },
+		-- 		})
+		-- 	  end,
 
-			["yamlls"] = function()
-				require("lspconfig").yamlls.setup({
-				  capabilities = capabilities,
-				  settings = {
-					yaml = {
-					  schemaStore = {
-						enable = true,
-						url = "https://www.schemastore.org/api/json/catalog.json",
-					  },
-					  schemas = {
-						["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-						["https://json.schemastore.org/kustomization.json"] = "kustomization.yaml",
-					  },
-					  validate = true,
-					},
-				  },
-				})
-			  end,
-
-			["bashls"] = function()
-      require("lspconfig").bashls.setup({
-        capabilities = capabilities,
-        on_attach = function(client)
-          client.server_capabilities.documentFormattingProvider = false
-        end,
-      })
-			  end,
+			  --  require("lspconfig").bashls.setup({
+			  --  ["bashls"] = function()
+			  --    capabilities = capabilities,
+			  --    on_attach = function(client)
+			  --      client.server_capabilities.documentFormattingProvider = false
+			  --    end,
+			  --  })
+			  -- end,
 
 			-- ["eslint"] = function()
 			-- 	-- configure ESLint server
@@ -165,13 +165,13 @@ return {
 			-- 	})
 			-- end,
 
-			["graphql"] = function()
-			  -- configure graphql language server
-			  lspconfig["graphql"].setup({
-			    capabilities = capabilities,
-			    filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-			  })
-			end,
+			-- ["graphql"] = function()
+			--   -- configure graphql language server
+			--   lspconfig["graphql"].setup({
+			--     capabilities = capabilities,
+			--     filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+			--   })
+			-- end,
 
 			-- ["lua_ls"] = function()
 			-- 	-- configure lua server (with special settings)
@@ -190,7 +190,6 @@ return {
 			-- 		},
 			-- 	})
 			-- end,
-
-		})
+		-- })
 	end,
 }

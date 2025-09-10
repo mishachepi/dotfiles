@@ -9,6 +9,7 @@ alias note="$EDITOR ~/notes/."
 alias hg="history | grep"
 alias y=yazi
 alias lg=lazygit
+alias n=nvim
 
 # Terraform
 alias tf="terraform"
@@ -31,3 +32,5 @@ alias kd="kubectl describe"
 # tmux
 alias tma="tmux attach"
 
+# mods
+alias mods="mods --no-cache"
