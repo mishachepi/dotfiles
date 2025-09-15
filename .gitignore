@@ -6,5 +6,6 @@ tmpp
 .venv
 .vscode
 uv.lock
+learn.md
 
 **/.claude/settings.local.json

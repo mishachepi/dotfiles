@@ -1,4 +1,5 @@
 # Aliases
+alias y="yazi"
 alias home="$EDITOR ~"
 alias config="$EDITOR ~/dotfiles"
 alias homelab='cd ~/projects/github/homelab/'
