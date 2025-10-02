@@ -9,7 +9,7 @@ keybind = ctrl+d=new_split:right
 font-family = "Inconsolata LGC Nerd Font"
 font-size = 16
 
-theme = dark:catppuccin-macchiato,light:catppuccin-latte
+theme = Catppuccin Macchiato
 
 scrollback-limit = 99999999
 
