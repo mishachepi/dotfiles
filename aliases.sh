@@ -10,6 +10,9 @@ alias note="$EDITOR ~/notes/."
 alias hg="history | grep"
 alias y=yazi
 alias lg=lazygit
+alias n=nvim
+alias n=nvim
+alias vf='nvim $(fzf)'
 
 # Terraform
 alias tf="terraform"
