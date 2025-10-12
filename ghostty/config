@@ -8,10 +8,11 @@ keybind = ctrl+d=new_split:right
 
 font-family = "Inconsolata LGC Nerd Font"
 font-size = 16
-
 theme = Catppuccin Macchiato
 
 scrollback-limit = 99999999
 
 copy-on-select = true
 macos-icon-ghost-color = 000000
+
+macos-option-as-alt = left
