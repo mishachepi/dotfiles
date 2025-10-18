@@ -2,15 +2,11 @@
 alias y="yazi"
 alias home="$EDITOR ~"
 alias config="$EDITOR ~/dotfiles"
-alias homelab='cd ~/projects/github/homelab/'
-alias hl='homelab'
-alias lab='cd ~/projects/github/lab/'
 alias dotfiles='cd ~/dotfiles/'
-alias note="$EDITOR ~/notes/."
+alias note="$EDITOR $NOTES_FOLDER/."
 alias hg="history | grep"
 alias y=yazi
 alias lg=lazygit
-alias n=nvim
 alias n=nvim
 alias vf='nvim $(fzf)'
 

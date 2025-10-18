@@ -8,27 +8,34 @@
 
 ### Check in the future:
 - zed.dev as alternatove for VSCode
-- nixpkgs
 
 ### base
-- anytype
+- obsidian
 - arcbrowser
 - keepassxc
 - chatgpt
 - visual-studio-code
 - ghostty
-- docker desktop
+- colima
 
 ### VPN
 - netbird
 - outline
-- tailscale
-- wireguard
+- sshuttle
+#- tailscale
+#- wireguard
 
 ### passwords
 - keepassxc
 - bitwarden
 - pass (unix)
+
+### AI
+- ClaudeCode
+- Codex
+- Gemini-cli
+- mods
+- crush # need to test
 
 ## Install
 ```bash
@@ -46,7 +53,7 @@ brew install htop
 
 ### full desktop
 brew install --cask arc
-brew install --cask anytype
+brew install --cask obsidian
 brew install --cask amethyst
 
 ### additional
@@ -56,13 +63,12 @@ brew install --cask obs
 brew install --cask outline-manager
 brew install --cask visual-studio-code
 brew install --cask vlc
-brew install --cask krisp # bad
 brew install wireshark
-brew install --cask zed
 brew install --cask inkscape
 brew install --cask blender
 brew install --cask deepl
-brew install anki
+brew install --cask zed # need to test
+brew install yakitrak/yakitrak/obsidian-cli # brew tap yakitrak/yakitrak
 
 ### devops
 brew install kubectl
@@ -76,6 +82,7 @@ brew install dive
 
 ### Google
 brew install --cask google-drive
+# gtasks - https://github.com/BRO3886/gtasks
 
 ### Microsoft
 brew install --cask microsoft-edge
