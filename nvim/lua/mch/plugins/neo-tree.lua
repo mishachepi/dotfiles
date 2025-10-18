@@ -12,7 +12,6 @@ return {
 		vim.g.loaded_netrwPlugin = 1
 
 		require("neo-tree").setup({
-			close_if_last_window = false,
 			popup_border_style = "rounded",
 			enable_git_status = true,
 			enable_diagnostics = true,
@@ -27,11 +26,6 @@ return {
 					indent_marker = "│",
 					last_indent_marker = "└",
 					highlight = "NeoTreeIndentMarker",
-				},
-				icon = {
-					folder_closed = "-",
-					folder_open = "",
-					folder_empty = "ﰊ",
 				},
 				modified = {
 					symbol = "[+]",
@@ -61,6 +55,7 @@ return {
 			window = {
 				position = "left",
 				width = 35,
+				auto_resize = true,
 				mapping_options = {
 					noremap = true,
 					nowait = true,
@@ -68,9 +63,26 @@ return {
 			},
 			filesystem = {
 				window = {
-					mappings = {
-						["<space>"] = "none",
-					},
+          mappings = {
+            ["l"] = "open",
+            ["h"] = "close_node",
+            ["<space>"] = "none",
+            ["Y"] = {
+              function(state)
+                local node = state.tree:get_node()
+                local path = node:get_id()
+                vim.fn.setreg("+", path, "c")
+              end,
+              desc = "Copy Path to Clipboard",
+            },
+            ["O"] = {
+              function(state)
+                require("lazy.util").open(state.tree:get_node().path, { system = true })
+              end,
+              desc = "Open with System Application",
+            },
+            ["P"] = { "toggle_preview", config = { use_float = false } },
+          },
 				},
 				filtered_items = {
 					visible = false,
@@ -119,7 +131,6 @@ return {
 		keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle file explorer" })
 		keymap.set("n", "<leader>eo", "<cmd>Neotree toggle<CR>", { desc = "Toggle file explorer" })
 		keymap.set("n", "<leader>ec", "<cmd>Neotree close<CR>", { desc = "Close file explorer" })
-		keymap.set("n", "<leader>er", "<cmd>Neotree refresh<CR>", { desc = "Refresh file explorer" })
 		keymap.set("n", "<leader>ef", "<cmd>Neotree focus<CR>", { desc = "Focus file explorer" })
 		keymap.set("n", "<leader>eg", "<cmd>Neotree git_status<CR>", { desc = "Git status" })
 		keymap.set("n", "<leader>eb", "<cmd>Neotree buffers<CR>", { desc = "Buffer explorer" })
