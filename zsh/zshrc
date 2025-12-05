@@ -17,6 +17,11 @@ else
   export VISUAL='nvim'
 fi
 
+# Additional PATH
+if [[ -d "$HOME/dotfiles/scripts" ]]; then
+  path=("$HOME/dotfiles/scripts" $path)
+fi
+
 # set vi mode
 set -o vi
 
