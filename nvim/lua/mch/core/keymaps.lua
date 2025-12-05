@@ -54,7 +54,6 @@ map("i", "<C-j>", "<Down>", { desc = "move down" })
 map("i", "<C-k>", "<Up>", { desc = "move up" })
 
 -- ### SPLIT MANAGEMENT ###
--- ## SPLITS ##
 map("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 map("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
 map("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
@@ -80,8 +79,8 @@ map("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go 
 -- map("n", "<leader>td", "<cmd>tabnew %<CR>", { desc = "Duplicate current tab" }) --  move current buffer to new tab
 
 -- Navigate between tabs using Tab and Shift+Tab
-map("n", "<Tab>", "<cmd>tabnext<CR>", { desc = "Go to next tab" })
-map("n", "<S-Tab>", "<cmd>tabprevious<CR>", { desc = "Go to previous tab" })
+-- map("n", "<Tab>", "<cmd>tabnext<CR>", { desc = "Go to next tab" })
+-- map("n", "<S-Tab>", "<cmd>tabprevious<CR>", { desc = "Go to previous tab" })
 
 -- DIFF SPLIT VERTICAL
 map("n", "<leader>dv", function()
@@ -196,6 +195,7 @@ map("n", "<leader>sh", ":split<CR>", opts)
 
 -- close current buffer
 map("n", "<leader>x", ":bd<CR>", opts)
+map("n", "<A-w>", "<cmd>bd<CR>", { desc = "Close buffer (Alt/Option+W)" })
 
 -- navigate buffers
 map("n", "<S-l>", ":bnext<CR>", opts)
