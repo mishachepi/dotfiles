@@ -5,7 +5,8 @@
 [mgr]
 ratio          = [ 1, 2, 3 ]
 sort_dir_first = true
-show_hidden = true
+show_hidden    = true
+linemode       = "git"
 
 [preview]
 max_width       = 900

@@ -58,10 +58,12 @@ The config uses Lazy.nvim with two main import patterns:
 - `<leader>dp/dn` - Previous/next diagnostic
 - `<leader>dy` - Yank diagnostics message
 - `<leader>dt` - Toggle diagnostics visibility
+- Jump list navigation (like VS Code back/forward): `<C-o>` jumps back, `<C-i>` jumps forward.
 
 **File & Search:**
-- File operations handled by neo-tree, telescope, and yazi plugins
+- File operations handled primarily by yazi (`Cmd+Shift+E` triggers Ghostty to send `:YaziHere`, `<leader>e` also opens at the current buffer's directory; `nvim .` opens yazi because `open_for_directories` is enabled; git status column via `linemode = "git"` in `yazi/yazi.toml`), plus telescope; Neo-tree remains available via `:Neotree` if needed.
 - Search and replace with grug-far plugin
+- Buffers: close current with `<leader>x` or `Alt/Option+W`, switch with `<S-l>/<S-h>`.
 
 ### Python Development
 - `<leader>py` - Run current Python file in tmux split with py312 venv
@@ -82,6 +84,10 @@ The config uses Lazy.nvim with two main import patterns:
 - Language servers configured in `lua/mch/plugins/lsp/lspconfig.lua`
 - Mason handles automatic installation
 - Custom handlers for specific servers (yamlls, bashls, graphql)
+
+### Tabs vs Buffers
+- You primarily work with buffers; tab keymaps stay commented out to keep `<C-i>` free for jumplist forward.
+- Tabs remain available via leader shortcuts (`<leader>to/tx/tn/tp`) if you need separate window layouts (e.g., quickly stashing a set of splits for a different task).
 
 ## Testing & Development
 This configuration doesn't include test runners - testing depends on project-specific tools. The config focuses on editing, navigation, and LSP integration rather than project building/testing.

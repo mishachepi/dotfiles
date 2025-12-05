@@ -1,35 +1,56 @@
+local function open_yazi_at_buffer_dir()
+    local path = vim.fn.expand("%:p")
+    local dir = path ~= "" and vim.fn.fnamemodify(path, ":h") or vim.fn.getcwd()
+    local old_cwd = vim.fn.getcwd()
+    vim.cmd("lcd " .. dir)
+    vim.cmd("Yazi")
+    vim.cmd("lcd " .. old_cwd)
+end
+
 return {
-	---@type LazySpec
-	{
-		"mikavilpas/yazi.nvim",
-		event = "VeryLazy",
-		keys = {
-			-- 👇 in this section, choose your own keymappings!
-			{
-				"<leader>ey",
-				"<cmd>Yazi<cr>",
-				desc = "Open yazi at the current file",
-			},
-			{
-				-- Open in the current working directory
-				"<leader>cw",
-				"<cmd>Yazi cwd<cr>",
-				desc = "Open the file manager in nvim's working directory",
-			},
-			-- keymap.set("n", "<leader>e", "<cmd>Explore<CR>", { desc = "Explorer" })
-			{
-				"<leader>yr",
-				"<cmd>Yazi toggle<cr>",
-				desc = "Yazi resume last session",
-			},
-		},
-		---@type YaziConfig
-		opts = {
-			-- if you want to open yazi instead of netrw, see below for more info
-			open_for_directories = false,
-			keymaps = {
-				show_help = "<f1>",
-			},
-		},
-	},
+    ---@type LazySpec
+    {
+        "mikavilpas/yazi.nvim",
+        event = "VeryLazy",
+        keys = {
+            {
+                "<D-E>",
+                open_yazi_at_buffer_dir,
+                desc = "Open yazi at buffer dir (Cmd+Shift+E)",
+            },
+            {
+                "<D-e>",
+                open_yazi_at_buffer_dir,
+                desc = "Open yazi at buffer dir (Cmd+e)",
+            },
+            {
+                "<leader>e",
+                open_yazi_at_buffer_dir,
+                desc = "Open yazi at buffer dir (leader)",
+            },
+            {
+                -- Open in the current working directory
+                "<leader>cw",
+                "<cmd>Yazi cwd<cr>",
+                desc = "Open the file manager in nvim's working directory",
+            },
+            {
+                "<leader>yr",
+                "<cmd>Yazi toggle<cr>",
+                desc = "Yazi resume last session",
+            },
+        },
+         ---@type YaziConfig
+        opts = {
+            -- if you want to open yazi instead of netrw, see below for more info
+            open_for_directories = true,
+            keymaps = {
+                show_help = "<f1>",
+            },
+        },
+        config = function(_, opts)
+            require("yazi").setup(opts)
+            vim.api.nvim_create_user_command("YaziHere", open_yazi_at_buffer_dir, { desc = "Open yazi at buffer dir" })
+        end,
+    },
 }
