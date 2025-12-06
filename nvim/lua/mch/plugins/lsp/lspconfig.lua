@@ -7,8 +7,12 @@ return {
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
-		local lspconfig = require("lspconfig") -- import lspconfig plugin
+		local util = require("lspconfig.util")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp") -- import cmp-nvim-lsp plugin
+		local function setup(server, opts)
+			vim.lsp.config(server, opts)
+			vim.lsp.enable(server)
+		end
 		local keymap = vim.keymap -- for conciseness
 
 		-- Create the autocmd for LSP keybindings
@@ -153,7 +157,7 @@ return {
 		end
 
 		-- Pyright
-		lspconfig.pyright.setup({
+		setup("pyright", {
 			capabilities = capabilities,
 			root_dir = get_python_root,
 			settings = {
@@ -187,7 +191,7 @@ return {
 		-- })
 
 		-- Svelte
-		lspconfig.svelte.setup({
+		setup("svelte", {
 			capabilities = capabilities,
 			on_attach = function(client, bufnr)
 				vim.api.nvim_create_autocmd("BufWritePost", {
@@ -201,7 +205,7 @@ return {
 		})
 
 		-- TypeScript
-		lspconfig.ts_ls.setup({ -- Note: changed from ts_ls to tsserver which is the correct server name
+		setup("ts_ls", { -- Note: changed from ts_ls to tsserver which is the correct server name
 			capabilities = capabilities,
 			filetypes = {
 				"javascript",
@@ -212,8 +216,8 @@ return {
 				"typescript.tsx",
 			},
 			root_dir = function(fname)
-				return require("lspconfig.util").root_pattern("tsconfig.json")(fname)
-					or require("lspconfig.util").root_pattern("package.json", "jsconfig.json", ".git")(fname)
+				return util.root_pattern("tsconfig.json")(fname)
+					or util.root_pattern("package.json", "jsconfig.json", ".git")(fname)
 			end,
 			single_file_support = true,
 			on_attach = function(client, bufnr)
@@ -223,7 +227,7 @@ return {
 		})
 
 		-- ESLint
-		lspconfig.eslint.setup({
+		setup("eslint", {
 			capabilities = capabilities,
 			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 			on_attach = function(client, bufnr)
@@ -235,7 +239,7 @@ return {
 		})
 
 		-- Lua
-		lspconfig.lua_ls.setup({
+		setup("lua_ls", {
 			capabilities = capabilities,
 			settings = {
 				Lua = {

@@ -16,8 +16,7 @@ return {
 			indent = { enable = true },
 			autotag = { enable = true },
 			ensure_installed = {
-				"latex",
-				"json",
+					"json",
 				"xml",
 				"python",
 				"markdown",

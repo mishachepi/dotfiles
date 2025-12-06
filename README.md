@@ -2,6 +2,13 @@
 ## Common
 Minimalism, Universatility, Understandability, Secutiry -> It is what I want to have -> "want" not mean "have"
 
+- Desktop navigation is Amethist and Karabiner hotkeys
+- nvim config and VScode config like nvim
+- nvim plugins (sometimes need to check and update it)
+- scripts/ folder with useful scripts
+- raycast flow/snippets
+- AI repo - 
+
 ### Setup:
 - [Bash](https://www.gnu.org/software/bash/)
 - [Vim](https://www.vim.org/)
