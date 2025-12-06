@@ -6,7 +6,21 @@
 ratio          = [ 1, 2, 3 ]
 sort_dir_first = true
 show_hidden    = true
-linemode       = "git"
+
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*"
+run  = "git"
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*/"
+run  = "git"
+
+[git]
+repo_prefix = true
+status_cache = true
 
 [preview]
 max_width       = 900

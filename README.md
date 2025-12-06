@@ -29,6 +29,8 @@ session manager
 maybe I will switch to own more simple config, ohmyz is overkill
 #### Ghostty
 Terminal
+#### Yazi
+File manager with git integration
 
 ### MacOS specifics
 - use homebrew
@@ -38,7 +40,7 @@ brew install
 ```
 - install apps
 ``` bash
-brew install nvim tmux
+brew install nvim tmux yazi
 brew install --cask ghostty
 ```
 - install fonts
@@ -100,6 +102,6 @@ ln -s -f $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -s -f $HOME/dotfiles/ghostty/ $HOME/.config/
 ln -s -f $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
 ln -s -f $HOME/dotfiles/gitconfig $HOME/.gitconfig
-
 ```
+
 for install additional packeges see [apps.md](apps.md)
