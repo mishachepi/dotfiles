@@ -1,0 +1,102 @@
+// To enable key-repeating, execute the following in your Terminal, log out and back in, and then restart VS Code:
+// defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false              # For VS Code
+// defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false      # For VS Code Insider
+// defaults write com.vscodium ApplePressAndHoldEnabled -bool false                      # For VS Codium
+// defaults write com.microsoft.VSCodeExploration ApplePressAndHoldEnabled -bool false   # For VS Codium Exploration users
+// defaults delete -g ApplePressAndHoldEnabledV
+
+{
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [
+      {
+        "before": ["j", "j"],
+        "after": ["<Esc>"]
+      }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+      {
+        "before": ["<leader>", "d"],
+        "after": ["d", "d"]
+      },
+      {
+        "before": ["<C-n>"],
+        "commands": [":nohl"]
+      },
+      {
+        "before": ["K"],
+        "commands": ["lineBreakInsert"],
+        "silent": true
+      }
+    ],
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+      "<C-a>": false,
+      "<C-f>": false
+    },
+    "extensions.experimental.affinity": {
+      "vscodevim.vim": 1,
+      "asvetliakov.vscode-neovim": 1
+    },
+    "files.associations": {
+      "*.env": "shellscript"
+    },
+    "redhat.telemetry.enabled": true,
+    "git.autofetch": true,
+    "explorer.confirmDelete": false,
+    "terminal.explorerKind": "external",
+    "workbench.editorAssociations": {
+      "*.copilotmd": "vscode.markdown.preview.editor",
+      "{git,gitlens,git-graph}:/**/*.{md,csv,svg}": "default"
+    },
+    "githubIssues.queries": [
+      {
+        "label": "My Issues",
+        "query": "is:open assignee:${user} repo:${owner}/${repository}",
+        "groupBy": [
+          "milestone"
+        ]
+      },
+      {
+        "label": "Created Issues",
+        "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
+      },
+      {
+        "label": "Recent Issues",
+        "query": "state:open repo:${owner}/${repository} sort:updated-desc"
+      }
+    ],
+    "[python]": {
+      "diffEditor.ignoreTrimWhitespace": false,
+      "editor.defaultColorDecorators": "never",
+      "editor.formatOnType": true,
+      "editor.wordBasedSuggestions": "off"
+    },
+    "editor.fontFamily": "Inconsolata LGC Nerd Font",
+    "catppuccin-noctis-icons.hidesExplorerArrows": false,
+    "docker.extension.dockerEngineAvailabilityPrompt": false,
+    "workbench.colorTheme": "Catppuccin Macchiato",
+    "workbench.iconTheme": "catppuccin noctis icons",
+    "workbench.editor.showTabs": "single",
+    "workbench.editor.labelFormat": "medium",
+    "workbench.editor.enablePreview": false,
+    "[dockercompose]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 4,
+      "editor.autoIndent": "advanced",
+      "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+      "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "terminal.integrated.stickyScroll.enabled": false,
+    "chat.mcp.gallery.enabled": true,
+    "window.newWindowProfile": "Default",
+    "workbench.sideBar.location": "right",
+    "workbench.secondarySideBar.showLabels": false,
+    "workbench.activityBar.location": "bottom",
+    "claudeCode.preferredLocation": "sidebar"
+}
