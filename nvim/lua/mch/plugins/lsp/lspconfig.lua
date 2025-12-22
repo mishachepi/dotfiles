@@ -14,6 +14,22 @@ return {
 			vim.lsp.enable(server)
 		end
 		local keymap = vim.keymap -- for conciseness
+		local function toggle_diagnostics(bufnr)
+			bufnr = bufnr or 0
+			local disabled = (vim.diagnostic.is_disabled and vim.diagnostic.is_disabled(bufnr))
+				or vim.b[bufnr].diagnostics_disabled
+			if disabled then
+				vim.diagnostic.enable(bufnr)
+				vim.b[bufnr].diagnostics_disabled = false
+				print("Diagnostics enabled")
+			else
+				vim.diagnostic.disable(bufnr)
+				vim.b[bufnr].diagnostics_disabled = true
+				print("Diagnostics disabled")
+			end
+		end
+
+		_G.ToggleDiagnostics = toggle_diagnostics
 
 		-- Create the autocmd for LSP keybindings
 		vim.api.nvim_create_autocmd("LspAttach", {
@@ -92,23 +108,10 @@ return {
 				end, { desc = "Yank diagnostics message" })
 
 				-- Toggle diagnostics visibility
-				keymap.set(
-					"n",
-					"<leader>dt",
-					":lua ToggleDiagnostics()<CR>",
-					{ noremap = true, silent = true, desc = "Toggle diagnostics visibility" }
-				)
-				local diagnostics_visible = true
-				function ToggleDiagnostics()
-					diagnostics_visible = not diagnostics_visible
-					if diagnostics_visible then
-						vim.diagnostic.enable(true) -- Enable diagnostics for the current buffer
-						print("Diagnostics enabled")
-					else
-						vim.diagnostic.enable(false) -- Disable diagnostics for the current buffer
-						print("Diagnostics disabled")
-					end
-				end
+				opts.desc = "Toggle diagnostics visibility"
+				keymap.set("n", "<leader>dt", function()
+					toggle_diagnostics(ev.buf)
+				end, opts)
 
 				opts.desc = "Restart LSP"
 				keymap.set("n", "<leader>lr", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
@@ -132,28 +135,21 @@ return {
 			},
 		})
 
-		-- #### LSP SETUP - DIRECT METHOD #### --
-		-- Define the global toggle diagnostics function
-		_G.ToggleDiagnostics = function()
-			local diagnostics_visible = vim.g.diagnostics_visible or true
-			vim.g.diagnostics_visible = not diagnostics_visible
-			if vim.g.diagnostics_visible then
-				vim.diagnostic.enable(true) -- Enable diagnostics
-				print("Diagnostics enabled")
-			else
-				vim.diagnostic.enable(false) -- Disable diagnostics
-				print("Diagnostics disabled")
-			end
-		end
-
 		-- Define custom root dir detection
 		local function get_python_root(startpath)
+			if type(startpath) == "number" then
+				startpath = vim.api.nvim_buf_get_name(startpath)
+			end
+			if not startpath or startpath == "" then
+				startpath = vim.loop.cwd()
+			end
 			local git_dir = vim.fs.find({ ".git" }, { path = startpath, upward = true })[1]
 			local project_dir = vim.fs.find(
 				{ "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt" },
 				{ path = startpath, upward = true }
 			)[1]
-			return vim.fs.dirname(git_dir or project_dir or startpath)
+			local root = git_dir or project_dir or startpath
+			return root and vim.fs.dirname(root) or nil
 		end
 
 		-- Pyright

@@ -8,35 +8,35 @@ map("i", "jj", "<Esc>", opts)
 
 -- Term
 map("n", "<leader>cd", function()
-  local path = vim.fn.expand("%:p:h")
-  vim.cmd("lcd " .. path)
+	local path = vim.fn.expand("%:p:h")
+	vim.cmd("lcd " .. path)
 end, { desc = "Open terminal in file dir" })
 
 vim.keymap.set("n", "<leader>tt", function()
-  local old_cwd = vim.fn.getcwd()
-  local new_cwd = vim.fn.expand("%:p:h")
-  vim.cmd("vsplit")
-  vim.cmd("lcd " .. new_cwd)
-  vim.cmd("terminal")
-  vim.defer_fn(function()
-    vim.cmd("lcd " .. old_cwd)
-  end, 50)
+	local old_cwd = vim.fn.getcwd()
+	local new_cwd = vim.fn.expand("%:p:h")
+	vim.cmd("vsplit")
+	vim.cmd("lcd " .. new_cwd)
+	vim.cmd("terminal")
+	vim.defer_fn(function()
+		vim.cmd("lcd " .. old_cwd)
+	end, 50)
 end, { desc = "Vertical split terminal in file dir" })
 
 map("n", "<leader>ttt", function()
-  vim.cmd("terminal")
+	vim.cmd("terminal")
 end, { desc = "Open terminal in file dir" })
 
 map("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
 
 
 function OpenTmuxPane()
-  local current_file = vim.fn.expand("%:p")
-  local current_dir = vim.fn.fnamemodify(current_file, ":h")
-  vim.fn.system("tmux split-window -h")
-  local send_keys_command = "cd " .. current_dir  .. " ; exec $SHELL"
-  vim.fn.system("tmux send-keys '" .. send_keys_command .. "' Enter")
-  vim.fn.system("tmux select-pane -R")
+	local current_file = vim.fn.expand("%:p")
+	local current_dir = vim.fn.fnamemodify(current_file, ":h")
+	vim.fn.system("tmux split-window -h")
+	local send_keys_command = "cd " .. current_dir .. " ; exec $SHELL"
+	vim.fn.system("tmux send-keys '" .. send_keys_command .. "' Enter")
+	vim.fn.system("tmux select-pane -R")
 end
 map('n', '<leader>tw', '<cmd>lua OpenTmuxPane()<cr>', { noremap = true, silent = true })
 
@@ -125,16 +125,12 @@ end, { desc = "Turn off diff in all splits", noremap = true, silent = true })
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "general save file" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "general copy whole file" })
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number" })
-map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
 
 -- paste without losing clipboard
 map("x", "<leader>p", '"_dP', opts)
 
 -- copy to system clipboard
 map({ "n", "v" }, "<leader>y", '"+y', opts)
-
--- disable recording macros with Q
-map("n", "Q", "<nop>", opts)
 
 -- Buffer --
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
@@ -189,10 +185,6 @@ map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 --   { desc = "telescope find all files" }
 -- )
 
--- split window shortcuts
-map("n", "<leader>sv", ":vsplit<CR>", opts)
-map("n", "<leader>sh", ":split<CR>", opts)
-
 -- close current buffer
 map("n", "<leader>x", ":bd<CR>", opts)
 map("n", "<A-w>", "<cmd>bd<CR>", { desc = "Close buffer (Alt/Option+W)" })
@@ -210,7 +202,7 @@ map("n", "<S-Right>", ":vertical resize +2<CR>", opts)
 -- toggle numbers
 map("n", "<leader>rn", function()
   vim.o.relativenumber = not vim.o.relativenumber
-end, opts)
+end, { desc = "Toggle relative number", noremap = true, silent = true })
 
 -- clear search highlight
 map("n", "<ESC>", "<cmd>nohl<CR>", { desc = "Clear search highlights" })
@@ -271,7 +263,7 @@ map(
 
 
 -- Run macro bound to q with Q
-map("n", "Q", "@q", opts)
+map("n", "Q", "@q", { desc = "Run @q macro", noremap = true, silent = true })
 
 
 -- RUN PYTHON ON THE RIGHT
