@@ -5,7 +5,6 @@
 
 keybind = ctrl+z=close_surface
 keybind = ctrl+d=new_split:right
-keybind = super+shift+e=text:\x1b:YaziHere\r
 
 font-family = "Inconsolata LGC Nerd Font"
 font-size = 16

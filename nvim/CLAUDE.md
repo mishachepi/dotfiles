@@ -61,7 +61,7 @@ The config uses Lazy.nvim with two main import patterns:
 - Jump list navigation (like VS Code back/forward): `<C-o>` jumps back, `<C-i>` jumps forward.
 
 **File & Search:**
-- File operations handled primarily by yazi (`Cmd+Shift+E` triggers Ghostty to send `:YaziHere`, `<leader>e` also opens at the current buffer's directory; `nvim .` opens yazi because `open_for_directories` is enabled; git status column via `linemode = "git"` in `yazi/yazi.toml`), plus telescope; Neo-tree remains available via `:Neotree` if needed.
+- File operations handled by Neo-tree as the default explorer (`<leader>e`, netrw hijack when opening directories) plus Telescope; Yazi remains available via `<leader>ey`/`<leader>cw` if needed (see `yazi/README.md`).
 - Search and replace with grug-far plugin
 - Buffers: close current with `<leader>x` or `Alt/Option+W`, switch with `<S-l>/<S-h>`.
 
