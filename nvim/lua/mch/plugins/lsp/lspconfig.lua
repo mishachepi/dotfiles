@@ -9,7 +9,6 @@ return {
 	},
 	config = function()
 	local lspconfig = require("lspconfig")
-	local util = require("lspconfig.util")
 	local mason_lspconfig = require("mason-lspconfig")
 	local cmp_nvim_lsp = require("cmp_nvim_lsp")
 	local keymap = vim.keymap
@@ -149,27 +148,9 @@ return {
 		return root and vim.fs.dirname(root) or nil
 	end
 
+	-- Core servers for daily use (Python, YAML, Ansible, Helm, Bash, Lua)
 	local servers = {
-		yamlls = {},
-		ansiblels = {},
-		bashls = {},
-		cssls = {},
-		eslint = { filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" } },
-		graphql = {},
-		html = {},
-		lua_ls = {
-			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { "vim" },
-					},
-					completion = {
-						callSnippet = "Replace",
-					},
-				},
-			},
-		},
-		puppet = {},
+		-- Python: Type checking and diagnostics
 		pyright = {
 			root_dir = get_python_root,
 			settings = {
@@ -182,27 +163,81 @@ return {
 				},
 			},
 		},
+		-- Python: Linting and formatting (via conform.nvim)
 		ruff = {
 			on_attach = function(client)
+				-- Let pyright handle hover, definitions, references, rename
 				client.server_capabilities.hoverProvider = false
 				client.server_capabilities.definitionProvider = false
 				client.server_capabilities.referencesProvider = false
 				client.server_capabilities.renameProvider = false
-				client.server_capabilities.documentFormattingProvider = false
-				client.server_capabilities.codeActionProvider = false
+				-- Keep diagnostics and code actions (organize imports, fix all)
 			end,
+			init_options = {
+				settings = {
+					lint = {
+						-- Enable recommended linters beyond defaults
+						select = { "E", "F", "I", "N", "UP", "B", "A", "C4", "SIM" },
+					},
+				},
+			},
 		},
-		svelte = {
-			on_attach = function(client)
-				vim.api.nvim_create_autocmd("BufWritePost", {
-					pattern = { "*.js", "*.ts" },
-					callback = function(ctx)
-						client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-					end,
-				})
-			end,
+
+		-- YAML: For Kubernetes, Helm, Ansible files
+		yamlls = {
+			settings = {
+				yaml = {
+					schemas = {
+						["https://json.schemastore.org/helmfile.json"] = "helmfile.yaml",
+						["https://json.schemastore.org/chart.json"] = "Chart.yaml",
+						["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+						kubernetes = "*.yaml",
+					},
+					format = { enable = true },
+					validate = true,
+				},
+			},
+		},
+		-- Ansible: Playbooks and roles
+		ansiblels = {},
+
+		-- Bash: For automation scripts
+		bashls = {},
+
+		-- Lua: For Neovim configuration
+		lua_ls = {
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
+					},
+					completion = {
+						callSnippet = "Replace",
+					},
+				},
+			},
 		},
 	}
+
+	-- Optional servers (uncomment when needed for specific projects)
+	-- To use: 1) Install via :Mason, 2) Uncomment the server below, 3) Restart nvim
+	-- local optional_servers = {
+		-- cssls = {},
+		-- eslint = { filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" } },
+		-- graphql = {},
+		-- html = {},
+		-- puppet = {},
+		-- svelte = {
+		-- 	on_attach = function(client)
+		-- 		vim.api.nvim_create_autocmd("BufWritePost", {
+		-- 			pattern = { "*.js", "*.ts" },
+		-- 			callback = function(ctx)
+		-- 				client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+		-- 			end,
+		-- 		})
+		-- 	end,
+		-- },
+	-- }
 
 	mason_lspconfig.setup({
 		ensure_installed = vim.tbl_keys(servers),

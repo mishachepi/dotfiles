@@ -20,16 +20,22 @@ return {
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"ruff", -- Python
-				"prettier", -- Prettier formatter
+				-- Python tools
+				"ruff", -- Linter and formatter (replaces black, isort, flake8)
+
+				-- YAML/Ansible/Kubernetes tools
+				"yamllint", -- YAML linter
+				"ansible-lint", -- Ansible playbook linter
+				"kube-linter", -- Kubernetes manifest linter
+
+				-- General utilities
+				"jq", -- JSON processor
+
+				-- Lua (for Neovim config editing)
 				"stylua", -- Lua formatter
-				"eslint_d", -- Faster ESLint daemon
-				"jq",
-				"yamllint",
-				"ansible-lint",
-				"kube-linter",
-				"golines",
 			},
+			-- Optional tools (install manually via :Mason when needed):
+			-- prettier, eslint_d, golines, jsonlint, etc.
 		})
 	end,
 }
