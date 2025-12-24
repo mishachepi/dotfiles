@@ -20,7 +20,7 @@ return {
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
 
-		-- Load vscode style snippets from installed plugins (e.g. friendly-snippets)
+    -- Load vscode style snippets from installed plugins (e.g. friendly-snippets)
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		-- Load your custom snippets
@@ -46,7 +46,7 @@ return {
 			}),
 			-- sources for autocompletion
 			sources = cmp.config.sources({
-				-- { name = "render-markdown" },
+			  -- { name = "render-markdown" },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" }, -- snippets
 				{ name = "buffer" }, -- text within current buffer

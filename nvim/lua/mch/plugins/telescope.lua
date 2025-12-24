@@ -1,3 +1,5 @@
+
+
 return {
 	"nvim-telescope/telescope.nvim",
 	branch = "0.1.x",
@@ -41,13 +43,13 @@ return {
 		keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
 
 		keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files in cwd" })
+		keymap.set("n", "<D-s>", "<cmd>Telescope find_files<cr>", { desc = "Find files in cwd" })
 		keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Find recent files" })
 		keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
 		keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 
 		keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Find keymaps" })
 		keymap.set("n", "<leader>fx", "<cmd>Telescope diagnostics<cr>", { desc = "Find diagnostics" })
-		keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find TODOs" })
 
 		keymap.set("n", "<leader>fn", function()
 			telescope_builtin.find_files({ cwd = vim.fn.stdpath("config") })
@@ -83,9 +85,6 @@ return {
 		keymap.set("n", "<leader>fm", function()
 			telescope_builtin.marks()
 		end, { desc = "Find existing marks" })
-
-		-- GREP FILES WITH RIPGREP
-		require("mch.plugins.telescope.multigrep").setup()
 
 		-- Slightly advanced example of overriding default behavior and theme
 		vim.keymap.set("n", "<leader>/", function()

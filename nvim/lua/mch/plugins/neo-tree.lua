@@ -53,7 +53,7 @@ return {
 			},
 		},
 		window = {
-			position = "left",
+			position = "right",
 			width = 35,
 			auto_resize = true,
 			mapping_options = {

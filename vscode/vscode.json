@@ -19,10 +19,6 @@
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
       {
-        "before": ["<leader>", "d"],
-        "after": ["d", "d"]
-      },
-      {
         "before": ["<C-n>"],
         "commands": [":nohl"]
       },
@@ -97,6 +93,6 @@
     "window.newWindowProfile": "Default",
     "workbench.sideBar.location": "right",
     "workbench.secondarySideBar.showLabels": false,
-    "workbench.activityBar.location": "bottom",
+    "workbench.activityBar.location": "top",
     "claudeCode.preferredLocation": "sidebar"
 }

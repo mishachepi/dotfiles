@@ -79,6 +79,7 @@ brew install k9s
 brew install iperf3
 brew install trivy
 brew install dive
+brew install bruno
 
 ### Google
 brew install --cask google-drive

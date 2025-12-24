@@ -12,21 +12,11 @@ map("n", "<leader>cd", function()
 	vim.cmd("lcd " .. path)
 end, { desc = "Open terminal in file dir" })
 
-vim.keymap.set("n", "<leader>tt", function()
-	local old_cwd = vim.fn.getcwd()
-	local new_cwd = vim.fn.expand("%:p:h")
-	vim.cmd("vsplit")
-	vim.cmd("lcd " .. new_cwd)
-	vim.cmd("terminal")
-	vim.defer_fn(function()
-		vim.cmd("lcd " .. old_cwd)
-	end, 50)
-end, { desc = "Vertical split terminal in file dir" })
-
 map("n", "<leader>ttt", function()
 	vim.cmd("terminal")
 end, { desc = "Open terminal in file dir" })
 
+-- exit form terminal mode to normal mode
 map("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
 
 
@@ -207,37 +197,14 @@ end, { desc = "Toggle relative number", noremap = true, silent = true })
 -- clear search highlight
 map("n", "<ESC>", "<cmd>nohl<CR>", { desc = "Clear search highlights" })
 
-
 -- Paste without overwrite
 -- map("v", "p", "P", opts)
 
--- Undo quicker
-map("n", "U", "<cmd>redo<CR>", opts)
+-- Undo quicker -- Ctrl + R
+-- map("n", "U", "<cmd>redo<CR>", opts) 
 
--- ### QUICKFIX
--- next item
-map("n", "<leader>jj", "<cmd>cnext<CR>", { desc = "Quickfix Next" })
-map("n", "<leader>cn", "<cmd>cnext<CR>", { desc = "Quickfix Next" })
--- prev item
-map("n", "<leader>kk", "<cmd>cprev<CR>", { desc = "Quickfix Prev" })
-map("n", "<leader>cp", "<cmd>cprev<CR>", { desc = "Quickfix Prev" })
--- first item
-map("n", "<leader>cf", "<cmd>cfirst<CR>", { desc = "Quickfix Last" })
--- last item
-map("n", "<leader>cl", "<cmd>clast<CR>", { desc = "Quickfix Do" })
--- cdo
--- map("n", "<leader>cd", ":cdo ", { desc = "Quickfix Prev" })
--- open & close
-map("n", "<leader>co", "<cmd>copen<CR>", { desc = "Quickfix Open" })
-map("n", "<leader>cc", "<cmd>cclose<CR>", { desc = "Quickfix Close" })
 
 -- ## REPLACE SELECTION ##
-map(
-	"v",
-	"<C-r>",
-	'"hy:%s/<C-r>h//gc<left><left><left>',
-	{ noremap = true, silent = true, desc = "substitute selection" }
-)
 map(
 	"v",
 	"<leader>s",
@@ -245,15 +212,7 @@ map(
 	{ noremap = true, silent = true, desc = "substitute selection" }
 )
 
--- Yank path of current file
-map(
-	"n",
-	"<leader>yp",
-	[[:let @+ = expand('%:p')<CR>]],
-	{ noremap = true, silent = true, desc = "Yank path of the current file" }
-)
-
--- Yank current file name
+-- Yank current file path
 map(
 	"n",
 	"<leader>yn",
@@ -261,10 +220,8 @@ map(
 	{ noremap = true, silent = true, desc = "Yank current file name" }
 )
 
-
 -- Run macro bound to q with Q
 map("n", "Q", "@q", { desc = "Run @q macro", noremap = true, silent = true })
-
 
 -- RUN PYTHON ON THE RIGHT
 function OpenTmuxPaneAndRunPython()
@@ -283,7 +240,6 @@ map(
 	[[<cmd>lua OpenTmuxPaneAndRunPython()<CR>]],
 	{ noremap = true, silent = true, desc = "Open tmux vertical split & run Python (py312)" }
 )
-
 
 -- OPEN URL
 function _G.open_url()
@@ -317,9 +273,36 @@ end, { noremap = true, silent = true, desc = "Append '# pyright: ignore' at the 
 
 
 -- SEARCH SELECTION IN SCHOLAR
-map(
-	"n",
-	"<leader>os",
-	[[:<C-u>lua local query = vim.fn.getreg('"'):gsub(" ", "%%20"); vim.fn.system("xdg-open 'https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=" .. query .. "&btnG='")<CR>]],
-	{ noremap = true, silent = true, desc = "Open Scholar yanked text" }
-)
+-- map(
+-- 	"n",
+-- 	"<leader>os",
+-- 	[[:<C-u>lua local query = vim.fn.getreg('"'):gsub(" ", "%%20"); vim.fn.system("xdg-open 'https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=" .. query .. "&btnG='")<CR>]],
+-- 	{ noremap = true, silent = true, desc = "Open Scholar yanked text" }
+-- )
+--
+--
+
+-- -- ### QUICKFIX
+-- -- next item
+-- map("n", "<leader>jj", "<cmd>cnext<CR>", { desc = "Quickfix Next" })
+-- map("n", "<leader>cn", "<cmd>cnext<CR>", { desc = "Quickfix Next" })
+-- -- prev item
+-- map("n", "<leader>kk", "<cmd>cprev<CR>", { desc = "Quickfix Prev" })
+-- map("n", "<leader>cp", "<cmd>cprev<CR>", { desc = "Quickfix Prev" })
+-- -- first item
+-- map("n", "<leader>cf", "<cmd>cfirst<CR>", { desc = "Quickfix Last" })
+-- -- last item
+-- map("n", "<leader>cl", "<cmd>clast<CR>", { desc = "Quickfix Do" })
+-- -- cdo
+-- -- map("n", "<leader>cd", ":cdo ", { desc = "Quickfix Prev" })
+-- -- open & close
+-- map("n", "<leader>co", "<cmd>copen<CR>", { desc = "Quickfix Open" })
+-- map("n", "<leader>cc", "<cmd>cclose<CR>", { desc = "Quickfix Close" })
+
+-- REPLACE SELECTION
+-- map(
+-- 	"v",
+-- 	"<C-r>",
+-- 	'"hy:%s/<C-r>h//gc<left><left><left>',
+-- 	{ noremap = true, silent = true, desc = "substitute selection" }
+-- )

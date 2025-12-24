@@ -42,7 +42,7 @@
         "command": "copyRelativeFilePath"
     },
     {
-        "key": "shift+cmd+e",
+        "key": "shift+cmd+y",
         "command": "yazi-vscode.toggle"
     },
     {
@@ -73,5 +73,36 @@
     {
         "key": "cmd+p",
         "command": "-workbench.action.quickOpen"
-    }
+    },
+    {
+        "key": "f1",
+        "command": "-workbench.action.showCommands"
+    },
+    {
+        "key": "shift+cmd+c",
+        "command": "-workbench.action.terminal.openNativeConsole",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "shift+cmd+c",
+        "command": "workbench.view.extension.codexViewContainer"
+    },
+    {
+        "key": "shift+cmd+e",
+        "command": "workbench.explorer.fileView.focus"
+    },
+    {
+        "key": "ctrl+\\",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "terminal.active"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "workbench.action.files.save"
+    },
+    {
+        "key": "cmd+e",
+        "command": "markdown.showPreview",
+        "when": "!notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatmode)$/"
+    },
 ]

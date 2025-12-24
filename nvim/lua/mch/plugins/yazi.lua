@@ -9,7 +9,6 @@ local function open_yazi_at_buffer_dir()
 end
 
 return {
-	---@type LazySpec
 	{
 		"mikavilpas/yazi.nvim",
 		event = "VeryLazy",
