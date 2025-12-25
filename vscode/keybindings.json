@@ -8,20 +8,6 @@
         "when": "terminalFocus"
     },
     {
-        "key": "ctrl+shift+g",
-        "command": "workbench.view.scm",
-        "when": "workbench.scm.active"
-    },
-    {
-        "key": "ctrl+shift+g",
-        "command": "-workbench.view.scm",
-        "when": "workbench.scm.active"
-    },
-    {
-        "key": "shift+cmd+g",
-        "command": "git.timeline.openDiff"
-    },
-    {
         "key": "cmd+]",
         "command": "workbench.action.showNextWindowTab"
     },
@@ -38,50 +24,20 @@
         "command": "workbench.action.navigateForward"
     },
     {
-        "key": "cmd+shift+p",
-        "command": "copyRelativeFilePath"
-    },
-    {
         "key": "shift+cmd+y",
         "command": "yazi-vscode.toggle"
-    },
-    {
-        "key": "shift+cmd+y",
-        "command": "-yazi-vscode.toggle"
-    },
-    {
-        "key": "cmd+t",
-        "command": "-workbench.action.showAllSymbols"
-    },
-    {
-        "key": "cmd+t",
-        "command": "workbench.action.showCommands"
-    },
-    {
-        "key": "cmd+shift+p",
-        "command": "-workbench.action.showCommands"
-    },
-    {
-        "key": "shift+cmd+e",
-        "command": "-workbench.view.explorer",
-        "when": "viewContainer.workbench.view.explorer.enabled"
-    },
-    {
-        "key": "cmd+s",
-        "command": "workbench.action.quickOpen"
     },
     {
         "key": "cmd+p",
         "command": "-workbench.action.quickOpen"
     },
     {
-        "key": "f1",
-        "command": "-workbench.action.showCommands"
+        "key": "cmd+p",
+        "command": "workbench.action.showCommands"
     },
     {
-        "key": "shift+cmd+c",
-        "command": "-workbench.action.terminal.openNativeConsole",
-        "when": "!terminalFocus"
+        "key": "cmd+s",
+        "command": "workbench.action.quickOpen"
     },
     {
         "key": "shift+cmd+c",
@@ -104,5 +60,5 @@
         "key": "cmd+e",
         "command": "markdown.showPreview",
         "when": "!notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatmode)$/"
-    },
+    }
 ]

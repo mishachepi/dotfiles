@@ -3,91 +3,66 @@
 "$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
 
 [mgr]
-ratio          = [ 1, 2, 3 ]
+ratio = [ 1, 2, 3 ]
 sort_dir_first = true
-show_hidden    = true
-
+show_hidden = true
 
 [[plugin.prepend_fetchers]]
-id   = "git"
+id = "git"
 name = "*"
-run  = "git"
+run = "git"
 
 [[plugin.prepend_fetchers]]
-id   = "git"
+id = "git"
 name = "*/"
-run  = "git"
+run = "git"
 
 [git]
 repo_prefix = true
 status_cache = true
 
 [preview]
-max_width       = 900
-max_height      = 1000
-
+max_width = 900
+max_height = 1000
 
 [opener]
-edit = [
-	{ run = '${EDITOR:-vi} "$@"',       desc = "$EDITOR", block = true, for = "unix" },
-]
-
 open = [
-	{ run = 'xdg-open "$1"',            desc = "Open",             for = "linux" },
+  { run = 'open "$1"', desc = "Open", for = "unix" },
 ]
-
+edit = [
+  { run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
+]
 code = [
-	{ run = 'code "$@"',       orphan = true, desc = "Code",for = "unix" },
+  { run = 'code "$@"', orphan = true, desc = "Code", for = "unix" },
 ]
-
-sioyek = [
-	{ run = 'sioyek "$1"',     orphan = true,   desc = "Open with Sioyek" },
-]
-
-nomacs = [
-	{ run = 'nomacs "$1"',     orphan = true,   desc = "Open with Nomacs", for = "linux" },
-]
-
-eog = [
-	{ run = 'eog "$1"',        orphan = true,   desc = "Open with eog", for = "linux" },
-]
-
 inkscape = [
-	{ run = 'inkscape "$1"',   orphan = true,   desc = "Open with Inkscape", for = "linux" },
-]
-
-krita = [
-	{ run = 'krita "$1"',   orphan = true,   desc = "Open with Krita", for = "linux" },
+  { run = 'inkscape "$1"', orphan = true, desc = "Open with Inkscape", for = "linux" },
 ]
 
 [open]
 rules = [
-    # Jupyter Notebook
-    { name ="*.ipynb", use = "code" },
-    # Folder
-    { name = "*/", use = [ "edit", "open", "reveal" ] },
-    # Text
-    { mime = "text/*", use = [ "edit", "code", "reveal" ] },
-    # Markdown
-    { name = "*.md", use = [ "edit", "reveal" ] },
-    # Svg
-    { mime = "image/svg+xml", use = [ "inkscape", "reveal" ] },
-    # Image
-    { mime = "image/*", use = [ "nomacs", "eog", "open", "reveal" ] },
-    # Krita
-    { name = "*.kra", use = [ "krita"] },
-    # Media
-    { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
-    # Archive
-    { mime = "application/{,g}zip", use = [ "extract", "reveal" ] },
-    { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [ "extract", "reveal" ] },
-    # JSON
-    { mime = "application/{json,x-ndjson}", use = [ "edit", "reveal" ] },
-    { mime = "*/javascript", use = [ "edit", "reveal" ] },
-    # PDF
-    { name ="*.pdf",   use = "sioyek" },
-    # Empty file
-    { mime = "inode/x-empty", use = [ "edit", "reveal", "code" ] },
-    # Fallback
-    { name = "*", use = ["edit", "open", "reveal" ] },
+  # Jupyter Notebook
+  { name = "*.ipynb", use = "code" },
+  # Folder
+  { name = "*/", use = [ "edit", "open", "reveal" ] },
+  # Text
+  { mime = "text/*", use = [ "edit", "code", "reveal" ] },
+  # Markdown
+  { name = "*.md", use = [ "edit", "reveal" ] },
+  # Svg
+  { mime = "image/svg+xml", use = [ "inkscape", "reveal" ] },
+  # Media
+  { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
+  # Archive
+  { mime = "application/{,g}zip", use = [ "extract", "reveal" ] },
+  { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [ "extract", "reveal" ] },
+  # JSON
+  { mime = "application/{json,x-ndjson}", use = [ "edit", "reveal" ] },
+  { mime = "*/javascript", use = [ "edit", "reveal" ] },
+  # PDF
+  { name = "*.pdf", use = "open" },
+  # Empty file
+  { mime = "inode/x-empty", use = [ "edit", "reveal", "code" ] },
+  # Fallback
+  { name = "*", use = [ "edit", "open", "reveal" ] },
 ]

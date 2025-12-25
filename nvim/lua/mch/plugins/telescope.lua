@@ -49,6 +49,7 @@ return {
 		keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 
 		keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Find keymaps" })
+		keymap.set("n", "<leader>fp", "<cmd>Telescope commands<cr>", { desc = "Find commands" })
 		keymap.set("n", "<leader>fx", "<cmd>Telescope diagnostics<cr>", { desc = "Find diagnostics" })
 
 		keymap.set("n", "<leader>fn", function()

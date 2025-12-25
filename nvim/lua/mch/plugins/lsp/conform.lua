@@ -1,3 +1,4 @@
+--- formatter
 return {
 	"stevearc/conform.nvim",
 	event = { "BufReadPre", "BufNewFile" },
@@ -29,8 +30,9 @@ return {
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				liquid = { "prettier" },
+        toml = { "pyproject-fmt" },
 				lua = { "stylua" },
-				python = { "ruff_fix", "ruff_format" },
+				python = { "ruff_fix", "ruff_format" }
 			},
 
 			-- format_on_save = {

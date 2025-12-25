@@ -3,7 +3,6 @@
 # Blank lines are ignored!
 # Empty values reset the configuration to the default value
 
-keybind = ctrl+z=close_surface
 keybind = super+shift+e=text:\x1b:Neotree toggle\r
 #keybind = ctrl+d=new_split:right
 #keybind = cmd+d=new_split:right
@@ -18,5 +17,5 @@ scrollback-limit = 99999999
 
 copy-on-select = true
 macos-icon-ghost-color = 000000
-
 macos-option-as-alt = left
+#macos-icon = holographic

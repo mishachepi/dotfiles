@@ -44,23 +44,6 @@ local snippets = {
 		-- You can add more markdown snippets here
 	},
 
-	tex = {
-		ls.add_snippets("tex", {
-			s("header_russian_XeLaTeX", {
-				t({
-					"% Change figure caption label to Russian",
-					"\\renewcommand{\\figurename}{Рисунок}",
-					"",
-					"% Direct page margin settings",
-					"\\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}",
-					"",
-					"% Direct line spacing setting",
-					"\\renewcommand{\\baselinestretch}{1.5}",
-					"\\normalsize",
-				}),
-			}),
-		}),
-	},
 	-- You can add snippets for other file types
 	-- lua = { ... },
 	-- python = { ... },
@@ -96,7 +79,7 @@ local function insert_two_figures_snippet()
 end
 
 -- Define the keymaps directly in this file
-vim.keymap.set("n", "<leader>mff", function()
+vim.keymap.set("n", "<leader>mf1", function()
 	insert_figure_snippet()
 end, { desc = "Insert markdown figure snippet", noremap = true, silent = true })
 
@@ -107,6 +90,6 @@ end, { desc = "Insert two figures side by side", noremap = true, silent = true }
 -- Return the module with the insert functions
 return {
 	snippets = snippets,
-	insert_figure_snippet = insert_figure_snippet,
-	insert_two_figures_snippet = insert_two_figures_snippet,
+	-- insert_figure_snippet = insert_figure_snippet,
+	-- insert_two_figures_snippet = insert_two_figures_snippet,
 }

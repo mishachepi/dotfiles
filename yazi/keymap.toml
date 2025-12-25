@@ -26,6 +26,7 @@ prepend_keymap = [
     { on = [ "'" ],       run = "plugin bookmarks jump",        desc = "Jump to a bookmark" },
 
     { on = [ "g", "p" ],       run = "cd ~/projects",   desc = "Goto pr" },
-    { on = [ "g", "w" ],       run = "cd ~/wgg",   desc = "Goto wgg" },
-    { on = [ "g", "s" ],       run = "cd ~/snv",   desc = "Goto snv" },
+    { on = [ "g", "w" ],       run = "cd ~/WGG",   desc = "Goto wgg" },
+    { on = [ "g", "s" ],       run = "cd ~/SNV",   desc = "Goto snv" },
+    { on = [ "g", "m" ],       run = "cd ~/MCH",   desc = "Goto mch" },
 ]

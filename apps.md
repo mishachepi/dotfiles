@@ -1,21 +1,23 @@
-### Additional software
-- [Microsoft Remote Desktop](https://apps.apple.com/us/app/microsoft-remote-desktop/id1295203466?mt=12)
-- [karabiner-elements](https://karabiner-elements.pqrs.org/)  
-- [whisky](https://getwhisky.app)
+### Macos desktop
 - [Amphetamine](https://apps.apple.com/ge/app/amphetamine/id937984704?mt=12)
+- [karabiner-elements](https://karabiner-elements.pqrs.org/)
+- [Raycast](https://www.raycast.com/)
+- [Amethyst](https://ianyh.com/amethyst/)
+
+### Additional soft
+- [Microsoft Remote Desktop](https://apps.apple.com/us/app/microsoft-remote-desktop/id1295203466?mt=12)
 - [Reaper](https://www.reaper.fm/)
 - [Davinchi Resolve](https://www.blackmagicdesign.com/products/davinciresolve)
 
 ### Check in the future:
 - zed.dev as alternatove for VSCode
 
-### base
+### Base
+- ghostty
 - obsidian
 - arcbrowser
 - keepassxc
-- chatgpt
 - visual-studio-code
-- ghostty
 - colima
 
 ### VPN
@@ -28,14 +30,13 @@
 ### passwords
 - keepassxc
 - bitwarden
-- pass (unix)
+#- pass (unix)
 
 ### AI
 - ClaudeCode
 - Codex
 - Gemini-cli
 - mods
-- crush # need to test
 
 ## Install
 ```bash
@@ -83,8 +84,6 @@ brew install bruno
 
 ### Google
 brew install --cask google-drive
+brew install --cask google-chrome@dev
 # gtasks - https://github.com/BRO3886/gtasks
-
-### Microsoft
-brew install --cask microsoft-edge
 ```
