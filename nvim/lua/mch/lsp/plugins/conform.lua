@@ -5,17 +5,12 @@ return {
 	config = function()
 		local conform = require("conform")
 
-    conform.formatters.ruff_fix = {
-      command = "ruff",
-      args = { "check", "--fix", "--stdin-filename", "$FILENAME", "-" },
-      stdin = true,
-    }
+		conform.formatters.ruff_format = {
+			command = "ruff",
+			args = { "format", "--stdin-filename", "$FILENAME", "-" },
+			stdin = true,
+		}
 
-    conform.formatters.ruff_format = {
-      command = "ruff",
-      args = { "format", "--stdin-filename", "$FILENAME", "-" },
-      stdin = true,
-    }
 		conform.setup({
 			formatters_by_ft = {
 				javascript = { "prettier" },
@@ -30,9 +25,15 @@ return {
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				liquid = { "prettier" },
-        toml = { "pyproject-fmt" },
+				toml = function(bufnr)
+					local name = vim.api.nvim_buf_get_name(bufnr)
+					if vim.fn.fnamemodify(name, ":t") == "pyproject.toml" then
+						return { "pyproject-fmt" }
+					end
+					return { "taplo" }
+				end,
 				lua = { "stylua" },
-				python = { "ruff_fix", "ruff_format" }
+				python = { "ruff_format" },
 			},
 
 			-- format_on_save = {

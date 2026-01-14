@@ -70,7 +70,7 @@ return {
 					["<leader>ki"] = { query = "@conditional.outer", desc = "Prev conditional start" },
 					["<leader>kl"] = { query = "@loop.outer", desc = "Prev loop start" },
 
-					["<leader>kz"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+					["<leader>kz"] = { query = "@fold", query_group = "folds", desc = "Prev fold" },
 				},
 				goto_next_end = {
 					["<leader>jF"] = { query = "@call.outer", desc = "Next function call end" },
@@ -88,8 +88,8 @@ return {
 				},
 			},
 
-			select = {
-				enable = true,
+				select = {
+					enable = true,
 
 				-- Automatically jump forward to textobj, similar to targets.vim
 				lookahead = true,
@@ -125,17 +125,16 @@ return {
 					["ac"] = { query = "@class.outer", desc = "Select outer part of a class" },
 					["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },
 				},
-
-				swap = {
-					enable = true,
-					swap_next = {
-						["<leader>na"] = "@parameter.inner", -- swap parameters/argument with next
-						["<leader>nm"] = "@function.outer", -- swap function with next
-					},
-				 	swap_previous = {
-						["<leader>pa"] = "@parameter.inner", -- swap parameters/argument with prev
-						["<leader>pm"] = "@function.outer", -- swap function with previous
-					},
+			},
+			swap = {
+				enable = true,
+				swap_next = {
+					["<leader>na"] = "@parameter.inner", -- swap parameters/argument with next
+					["<leader>nm"] = "@function.outer", -- swap function with next
+				},
+				swap_previous = {
+					["<leader>pa"] = "@parameter.inner", -- swap parameters/argument with prev
+					["<leader>pm"] = "@function.outer", -- swap function with previous
 				},
 			},
 		},

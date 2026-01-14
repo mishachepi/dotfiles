@@ -81,9 +81,9 @@ The config uses Lazy.nvim with two main import patterns:
 3. Plugin will be auto-loaded via import system
 
 ### LSP Configuration
-- Language servers configured in `lua/mch/plugins/lsp/lspconfig.lua`
+- Language servers configured in `lua/mch/lsp/plugins/lspconfig.lua`
+- Server list lives in `lua/mch/lsp/servers.lua`
 - Mason handles automatic installation
-- Custom handlers for specific servers (yamlls, bashls, graphql)
 
 ### Tabs vs Buffers
 - You primarily work with buffers; tab keymaps stay commented out to keep `<C-i>` free for jumplist forward.

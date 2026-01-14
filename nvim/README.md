@@ -81,56 +81,25 @@ zenmode - `<leader> mw zm`
 
 ## Install new LSP server
 
-How to Add a New Language Later
-
-For a New Language (e.g., TypeScript):
+How to add a new language:
 
 1. Install LSP Server via Mason
    :Mason
-   Search for and install the server (e.g., tsserver, gopls, rust-analyzer)
+   Search for and install the server (e.g., `gopls`, `rust_analyzer`, `ts_ls`)
 
-2. Add Server to lspconfig.lua
+2. Add server to the LSP list
 
-In
-/Users/mikhailchepkin/dotfiles/nvim/lua/mch/plugins/lsp/lspconfig.lua:152,
-add it to the servers table:
+Edit `lua/mch/lsp/servers.lua` and add the server name to the list.
 
-local servers = {
--- Your existing servers...
-pyright = { ... },
-ruff = { ... },
+3. (Optional) Add server-specific settings
 
--- Add new one:
-tsserver = {}, -- TypeScript
--- or with custom settings:
-gopls = {
-settings = {
-gopls = {
-analyses = {
-unusedparams = true,
-},
-},
-},
-},
-}
+Edit `lua/mch/lsp/plugins/lspconfig.lua` and add config under `server_configs`.
 
-3. (Optional) Add Formatter/Linter
+4. (Optional) Add Formatter/Linter
 
-If you want auto-formatting, add to
-/Users/mikhailchepkin/dotfiles/nvim/lua/mch/plugins/lsp/formatter.lua:19:
+Edit `lua/mch/lsp/plugins/conform.lua` and add a formatter in `formatters_by_ft`.
+Then install the formatter via `:Mason` (e.g., `prettier`, `gofmt`).
 
-formatters_by_ft = {
--- existing...
-python = { "ruff_fix", "ruff_format" },
-
--- add new:
-go = { "gofmt", "goimports" },
-typescript = { "prettier" },
-javascript = { "prettier" },
-}
-
-Then install the formatter via :Mason (e.g., prettier, gofmt)
-
-4. Restart Neovim
+5. Restart Neovim
    :qa
-   Reopen and the LSP will auto-start for that file type!
+   Reopen and the LSP will auto-start for that file type.

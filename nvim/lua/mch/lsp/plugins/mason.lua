@@ -6,9 +6,12 @@ return {
 	},
 	config = function()
 		local mason = require("mason")
+		local mason_lspconfig = require("mason-lspconfig")
 		local mason_tool_installer = require("mason-tool-installer")
+		local servers = require("mch.lsp.servers").list
 
 		mason.setup({
+			PATH = "prepend",
 			ui = {
 				icons = {
 					package_installed = "✓",
@@ -18,11 +21,13 @@ return {
 			},
 		})
 
+		mason_lspconfig.setup({
+			ensure_installed = servers,
+			automatic_enable = false,
+		})
+
 		mason_tool_installer.setup({
 			ensure_installed = {
-				-- Python tools
-				"ruff", -- Linter and formatter (replaces black, isort, flake8)
-
 				-- YAML/Ansible/Kubernetes tools
 				"yamllint", -- YAML linter
 				"ansible-lint", -- Ansible playbook linter
@@ -30,6 +35,9 @@ return {
 
 				-- General utilities
 				"jq", -- JSON processor
+				"prettier", -- JS/TS/HTML/CSS/JSON formatter
+				"taplo", -- TOML formatter
+				"pyproject-fmt", -- TOML formatter for pyproject
 
 				-- Lua (for Neovim config editing)
 				"stylua", -- Lua formatter

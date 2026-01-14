@@ -264,14 +264,6 @@ end
 -- Map the shortcut to <leader>op
 vim.api.nvim_set_keymap("n", "<leader>op", ":lua open_url()<CR>", { noremap = true, silent = true })
 
-
--- INSERT IGNORE FOR PYRIGHT AT EOL
-map("n", "<leader>li", function()
-	local line = vim.fn.getline(".")
-	vim.fn.setline(vim.fn.line("."), line .. "    # pyright: ignore")
-end, { noremap = true, silent = true, desc = "Append '# pyright: ignore' at the end of the line" })
-
-
 -- SEARCH SELECTION IN SCHOLAR
 -- map(
 -- 	"n",
