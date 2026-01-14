@@ -13,19 +13,19 @@ return {
 		"mikavilpas/yazi.nvim",
 		event = "VeryLazy",
 		keys = {
+			-- {
+			-- 	"<leader>ey",
+			-- 	open_yazi_at_buffer_dir,
+			-- 	desc = "Open yazi at buffer dir",
+			-- },
+			-- {
+			-- 	-- Open in the current working directory
+			-- 	"<leader>cw",
+			-- 	"<cmd>Yazi cwd<cr>",
+			-- 	desc = "Open the file manager in nvim's working directory",
+			-- },
 			{
-				"<leader>ey",
-				open_yazi_at_buffer_dir,
-				desc = "Open yazi at buffer dir",
-			},
-			{
-				-- Open in the current working directory
-				"<leader>cw",
-				"<cmd>Yazi cwd<cr>",
-				desc = "Open the file manager in nvim's working directory",
-			},
-			{
-				"<leader>yr",
+				"<leader>yz",
 				"<cmd>Yazi toggle<cr>",
 				desc = "Yazi resume last session",
 			},

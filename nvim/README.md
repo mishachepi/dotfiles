@@ -24,6 +24,11 @@ From within neo-tree window:
   and set it as new root
 - Press . (dot) - Set current directory as root
 
+Сменить корень (CWD) на папку под курсором: нажми . (точка)
+Фильтровать (скрыть лишнее): нажми f
+Обычный поиск (как в Netrw): нажми /
+Обновить дерево: нажми R.
+
 ## Cheatsheet
 
 grug-far - `<leader> si`
