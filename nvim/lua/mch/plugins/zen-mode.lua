@@ -83,6 +83,6 @@ return {
 			on_close = function() end,
 		})
 
-		vim.keymap.set("n", "<leader>zm", "<cmd>ZenMode<cr>", { desc = "Zen Mode" })
+		vim.keymap.set("n", "<leader>uz", "<cmd>ZenMode<cr>", { desc = "Toggle Zen Mode" })
 	end,
 }

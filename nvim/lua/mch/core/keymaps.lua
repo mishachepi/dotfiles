@@ -7,12 +7,12 @@ local opts = { noremap = true, silent = true }
 map("i", "jj", "<Esc>", opts)
 
 -- Term
-map("n", "<leader>cd", function()
+map("n", "<leader>md", function()
 	local path = vim.fn.expand("%:p:h")
 	vim.cmd("lcd " .. path)
-end, { desc = "Open terminal in file dir" })
+end, { desc = "Change local dir to file dir" })
 
-map("n", "<leader>ttt", function()
+map("n", "<leader>tn", function()
 	vim.cmd("terminal")
 end, { desc = "Open terminal in file dir" })
 
@@ -114,6 +114,9 @@ end, { desc = "Turn off diff in all splits", noremap = true, silent = true })
 -- Common
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "general save file" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "general copy whole file" })
+map("n", "<leader>cd", function()
+	vim.diagnostic.open_float(nil, { scope = "line" })
+end, { desc = "Line diagnostics" })
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number" })
 
 -- paste without losing clipboard
@@ -124,56 +127,10 @@ map({ "n", "v" }, "<leader>y", '"+y', opts)
 
 -- Buffer --
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
--- map("n", "<tab>", function()
---   require("nvchad.tabufline").next()
--- end, { desc = "buffer goto next" })
-
--- map("n", "<S-tab>", function()
---   require("nvchad.tabufline").prev()
--- end, { desc = "buffer goto prev" })
-
--- map("n", "<leader>x", function()
---   require("nvchad.tabufline").close_buffer()
--- end, { desc = "buffer close" })
 
 -- Comment
 map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
-
--- CODE --
--- -- formate code with "fm"
--- map({ "n", "x" }, "<leader>fm", function()
--- 	require("conform").format { lsp_fallback = true }
---   end, { desc = "general format file" })
-
--- map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
-
--- -- nvimtree
--- map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
--- map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
-
--- -- telescope
--- map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
--- map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
--- map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
--- map("n", "<leader>ma", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
--- map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find oldfiles" })
--- map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "telescope find in current buffer" })
--- map("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "telescope git commits" })
--- map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
--- map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
-
--- map("n", "<leader>th", function()
---   require("nvchad.themes").open()
--- end, { desc = "telescope nvchad themes" })
-
--- map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
--- map(
---   "n",
---   "<leader>fa",
---   "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
---   { desc = "telescope find all files" }
--- )
 
 -- close current buffer
 map("n", "<leader>x", ":bd<CR>", opts)
@@ -241,28 +198,16 @@ map(
 	{ noremap = true, silent = true, desc = "Open tmux vertical split & run Python (py312)" }
 )
 
--- OPEN URL
-function _G.open_url()
-	-- Get the URL under cursor
+-- OPEN URL (using built-in vim.ui.open)
+local function open_url()
 	local url = vim.fn.expand("<cfile>")
-	-- Check if URL has a protocol, add https if missing
 	if not string.match(url, "^https?://") then
 		url = "https://" .. url
 	end
-	-- Command to open URL (adjust path based on your OS)
-	local cmd = ""
-	if vim.fn.has("unix") == 1 then
-		cmd = 'open "' .. url .. '"'
-	elseif vim.fn.has("mac") == 1 then
-		cmd = 'open "' .. url .. '"'
-	end
-	-- Execute the command
-	vim.fn.system(cmd)
-	-- print("Opening " .. url .. " in ")
+	vim.ui.open(url)
 end
 
--- Map the shortcut to <leader>op
-vim.api.nvim_set_keymap("n", "<leader>op", ":lua open_url()<CR>", { noremap = true, silent = true })
+map("n", "<leader>op", open_url, { desc = "Open URL under cursor", noremap = true, silent = true })
 
 -- SEARCH SELECTION IN SCHOLAR
 -- map(

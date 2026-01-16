@@ -7,11 +7,11 @@ return {
 		"MunifTanjim/nui.nvim",
 	},
 	config = function()
-    vim.g.loaded_netrw = 1
+		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
 
 		require("neo-tree").setup({
-			popup_border_style = "rounded",
+		--	popup_border_style = "rounded",
 			enable_git_status = true,
 			enable_diagnostics = true,
 			default_component_configs = {
@@ -67,6 +67,11 @@ return {
 				},
 			},
 			filesystem = {
+				use_libuv_file_watcher = true,
+				follow_current_file = {
+					enabled = true,
+					leave_dirs_open = false,
+				},
 				window = {
 					mappings = {
 						["l"] = "open",
@@ -99,13 +104,8 @@ return {
 						".DS_Store",
 					},
 				},
-				follow_current_file = {
-					enabled = true,
-					leave_dirs_open = false,
-				},
 				group_empty_dirs = false,
 				hijack_netrw_behavior = "open_default",
-				use_libuv_file_watcher = true,
 			},
 			buffers = {
 				follow_current_file = {
@@ -135,7 +135,6 @@ return {
 		local keymap = vim.keymap -- for conciseness
 
 		keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle file explorer" })
-		keymap.set("n", "<leader>eo", "<cmd>Neotree toggle<CR>", { desc = "Toggle file explorer" })
 		keymap.set("n", "<leader>ec", "<cmd>Neotree close<CR>", { desc = "Close file explorer" })
 		keymap.set("n", "<leader>ef", "<cmd>Neotree focus<CR>", { desc = "Focus file explorer" })
 		keymap.set("n", "<leader>eg", "<cmd>Neotree git_status<CR>", { desc = "Git status" })

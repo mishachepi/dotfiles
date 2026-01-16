@@ -8,7 +8,7 @@ return {
   ft = "python", -- Load when opening Python files
   keys = {
     -- Keymap to open VenvSelector to pick a venv.
-    { '<leader>,v', '<cmd>VenvSelect<cr>' },
+    { '<leader>cv', '<cmd>VenvSelect<cr>', desc = 'Select VirtualEnv' },
     -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
     -- { '<leader>vc', '<cmd>VenvSelectCached<cr>' },
   },

@@ -5,7 +5,7 @@ return {
 		"williamboman/mason.nvim",
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/neodev.nvim", opts = {} },
+		{ "folke/lazydev.nvim", ft = "lua", opts = {} },
 	},
 	config = function()
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -15,23 +15,20 @@ return {
 
 		local function toggle_diagnostics(bufnr)
 			bufnr = bufnr or 0
-			local disabled = (vim.diagnostic.is_disabled and vim.diagnostic.is_disabled(bufnr))
-				or vim.b[bufnr].diagnostics_disabled
-			if disabled then
-				vim.diagnostic.enable(bufnr)
-				vim.b[bufnr].diagnostics_disabled = false
-				print("Diagnostics enabled")
-			else
-				vim.diagnostic.disable(bufnr)
-				vim.b[bufnr].diagnostics_disabled = true
-				print("Diagnostics disabled")
-			end
+			local enabled = vim.diagnostic.is_enabled({ bufnr = bufnr })
+			vim.diagnostic.enable(not enabled, { bufnr = bufnr })
+			print("Diagnostics " .. (enabled and "disabled" or "enabled"))
 		end
 
 		-- Create the autocmd for LSP keybindings
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
+				local client = ev.data and vim.lsp.get_client_by_id(ev.data.client_id) or nil
+				if client and (client.name == "ts_ls" or client.name == "eslint") then
+					client.server_capabilities.semanticTokensProvider = nil
+				end
+
 				-- Buffer local mappings.
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { buffer = ev.buf, silent = true }
@@ -165,13 +162,23 @@ return {
 						schemas = {
 							["https://json.schemastore.org/helmfile.json"] = "helmfile.yaml",
 							["https://json.schemastore.org/chart.json"] = "Chart.yaml",
-							["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/all.json"] = "/*.k8s.yaml",
-							kubernetes = "*.yaml",
+							["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/all.json"] = {
+								"*.k8s.yaml",
+								"*.k8s.yml",
+								"k8s/*.yaml",
+								"k8s/*.yml",
+							},
 						},
 						format = { enable = true },
 						validate = true,
 					},
 				},
+			},
+			ts_ls = {
+				workspace_required = true,
+			},
+			eslint = {
+				workspace_required = true,
 			},
 		}
 

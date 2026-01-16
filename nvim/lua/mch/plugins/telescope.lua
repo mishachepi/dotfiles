@@ -78,7 +78,7 @@ return {
 		keymap.set(
 			"n",
 			"<leader>fi",
-			"<cmd>Telescope find_files find_command=fd,--type,f,--hidden,--no-ignore<cr>",
+			"<cmd>Telescope find_files find_command=rg,--files,--hidden,--no-ignore<cr>",
 			{ desc = "Find ignored files" }
 		)
 

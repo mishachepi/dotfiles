@@ -29,6 +29,16 @@ From within neo-tree window:
 Обычный поиск (как в Netrw): нажми /
 Обновить дерево: нажми R.
 
+## Telescope
+Telescope Window:
+
+| Действие           | Описание                         |
+|--------------------|----------------------------------|
+| Enter              | перейти к месту ошибки           |
+| Ctrl + y           | скопировать строку (если есть mapping) |
+| Ctrl + q           | отправить в quickfix             |
+| Ctrl + t / s / v   | открыть в tab / split / vsplit   |
+
 ## Cheatsheet
 
 grug-far - `<leader> si`

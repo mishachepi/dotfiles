@@ -19,8 +19,15 @@ return {
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
+		local function visible_buffers()
+			local bufs = {}
+			for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+				bufs[vim.api.nvim_win_get_buf(win)] = true
+			end
+			return vim.tbl_keys(bufs)
+		end
 
-    -- Load vscode style snippets from installed plugins (e.g. friendly-snippets)
+		-- Load vscode style snippets from installed plugins (e.g. friendly-snippets)
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		-- Load your custom snippets
@@ -48,7 +55,13 @@ return {
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp", priority = 1000 }, -- LSP completions (highest priority)
 				{ name = "luasnip", priority = 750 }, -- Snippets
-				{ name = "buffer", priority = 500 }, -- Text within current buffer
+				{
+					name = "buffer",
+					priority = 500, -- Text within current buffer
+					keyword_length = 3,
+					max_item_count = 200,
+					option = { get_bufnrs = visible_buffers },
+				},
 				{ name = "path", priority = 250 }, -- File system paths
 			}),
 
