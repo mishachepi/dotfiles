@@ -7,7 +7,7 @@ return {
 		"MunifTanjim/nui.nvim",
 	},
 	config = function()
-    vim.g.loaded_netrw = 1
+		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
 
 		require("neo-tree").setup({
@@ -67,6 +67,11 @@ return {
 				},
 			},
 			filesystem = {
+				use_libuv_file_watcher = false,
+				follow_current_file = {
+					enabled = true,
+					leave_dirs_open = false,
+				},
 				window = {
 					mappings = {
 						["l"] = "open",
@@ -99,13 +104,8 @@ return {
 						".DS_Store",
 					},
 				},
-				follow_current_file = {
-					enabled = true,
-					leave_dirs_open = false,
-				},
 				group_empty_dirs = false,
 				hijack_netrw_behavior = "open_default",
-				use_libuv_file_watcher = true,
 			},
 			buffers = {
 				follow_current_file = {

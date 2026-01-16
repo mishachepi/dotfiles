@@ -32,6 +32,11 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
+				local client = ev.data and vim.lsp.get_client_by_id(ev.data.client_id) or nil
+				if client and (client.name == "ts_ls" or client.name == "eslint") then
+					client.server_capabilities.semanticTokensProvider = nil
+				end
+
 				-- Buffer local mappings.
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { buffer = ev.buf, silent = true }
@@ -165,13 +170,23 @@ return {
 						schemas = {
 							["https://json.schemastore.org/helmfile.json"] = "helmfile.yaml",
 							["https://json.schemastore.org/chart.json"] = "Chart.yaml",
-							["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/all.json"] = "/*.k8s.yaml",
-							kubernetes = "*.yaml",
+							["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/all.json"] = {
+								"*.k8s.yaml",
+								"*.k8s.yml",
+								"k8s/*.yaml",
+								"k8s/*.yml",
+							},
 						},
 						format = { enable = true },
 						validate = true,
 					},
 				},
+			},
+			ts_ls = {
+				workspace_required = true,
+			},
+			eslint = {
+				workspace_required = true,
 			},
 		}
 

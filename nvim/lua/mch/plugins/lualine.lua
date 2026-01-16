@@ -55,8 +55,8 @@ return {
 			if reg == "" then
 				return ""
 			end -- Not recording
-			local icon = " " -- Nerd Font camera icon
-			return icon .. "rec [" .. reg .. "]"
+			local icon = "@"
+			return icon .. "[" .. reg .. "]"
 		end
 
 		lualine.setup({
@@ -72,9 +72,6 @@ return {
 
 				lualine_c = {
 					"filename",
-					function()
-						return require("auto-session.lib").current_session_name(true)
-					end,
 					{ isRecording },
 				}, -- Add macro status here
 

@@ -7,10 +7,10 @@ local opts = { noremap = true, silent = true }
 map("i", "jj", "<Esc>", opts)
 
 -- Term
-map("n", "<leader>cd", function()
+map("n", "<leader>md", function()
 	local path = vim.fn.expand("%:p:h")
 	vim.cmd("lcd " .. path)
-end, { desc = "Open terminal in file dir" })
+end, { desc = "Change local dir to file dir" })
 
 map("n", "<leader>ttt", function()
 	vim.cmd("terminal")
@@ -114,6 +114,9 @@ end, { desc = "Turn off diff in all splits", noremap = true, silent = true })
 -- Common
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "general save file" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "general copy whole file" })
+map("n", "<leader>cd", function()
+	vim.diagnostic.open_float(nil, { scope = "line" })
+end, { desc = "Line diagnostics" })
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number" })
 
 -- paste without losing clipboard
