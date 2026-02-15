@@ -20,31 +20,41 @@ return {
 		end
 
 		-- configure treesitter
+		local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+		if parser_configs.jinja2 then
+			vim.treesitter.language.register("jinja2", { "jinja", "jinja2" })
+		end
+
+		local ensured = {
+			"json",
+			"xml",
+			"python",
+			"markdown",
+			"markdown_inline",
+			"javascript",
+			"typescript",
+			"yaml",
+			"html",
+			"css",
+			"bash",
+			"lua",
+			"vim",
+			"dockerfile",
+			"gitignore",
+			"vimdoc",
+			"rust",
+			"zig",
+			"c",
+		}
+		if parser_configs.jinja2 then
+			table.insert(ensured, "jinja2")
+		end
+
 		treesitter.setup({
 			highlight = { enable = true, disable = disable_for_large_files },
 			indent = { enable = true, disable = disable_for_large_files },
 			autotag = { enable = true, disable = disable_for_large_files },
-			ensure_installed = {
-				"json",
-				"xml",
-				"python",
-				"markdown",
-				"markdown_inline",
-				"javascript",
-				"typescript",
-				"yaml",
-				"html",
-				"css",
-				"bash",
-				"lua",
-				"vim",
-				"dockerfile",
-				"gitignore",
-				"vimdoc",
-				"rust",
-				"zig",
-				"c",
-			},
+			ensure_installed = ensured,
 			sync_install = false, -- Set to true if you want to install parsers synchronously
 			auto_install = true, -- Automatically install missing parsers
 			ignore_install = {}, -- List of parsers to ignore installing

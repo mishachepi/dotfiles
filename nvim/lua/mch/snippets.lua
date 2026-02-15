@@ -44,10 +44,79 @@ local snippets = {
 		-- You can add more markdown snippets here
 	},
 
-	-- You can add snippets for other file types
-	-- lua = { ... },
-	-- python = { ... },
+	jinja = {
+		s("{{", {
+			t("{{ "),
+			i(1),
+			t(" }}"),
+		}),
+		s("{%", {
+			t("{% "),
+			i(1),
+			t(" %}"),
+		}),
+		s("if", {
+			t("{% if "),
+			i(1, "condition"),
+			t(" %}"),
+			t({ "", "\t" }),
+			i(2),
+			t({ "", "{% endif %}" }),
+		}),
+		s("for", {
+			t("{% for "),
+			i(1, "item"),
+			t(" in "),
+			i(2, "items"),
+			t(" %}"),
+			t({ "", "\t" }),
+			i(3),
+			t({ "", "{% endfor %}" }),
+		}),
+		s("block", {
+			t("{% block "),
+			i(1, "name"),
+			t(" %}"),
+			t({ "", "\t" }),
+			i(2),
+			t({ "", "{% endblock %}" }),
+		}),
+		s("extends", {
+			t("{% extends \""),
+			i(1, "base.html"),
+			t("\" %}"),
+		}),
+		s("include", {
+			t("{% include \""),
+			i(1, "partial.html"),
+			t("\" %}"),
+		}),
+		s("set", {
+			t("{% set "),
+			i(1, "name"),
+			t(" = "),
+			i(2, "value"),
+			t(" %}"),
+		}),
+		s("macro", {
+			t("{% macro "),
+			i(1, "name"),
+			t("("),
+			i(2),
+			t(") %}"),
+			t({ "", "\t" }),
+			i(3),
+			t({ "", "{% endmacro %}" }),
+		}),
+		s("cmt", {
+			t("{# "),
+			i(1, "comment"),
+			t(" #}"),
+		}),
+	},
 }
+
+snippets.jinja2 = snippets.jinja
 
 -- Register all snippets
 for filetype, filetype_snippets in pairs(snippets) do

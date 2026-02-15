@@ -12,6 +12,7 @@ return {
 		local keymap = vim.keymap
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 		local servers = require("mch.lsp.servers").list
+		local has_jinja_lsp = vim.fn.executable("jinja-lsp") == 1
 
 		local function toggle_diagnostics(bufnr)
 			bufnr = bufnr or 0
@@ -180,14 +181,21 @@ return {
 			eslint = {
 				workspace_required = true,
 			},
+			jinja_lsp = {
+				filetypes = { "jinja", "jinja2" },
+			},
 		}
 
+		local enabled_servers = {}
 		for _, server_name in ipairs(servers) do
-			local config = vim.tbl_deep_extend("force", {}, server_configs[server_name] or {})
-			config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
-			vim.lsp.config(server_name, config)
+			if server_name ~= "jinja_lsp" or has_jinja_lsp then
+				local config = vim.tbl_deep_extend("force", {}, server_configs[server_name] or {})
+				config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+				vim.lsp.config(server_name, config)
+				table.insert(enabled_servers, server_name)
+			end
 		end
 
-		vim.lsp.enable(servers)
+		vim.lsp.enable(enabled_servers)
 	end,
 }
