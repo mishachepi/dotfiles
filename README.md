@@ -16,7 +16,7 @@ Minimalism, Universatility, Understandability, Secutiry -> It is what I want to 
 - [Nvim](https://neovim.io/)
 - [Oh-my-zsh](https://ohmyz.sh)
 - [Ghostty](https://ghostty.org/)
-~~[Alacritty](https://alacritty.org/)~~
+- [Starship](https://starship.rs/)
 
 ### favorite themes
 - [catppuccin](https://github.com/catppuccin/catppuccin)
@@ -33,7 +33,7 @@ see nvim/readme.md
 #### Tmux
 session manager
 #### Oh-my-zsh
-maybe I will switch to own more simple config, ohmyz is overkill
+Zsh framework with plugins and themes
 #### Ghostty
 Terminal
 #### Yazi
@@ -41,16 +41,11 @@ File manager with git integration
 
 ### MacOS specifics
 - use homebrew
-brew install
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-- install apps
-``` bash
-brew install nvim tmux yazi
-brew install --cask ghostty
-```
-- install fonts
+- install tools via brew from apps.md
+- install fonts [instruction](fonts/readme.md)
 
 ### Linux specifics
 - TODO: desktop env
@@ -62,53 +57,45 @@ brew install --cask ghostty
 
 ### Links
 - https://ohmyz.sh/
+- https://starship.rs/
 - https://privacy.sexy/
-- https://nvchad.com/
-
-## TODO
-#### main env
-- bashrc
-- nvim opt (from vimrc)
-- starship theme
-- zsh chepi theme
-- tmux plugin save sessions
-- aliases chairset
-#### developer env
-- create dev env with dev containers and nix
-#### security env
-- bashrc
-- vim
 
 ## Installation
-### Require:
-- install zsh and oh-my-zsh
-- install tmux
-- install nvim
-#### oh-my-zsh install
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-### Optional:
-- install ghostty
-- ~~install alacritty~~
 
-### Install
+### Quick Start MacOS
 ```bash
+# 1. Install Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 2. Clone dotfiles
 git clone git@github.com:mishachepi/dotfiles.git $HOME/dotfiles
 
-mkdir -p $HOME/.config/git
-ln -s -f $HOME/dotfiles/.gitignore $HOME/.config/git/ignore
+# 3. Install core tools
+brew install {app} # For packages see [apps.md](apps.md)
 
+# 4. Create symlinks
+mkdir -p $HOME/.config/git
 mkdir -p $HOME/.config
-ln -s -f $HOME/dotfiles/bashrc $HOME/.bashrc
-ln -s -f $HOME/dotfiles/vim/vimrc $HOME/.vimrc
-ln -s -f $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
-ln -s -f $HOME/dotfiles/nvim $HOME/.config/
-ln -s -f $HOME/dotfiles/yazi $HOME/.config/
-ln -s -f $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
-ln -s -f $HOME/dotfiles/ghostty/ $HOME/.config/
-ln -s -f $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
-ln -s -f $HOME/dotfiles/gitconfig $HOME/.gitconfig
+
+ln -sf $HOME/dotfiles/.gitignore $HOME/.config/git/ignore
+ln -sf $HOME/dotfiles/bashrc $HOME/.bashrc
+ln -sf $HOME/dotfiles/vim/vimrc $HOME/.vimrc
+ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+ln -sf $HOME/dotfiles/nvim $HOME/.config/
+ln -sf $HOME/dotfiles/yazi $HOME/.config/
+ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
+ln -sf $HOME/dotfiles/ghostty $HOME/.config/
+ln -sf $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
+ln -sf $HOME/dotfiles/gitconfig $HOME/.gitconfig
+
+# 5. Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# 6. Set zsh as default shell (if needed)
+chsh -s $(which zsh)
+
+# 7. Install tmux plugins
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# Then in tmux: prefix + I to install plugins
 ```
 
-for install additional packeges see [apps.md](apps.md)

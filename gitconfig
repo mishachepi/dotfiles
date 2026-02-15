@@ -26,14 +26,13 @@
 [push]
     autoSetupRemote = true
     followTags = true
+    default = simple
 [fetch]
     all = true
 [merge]
     conflictstyle = zdiff3
 [pull]
     rebase = true
-[push]
-    default = simple
 [advice]
     pushNonFastForward = false
     statusHints = false
