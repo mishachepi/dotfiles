@@ -11,7 +11,7 @@ return {
 		vim.g.loaded_netrwPlugin = 1
 
 		require("neo-tree").setup({
-			popup_border_style = "rounded",
+		--	popup_border_style = "rounded",
 			enable_git_status = true,
 			enable_diagnostics = true,
 			default_component_configs = {
@@ -67,7 +67,7 @@ return {
 				},
 			},
 			filesystem = {
-				use_libuv_file_watcher = false,
+				use_libuv_file_watcher = true,
 				follow_current_file = {
 					enabled = true,
 					leave_dirs_open = false,
@@ -135,7 +135,6 @@ return {
 		local keymap = vim.keymap -- for conciseness
 
 		keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle file explorer" })
-		keymap.set("n", "<leader>eo", "<cmd>Neotree toggle<CR>", { desc = "Toggle file explorer" })
 		keymap.set("n", "<leader>ec", "<cmd>Neotree close<CR>", { desc = "Close file explorer" })
 		keymap.set("n", "<leader>ef", "<cmd>Neotree focus<CR>", { desc = "Focus file explorer" })
 		keymap.set("n", "<leader>eg", "<cmd>Neotree git_status<CR>", { desc = "Git status" })

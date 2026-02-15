@@ -34,13 +34,12 @@
       "<C-f>": false
     },
     "extensions.experimental.affinity": {
-      "vscodevim.vim": 1,
-      "asvetliakov.vscode-neovim": 1
+      "vscodevim.vim": 1
     },
     "files.associations": {
       "*.env": "shellscript"
     },
-    "redhat.telemetry.enabled": true,
+    "redhat.telemetry.enabled": false,
     "git.autofetch": true,
     "explorer.confirmDelete": false,
     "terminal.explorerKind": "external",
