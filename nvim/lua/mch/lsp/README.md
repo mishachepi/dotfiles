@@ -20,15 +20,16 @@ Example: opening a Python file starts `pyright` and `ruff`, but not `ts_ls`.
 Python note: `pyright` handles type checking and navigation, while `ruff` handles linting.
 They are compatible and intended to run together here.
 `ruff` uses project config from `pyproject.toml`/`ruff.toml`.
-By default, pyright diagnostics are suppressed so it only provides navigation/completion.
+`pyright` diagnostics are enabled, limited to open files, and use `typeCheckingMode = "basic"`.
 
 ## Other plugins in this directory
 
 These are LSP-adjacent tools configured alongside servers:
 - `conform.nvim` (formatting): `lua/mch/lsp/plugins/conform.lua` with `<leader>lf` to format.
   Python formatting uses `ruff format`.
-- `nvim-cmp` (completion UI): `lua/mch/lsp/plugins/nvm-cmp.lua` uses LSP completions plus snippets/buffer/path.
-- `nvim-treesitter` (parsers): `lua/mch/lsp/plugins/treesitter.lua` manages syntax parsers and textobjects.
+- `nvim-cmp` (completion UI): `lua/mch/lsp/plugins/nvim-cmp.lua` uses LSP completions plus snippets/buffer/path.
+- `LuaSnip` snippets are loaded once via `lua/mch/snippets.lua`.
+- `nvim-treesitter` (parsers): `lua/mch/lsp/plugins/treesitter.lua` manages syntax parsers and textobjects, with explicit parser installs (`auto_install = false`).
 
 ## Install / uninstall servers (Mason)
 

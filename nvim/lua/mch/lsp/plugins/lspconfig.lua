@@ -12,6 +12,7 @@ return {
 		local keymap = vim.keymap
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 		local servers = require("mch.lsp.servers").list
+		local has_jinja_lsp = vim.fn.executable("jinja-lsp") == 1
 
 		local function toggle_diagnostics(bufnr)
 			bufnr = bufnr or 0
@@ -22,7 +23,7 @@ return {
 
 		-- Create the autocmd for LSP keybindings
 		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+			group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 			callback = function(ev)
 				local client = ev.data and vim.lsp.get_client_by_id(ev.data.client_id) or nil
 				if client and (client.name == "ts_ls" or client.name == "eslint") then
@@ -102,7 +103,7 @@ return {
 					local result = table.concat(messages, "\n")
 					vim.fn.setreg("+", result) -- Yank to clipboard
 					print("Copied diagnostics to clipboard!")
-				end, { desc = "Yank diagnostics message" })
+				end, { buffer = ev.buf, silent = true, desc = "Yank diagnostics message" })
 
 				-- Toggle diagnostics visibility
 				opts.desc = "Toggle diagnostics visibility"
@@ -131,14 +132,12 @@ return {
 
 		local server_configs = {
 			pyright = {
-				handlers = {
-					["textDocument/publishDiagnostics"] = function() end,
-				},
 				settings = {
 					python = {
 						analysis = {
 							autoSearchPaths = true,
 							diagnosticMode = "openFilesOnly",
+							typeCheckingMode = "basic",
 							useLibraryCodeForTypes = true,
 						},
 					},
@@ -180,14 +179,21 @@ return {
 			eslint = {
 				workspace_required = true,
 			},
+			jinja_lsp = {
+				filetypes = { "jinja", "jinja2" },
+			},
 		}
 
+		local enabled_servers = {}
 		for _, server_name in ipairs(servers) do
-			local config = vim.tbl_deep_extend("force", {}, server_configs[server_name] or {})
-			config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
-			vim.lsp.config(server_name, config)
+			if server_name ~= "jinja_lsp" or has_jinja_lsp then
+				local config = vim.tbl_deep_extend("force", {}, server_configs[server_name] or {})
+				config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+				vim.lsp.config(server_name, config)
+				table.insert(enabled_servers, server_name)
+			end
 		end
 
-		vim.lsp.enable(servers)
+		vim.lsp.enable(enabled_servers)
 	end,
 }

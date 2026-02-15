@@ -5,6 +5,12 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt -- for conciseness
 
+-- Make <Space> behave as a real <leader> (avoid moving cursor right in Normal mode)
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+
+-- How long Neovim waits for a mapped sequence after <leader>
+opt.timeoutlen = 300
+
 -- enable ru layout
 opt.langmap =
 	"ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"

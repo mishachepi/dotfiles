@@ -9,10 +9,14 @@ Thank you [Mikluki](https://github.com/Mikluki/dotfiles) for big help with this 
 - treesitter
 - lsp
 - telescope
+- comments
+- snippets
 
 - **Terminal** `Ctrl + \`
 - **Explorer neo-tree** `Ctrl + Shift + E`
 - **Save** `Ctrl + S`
+- **Terminal in file dir** `<leader>tm`
+- **Toggle comment** `<leader>/`
 
 ## neo-tree
 
@@ -80,9 +84,13 @@ zenmode - `<leader> mw zm`
 | `<leader>ca`                | Быстрые исправления (Code Action)                 | Импорты, фиксы                |
 | `<leader>dy`                | Скопировать текст ошибки (Diagnostic Yank)        | Для Google/AI                 |
 | `<leader>dt`                | Вкл/Выкл отображение ошибок                       | Когда мешает шум              |
+| `<leader>py`                | Запустить текущий Python-файл в tmux pane         | py312 venv                    |
 | `<leader>n/pa`              | Поменять аргументы местами (след/пред)            | Treesitter (Swap)             |
 | **Интерфейс**               |                                                   |                               |
 | `<leader>ff` / `fg`         | Поиск файлов / Поиск текста (grep)                | Telescope                     |
+| `<leader>f/`                | Поиск по текущему буферу                          | Telescope                     |
+| `<leader>tm` / `<leader>tw` | Открыть terminal / tmux pane рядом               | Local shell / tmux            |
+| `<leader>/`                 | Вкл/выкл комментарий                              | Comment.nvim                  |
 | `<C-j>` / `<C-k>`           | Навигация в меню автодополнения                   | nvim-cmp                      |
 | `<CR>` (Enter)              | Подтвердить выбор (LSP/Сниппет)                   | nvim-cmp                      |
 | `<Tab>` / `<S-Tab>`         | Прыжок вперед / назад по полям сниппета           | LuaSnip                       |

@@ -3,6 +3,7 @@ local M = {}
 M.list = {
 	"pyright",
 	"ruff",
+	"jinja_lsp",
 	"lua_ls",
 	"bashls",
 	"yamlls",

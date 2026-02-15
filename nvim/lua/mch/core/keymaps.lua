@@ -9,10 +9,10 @@ map("i", "jj", "<Esc>", opts)
 -- Term
 map("n", "<leader>md", function()
 	local path = vim.fn.expand("%:p:h")
-	vim.cmd("lcd " .. path)
+	vim.cmd("lcd " .. vim.fn.fnameescape(path))
 end, { desc = "Change local dir to file dir" })
 
-map("n", "<leader>tn", function()
+map("n", "<leader>tm", function()
 	vim.cmd("terminal")
 end, { desc = "Open terminal in file dir" })
 
@@ -20,15 +20,20 @@ end, { desc = "Open terminal in file dir" })
 map("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
 
 
-function OpenTmuxPane()
+local function open_tmux_pane()
+	if vim.fn.executable("tmux") ~= 1 then
+		vim.notify("tmux is not available", vim.log.levels.WARN)
+		return
+	end
+
 	local current_file = vim.fn.expand("%:p")
 	local current_dir = vim.fn.fnamemodify(current_file, ":h")
-	vim.fn.system("tmux split-window -h")
-	local send_keys_command = "cd " .. current_dir .. " ; exec $SHELL"
-	vim.fn.system("tmux send-keys '" .. send_keys_command .. "' Enter")
-	vim.fn.system("tmux select-pane -R")
+	vim.system({ "tmux", "split-window", "-h" }):wait()
+	local send_keys_command = "cd " .. vim.fn.shellescape(current_dir) .. " ; exec $SHELL"
+	vim.system({ "tmux", "send-keys", send_keys_command, "Enter" }):wait()
+	vim.system({ "tmux", "select-pane", "-R" }):wait()
 end
-map('n', '<leader>tw', '<cmd>lua OpenTmuxPane()<cr>', { noremap = true, silent = true })
+map("n", "<leader>tw", open_tmux_pane, { noremap = true, silent = true })
 
 
 -- move code lines
@@ -128,10 +133,6 @@ map({ "n", "v" }, "<leader>y", '"+y', opts)
 -- Buffer --
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
 
--- Comment
-map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
-
 -- close current buffer
 map("n", "<leader>x", ":bd<CR>", opts)
 map("n", "<A-w>", "<cmd>bd<CR>", { desc = "Close buffer (Alt/Option+W)" })
@@ -181,20 +182,26 @@ map(
 map("n", "Q", "@q", { desc = "Run @q macro", noremap = true, silent = true })
 
 -- RUN PYTHON ON THE RIGHT
-function OpenTmuxPaneAndRunPython()
+local function open_tmux_pane_and_run_python()
+	if vim.fn.executable("tmux") ~= 1 then
+		vim.notify("tmux is not available", vim.log.levels.WARN)
+		return
+	end
+
 	local file = vim.fn.expand("%:p") -- Get full path of current file
 	-- Create a new tmux split below
-	vim.fn.system("tmux split-window -h")
+	vim.system({ "tmux", "split-window", "-h" }):wait()
 	-- Send the commands to the new pane and keep it open
-	vim.fn.system("tmux send-keys 'source ~/.venvs/py312/bin/activate && python " .. file .. " ; exec $SHELL' Enter")
+	local run_command = "source ~/.venvs/py312/bin/activate && python " .. vim.fn.shellescape(file) .. " ; exec $SHELL"
+	vim.system({ "tmux", "send-keys", run_command, "Enter" }):wait()
 	-- Switch focus to the newly created pane
-	vim.fn.system("tmux select-pane -D")
+	vim.system({ "tmux", "select-pane", "-D" }):wait()
 end
 
 map(
 	"n",
 	"<leader>py",
-	[[<cmd>lua OpenTmuxPaneAndRunPython()<CR>]],
+	open_tmux_pane_and_run_python,
 	{ noremap = true, silent = true, desc = "Open tmux vertical split & run Python (py312)" }
 )
 
