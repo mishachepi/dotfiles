@@ -9,7 +9,7 @@ local opt = vim.opt -- for conciseness
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- How long Neovim waits for a mapped sequence after <leader>
-opt.timeoutlen = 500
+opt.timeoutlen = 300
 
 -- enable ru layout
 opt.langmap =

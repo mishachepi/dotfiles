@@ -56,7 +56,7 @@ return {
 			autotag = { enable = true, disable = disable_for_large_files },
 			ensure_installed = ensured,
 			sync_install = false, -- Set to true if you want to install parsers synchronously
-			auto_install = true, -- Automatically install missing parsers
+			auto_install = false, -- Keep parser installs explicit for predictable startup and offline usage
 			ignore_install = {}, -- List of parsers to ignore installing
 			modules = {}, -- Required, but can be left empty for default behavior
 			incremental_selection = {

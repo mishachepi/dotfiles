@@ -36,12 +36,6 @@ EOF
 
 # --- helpers ---
 
-# Ask user a question (reads from terminal even when stdin is a pipe)
-ask() {
-    local prompt="$1"
-    { read -rp "$prompt" REPLY < /dev/tty; } 2>/dev/null || read -rp "$prompt" REPLY
-}
-
 # Delete line from file (handles macOS/Linux sed difference)
 delete_line() {
     local file="$1" line_num="$2"
@@ -129,31 +123,7 @@ remove_entries() {
         return 0
     fi
 
-    # Ask what to do
-    local to_remove=()
-
-    if [ "$total" -eq 1 ]; then
-        ask "Remove? [y/n]: "
-        [[ "$REPLY" =~ ^[Yy]$ ]] || { echo "Cancelled."; return 1; }
-        to_remove=("${MATCH_NUMS[0]}")
-    else
-        ask "Remove: (a)ll / (c)hoose / (n)o? "
-        case "$REPLY" in
-            a|A)
-                to_remove=("${MATCH_NUMS[@]}")
-                ;;
-            c|C)
-                for i in "${!MATCH_NUMS[@]}"; do
-                    ask "  ${MATCH_HOSTS[$i]} (line ${MATCH_NUMS[$i]})? [y/n]: "
-                    [[ "$REPLY" =~ ^[Yy]$ ]] && to_remove+=("${MATCH_NUMS[$i]}")
-                done
-                [ ${#to_remove[@]} -eq 0 ] && { echo "Nothing selected."; return 1; }
-                ;;
-            *)
-                echo "Cancelled."; return 1
-                ;;
-        esac
-    fi
+    local to_remove=("${MATCH_NUMS[@]}")
 
     # Remove in reverse order so line numbers don't shift
     local sorted

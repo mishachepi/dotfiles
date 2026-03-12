@@ -47,18 +47,28 @@ brew install --cask ghostty
 # terminal
 brew install yazi
 brew install ripgrep
+brew install fzf
+brew install fd
 brew install lazygit
 brew install lazydocker
-brew install neofetch
 brew install htop
+brew install ffmpeg
+brew install starship # replase by zsh theme
+brew install raine/workmux/workmux
 
 ### full desktop
 brew install --cask arc
 brew install --cask obsidian
 brew install --cask amethyst
 
+### languages
+brew install uv
+brew install go
+brew install bun
+
 ### additional
 brew install docker
+brew install gh
 brew install --cask keepassxc
 brew install --cask obs
 brew install --cask outline-manager
@@ -68,8 +78,6 @@ brew install wireshark
 brew install --cask inkscape
 brew install --cask blender
 brew install --cask deepl
-brew install --cask zed # need to test
-brew install yakitrak/yakitrak/obsidian-cli # brew tap yakitrak/yakitrak
 
 ### devops
 brew install kubectl

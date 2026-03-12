@@ -16,7 +16,6 @@ Minimalism, Universatility, Understandability, Secutiry -> It is what I want to 
 - [Nvim](https://neovim.io/)
 - [Oh-my-zsh](https://ohmyz.sh)
 - [Ghostty](https://ghostty.org/)
-- [Starship](https://starship.rs/)
 
 ### favorite themes
 - [catppuccin](https://github.com/catppuccin/catppuccin)
@@ -57,7 +56,6 @@ File manager with git integration
 
 ### Links
 - https://ohmyz.sh/
-- https://starship.rs/
 - https://privacy.sexy/
 
 ## Installation
@@ -85,7 +83,6 @@ ln -sf $HOME/dotfiles/nvim $HOME/.config/
 ln -sf $HOME/dotfiles/yazi $HOME/.config/
 ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/dotfiles/ghostty $HOME/.config/
-ln -sf $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
 ln -sf $HOME/dotfiles/gitconfig $HOME/.gitconfig
 
 # 5. Install oh-my-zsh
@@ -98,4 +95,3 @@ chsh -s $(which zsh)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # Then in tmux: prefix + I to install plugins
 ```
-

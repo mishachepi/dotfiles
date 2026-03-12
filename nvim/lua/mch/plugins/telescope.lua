@@ -88,14 +88,14 @@ return {
 		end, { desc = "Find existing marks" })
 
 		-- Slightly advanced example of overriding default behavior and theme
-		vim.keymap.set("n", "<leader>/", function()
+		vim.keymap.set("n", "<leader>f/", function()
 			-- You can pass additional configuration to Telescope to change the theme, layout, etc.
 			telescope_builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 				winblend = 10,
 				previewer = false,
 				sorting_strategy = "ascending", -- Keeps order as in the buffer
 			}))
-		end, { desc = "[/] Find in current buffer" })
+		end, { desc = "[F/] Find in current buffer" })
 
 		-- GIT HISTORY SEARCH
 		vim.api.nvim_create_user_command("GitHistoryFile", function()

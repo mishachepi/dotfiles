@@ -3,7 +3,7 @@ alias y="yazi"
 alias home="$EDITOR ~"
 alias config="$EDITOR ~/dotfiles"
 alias dotfiles='cd ~/dotfiles/'
-alias note="cd $NOTES_FOLDER/."
+alias note="cd $NOTES_FOLDER"
 alias hg="history | grep"
 alias y=yazi
 alias lg=lazygit
@@ -30,4 +30,7 @@ alias kd="kubectl describe"
 
 # tmux
 alias tma="tmux attach"
+
+# workmux
+alias wm="workmux"
 
