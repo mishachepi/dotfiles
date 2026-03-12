@@ -10,6 +10,10 @@ return {
 			version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 			-- install jsregexp (optional!).
 			build = "make install_jsregexp",
+			config = function()
+				require("luasnip.loaders.from_vscode").lazy_load()
+				require("mch.snippets").setup()
+			end,
 		},
 		"saadparwaiz1/cmp_luasnip", -- for autocompletion
 		"rafamadriz/friendly-snippets", -- useful snippets
@@ -26,12 +30,6 @@ return {
 			end
 			return vim.tbl_keys(bufs)
 		end
-
-		-- Load vscode style snippets from installed plugins (e.g. friendly-snippets)
-		require("luasnip.loaders.from_vscode").lazy_load()
-
-		-- Load your custom snippets
-		require("mch.snippets")
 
 		cmp.setup({
 			completion = {

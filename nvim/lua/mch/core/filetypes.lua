@@ -22,3 +22,11 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.commentstring = "{# %s #}"
 	end,
 })
+
+-- Force line comments for strict JSON files as requested.
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "json",
+	callback = function()
+		vim.opt_local.commentstring = "// %s"
+	end,
+})

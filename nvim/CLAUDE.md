@@ -8,7 +8,7 @@ This is a personal Neovim configuration built using Lazy.nvim package manager. T
 
 ### Core Structure
 - `init.lua` - Entry point that loads core configuration and Lazy.nvim
-- `lua/mch/core/` - Core Neovim configuration (options, keymaps)
+- `lua/mch/core/` - Core Neovim configuration (options, keymaps, filetypes)
 - `lua/mch/plugins/` - Active plugin configurations
 - `lua/mch/plugins-disabled/` - Disabled plugin configurations (archived)
 - `lua/mch/lazy.lua` - Lazy.nvim setup and plugin imports
@@ -18,13 +18,15 @@ This is a personal Neovim configuration built using Lazy.nvim package manager. T
 - `lua/mch/core/init.lua` - Loads options and keymaps
 - `lua/mch/core/options.lua` - Vim options, folding, appearance, Russian keyboard support
 - `lua/mch/core/keymaps.lua` - Extensive custom keybindings and leader mappings
+- `lua/mch/core/filetypes.lua` - Filetype detection and per-filetype defaults (for example Jinja and JSON comments)
 
 ## Key Features & Customizations
 
 ### Language Support
 - **Russian keyboard layout support** via `langmap` in options.lua
 - **LSP configuration** with Mason for language servers (Python, TypeScript, Lua, YAML, Bash, GraphQL)
-- **Treesitter** for syntax highlighting and code parsing
+- **Treesitter** for syntax highlighting and code parsing; parser installs stay explicit (`auto_install = false`)
+- **Jinja/JSON filetype defaults** - Jinja templates get `{# %s #}` comments, JSON uses `// %s` for line comments
 
 ### Notable Custom Functions
 - **Tmux integration** - Functions for opening tmux panes and running Python scripts
@@ -39,6 +41,11 @@ The config uses Lazy.nvim with two main import patterns:
 { import = "mch.plugins.lsp" }  -- LSP-specific plugins
 ```
 
+Notable active plugins in the current setup:
+- `Comment.nvim` with `nvim-ts-context-commentstring` for context-aware comments
+- `nvim-cmp` + `LuaSnip` + `friendly-snippets` for completion/snippets
+- `Telescope`, `Neo-tree`, `gitsigns`, `grug-far`, `toggleterm`
+
 ## Key Keybindings
 
 ### Leader Key: `<space>`
@@ -47,12 +54,13 @@ The config uses Lazy.nvim with two main import patterns:
 - `jj` - Exit insert mode
 - `<C-h/j/k/l>` - Window navigation
 - `<leader>sv/sh` - Split windows vertically/horizontally
-- `<leader>tt` - Open terminal in current file directory
+- `<leader>tm` - Open terminal in current file directory
 - `<leader>tw` - Open tmux pane
+- `<leader>/` - Toggle comment in normal/visual mode
 
 **LSP & Development:**
-- `gd` - Go to definition (Telescope)
-- `gr` - Show references (Telescope) 
+- `gd` / `<leader>gd` - Go to definition (direct LSP jump)
+- `gr` - Show references (Telescope)
 - `<leader>ca` - Code actions
 - `<leader>sr` - Smart rename
 - `<leader>dp/dn` - Previous/next diagnostic
@@ -63,6 +71,7 @@ The config uses Lazy.nvim with two main import patterns:
 **File & Search:**
 - File operations handled by Neo-tree as the default explorer (`<leader>e`, netrw hijack when opening directories) plus Telescope; Yazi remains available via `<leader>ey`/`<leader>cw` if needed (see `yazi/README.md`).
 - Search and replace with grug-far plugin
+- `<leader>f/` - Fuzzy search inside the current buffer
 - Buffers: close current with `<leader>x` or `Alt/Option+W`, switch with `<S-l>/<S-h>`.
 
 ### Python Development
@@ -83,11 +92,12 @@ The config uses Lazy.nvim with two main import patterns:
 ### LSP Configuration
 - Language servers configured in `lua/mch/lsp/plugins/lspconfig.lua`
 - Server list lives in `lua/mch/lsp/servers.lua`
-- Mason handles automatic installation
+- Mason handles installation of configured tools/servers
+- `pyright` is enabled with `diagnosticMode = "openFilesOnly"` and `typeCheckingMode = "basic"`
 
 ### Tabs vs Buffers
-- You primarily work with buffers; tab keymaps stay commented out to keep `<C-i>` free for jumplist forward.
-- Tabs remain available via leader shortcuts (`<leader>to/tx/tn/tp`) if you need separate window layouts (e.g., quickly stashing a set of splits for a different task).
+- You primarily work with buffers, and tab navigation stays on leader shortcuts so `<C-i>` remains free for jumplist forward.
+- Tabs are available via `<leader>to/tx/tn/tp` when you need separate window layouts.
 
 ## Testing & Development
 This configuration doesn't include test runners - testing depends on project-specific tools. The config focuses on editing, navigation, and LSP integration rather than project building/testing.
