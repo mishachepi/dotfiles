@@ -4,7 +4,7 @@ setopt prompt_subst
 
 function _mch_prompt_host() {
   [[ -n "${SSH_CONNECTION:-}" ]] || return
-  print -nr -- "%m "
+  print -nr -- "%F{yellow}ssh:%f%m "
 }
 
 function _mch_prompt_python() {
