@@ -37,7 +37,7 @@ ZSH_THEME_GIT_PROMPT_DIVERGED="%F{cyan}⇕%f"
 
 # Username segment disabled:
 # %(!.%F{black}%B%n%b%f.%F{white}%B%n%b%f)
-PROMPT='$(_mch_prompt_host)%F{blue}%~%f $(git_prompt_info)$(git_prompt_status)
+PROMPT='$(_mch_prompt_host)%F{blue}%3~%f $(git_prompt_info)$(git_prompt_status)
 $(_mch_prompt_python)%(?.%F{white}\$.%F{red}✗)%f '
 
 RPROMPT=""
