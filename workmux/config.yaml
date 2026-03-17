@@ -1,0 +1,5 @@
+# Workmux Global Config
+# Docs: https://workmux.raine.dev
+
+agent: claude
+merge_strategy: squash
