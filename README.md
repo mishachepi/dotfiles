@@ -7,7 +7,7 @@ Minimalism, Universatility, Understandability, Secutiry -> It is what I want to 
 - nvim plugins (sometimes need to check and update it)
 - scripts/ folder with useful scripts
 - raycast flow/snippets
-- AI repo - 
+- AI tools: [Claude Code](claude/SETUP.md), [Obsidian](obsidian/SETUP.md), [workmux](workmux/README.md)
 
 ### Setup:
 - [Bash](https://www.gnu.org/software/bash/)
@@ -37,6 +37,14 @@ Zsh framework with plugins and themes
 Terminal
 #### Yazi
 File manager with git integration
+
+### AI Tools
+#### Claude Code
+AI CLI — plugins, hooks, statusline. See [claude/SETUP.md](claude/SETUP.md)
+#### Obsidian
+PKM — app configs, vault tools, QMD indexing. See [obsidian/SETUP.md](obsidian/SETUP.md)
+#### workmux
+tmux/worktree orchestrator for multi-agent workflows. See [workmux/README.md](workmux/README.md)
 
 ### MacOS specifics
 - use homebrew
@@ -94,4 +102,19 @@ chsh -s $(which zsh)
 # 7. Install tmux plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # Then in tmux: prefix + I to install plugins
+
+#############
+
+# 8. workmux (see workmux/README.md)
+brew install raine/workmux/workmux
+cp $HOME/dotfiles/workmux/config.yaml $HOME/.config/workmux/config.yaml
+
+# 9. Claude Code, Obsidian and uv if not installed
+brew install claude-code
+brew install --cask obsidian
+brew install oven-sh/bun/bun uv  # dependencies for QMD scripts
+
+# 10. Run Claude Code setup (plugins, hooks, agents)
+#     Follow instructions in claude/SETUP.md and obsidian/SETUP.md
+cd $HOME/dotfiles && claude
 ```

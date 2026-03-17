@@ -1,0 +1,15 @@
+{
+  "promptDelete": false,
+  "livePreview": false,
+  "vimMode": true,
+  "alwaysUpdateLinks": true,
+  "strictLineBreaks": false,
+  "readableLineLength": false,
+  "foldIndent": true,
+  "showLineNumber": false,
+  "propertiesInDocument": "visible",
+  "focusNewTab": true,
+  "showUnsupportedFiles": true,
+  "trashOption": "system",
+  "useMarkdownLinks": false
+}
