@@ -1,0 +1,6 @@
+WRN 2026-02-15T16:48:36.517 ?.10624    server_start:199: Failed to start server: operation not permitted: /var/folders/33/r1zv78qx3pvgw_3b88gfp7480000gn/T/nvim.m_chepkin/yDkEC3/nvim.10624.0
+WRN 2026-02-15T16:48:36.517 ?.10625    server_start:199: Failed to start server: operation not permitted: /var/folders/33/r1zv78qx3pvgw_3b88gfp7480000gn/T/nvim.m_chepkin/IhQVp1/nvim.10625.0
+WRN 2026-02-15T16:48:41.501 ?.10697    server_start:199: Failed to start server: operation not permitted: /var/folders/33/r1zv78qx3pvgw_3b88gfp7480000gn/T/nvim.m_chepkin/5j3jer/nvim.10697.0
+WRN 2026-02-15T16:48:41.501 ?.10696    server_start:199: Failed to start server: operation not permitted: /var/folders/33/r1zv78qx3pvgw_3b88gfp7480000gn/T/nvim.m_chepkin/f8RJYd/nvim.10696.0
+WRN 2026-02-15T16:48:45.871 ?.10708    server_start:199: Failed to start server: operation not permitted: /var/folders/33/r1zv78qx3pvgw_3b88gfp7480000gn/T/nvim.m_chepkin/e9O2U3/nvim.10708.0
+WRN 2026-02-15T16:48:45.875 ?.10709    server_start:199: Failed to start server: operation not permitted: /var/folders/33/r1zv78qx3pvgw_3b88gfp7480000gn/T/nvim.m_chepkin/9gDwR9/nvim.10709.0

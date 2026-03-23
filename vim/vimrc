@@ -1,0 +1,78 @@
+" NO PLUGINS FOR VIM
+" use :set past:
+	" Before pasting text, execute the command :set paste.
+	" Paste the text.
+	" After pasting the text, execute the command :set nopaste to return Vim to normal operation mode.
+
+autocmd!
+syntax on
+set secure
+set hidden
+set number
+set mouse=a
+set mousehide
+
+" Terminal
+set encoding=utf-8
+set fileencodings=utf8,cp1251
+
+" Disable sound
+set noerrorbells
+set novisualbell
+
+" making it uncompatable with vi
+set nocompatible
+
+" Удобное поведение backspace
+set backspace=indent,eol,start
+set scrolloff=7
+
+" черточки на табах
+set listchars=tab:>-,trail:-
+set list
+
+" brackets highlight
+set showmatch
+
+" Shpw Tab pannel up always
+set showtabline=2
+
+" Tabs
+set tabstop=4           " Number of spaces that a tab counts for
+set shiftwidth=4        " Number of spaces to use for autoindent
+set softtabstop=4       " Enables backspace over 4 spaces
+set smarttab
+set expandtab           " use space for tabs
+" set textwidth=79        " Set maximum width of text (not code)
+set nowrap
+
+" Вырубаем .swp и ~ (резервные) файлы
+set nobackup
+set noswapfile
+
+" Yank to system clipboard
+set clipboard=unnamed
+
+" Настройка поиска
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+set background=dark
+" kanagawa-dragon kanagawa-wave kanagawa-lotos
+" colorscheme kanagawa-wave
+
+" Check spell
+map <leader>ss :setlocal spell!<CR>
+
+" Ctrl-C Ctrl-V
+inoremap <C-v> <ESC>"+pa
+vnoremap <C-c> "+y
+vnoremap <C-d> "+d
+
+" Other
+command! Wsudo execute 'w !sudo tee % > /dev/null' <bar> edit! " переоткрыть с sudo и сохранить
+
+""" Mapping
+imap jj <Esc>

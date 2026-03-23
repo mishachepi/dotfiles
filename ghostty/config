@@ -1,0 +1,21 @@
+# The syntax is "key = value". The whitespace around the
+# Comments start with a `#` and are only valid on their own line.
+# Blank lines are ignored!
+# Empty values reset the configuration to the default value
+
+keybind = super+shift+e=text:\x1b:Neotree toggle\r
+#keybind = ctrl+d=new_split:right
+#keybind = cmd+d=new_split:right
+#keybind = ctrl+d=unbind
+#keybind = super+d=unbind
+
+font-family = "Inconsolata LGC Nerd Font"
+font-size = 16
+theme = Catppuccin Macchiato
+
+scrollback-limit = 99999999
+
+copy-on-select = true
+macos-icon-ghost-color = 000000
+macos-option-as-alt = left
+#macos-icon = holographic

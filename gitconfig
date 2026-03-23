@@ -1,0 +1,49 @@
+[user]
+    name = Mikhail Chepkin
+    email = mihchepi@gmail.com
+[core]
+    editor = vim
+[color]
+    ui = auto
+    diff = true
+    grep = true
+    status = true
+[init]
+    defaultBranch = main
+[column]
+    ui = auto
+[branch]
+    sort = -committerdate
+[tag]
+    sort = version:refname
+[diff]
+    tool = vimdiff
+    noprefix = true
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
+[push]
+    autoSetupRemote = true
+    followTags = true
+    default = simple
+[fetch]
+    all = true
+[merge]
+    conflictstyle = zdiff3
+[pull]
+    rebase = true
+[advice]
+    pushNonFastForward = false
+    statusHints = false
+[rebase]
+    autostash = true
+[alias]
+    co = checkout
+    ci = commit
+    cp = cherry-pick
+    st = status
+    br = branch
+    hist = log --pretty=format:\"%Cred%h %Creset%ad %Cred| [%an] | %Cgreen%s%d\" --date=short --color --graph
+    dc = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
+    sub = submodule update --init
