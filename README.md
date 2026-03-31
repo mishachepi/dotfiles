@@ -35,8 +35,8 @@ session manager
 Zsh framework with plugins and themes
 #### Ghostty
 Terminal
-#### Yazi
-File manager with git integration
+#### nnn
+File manager with git status, preview, fzf integration
 
 ### AI Tools
 #### Claude Code
@@ -84,37 +84,38 @@ mkdir -p $HOME/.config/git
 mkdir -p $HOME/.config
 
 ln -sf $HOME/dotfiles/.gitignore $HOME/.config/git/ignore
-ln -sf $HOME/dotfiles/bashrc $HOME/.bashrc
 ln -sf $HOME/dotfiles/vim/vimrc $HOME/.vimrc
 ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 ln -sf $HOME/dotfiles/nvim $HOME/.config/
-ln -sf $HOME/dotfiles/yazi $HOME/.config/
 ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/dotfiles/ghostty $HOME/.config/
 ln -sf $HOME/dotfiles/gitconfig $HOME/.gitconfig
 
-# 5. Install oh-my-zsh
+# 5. Install nnn plugins
+curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
+
+# 6. Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# 6. Set zsh as default shell (if needed)
+# 7. Set zsh as default shell (if needed)
 chsh -s $(which zsh)
 
-# 7. Install tmux plugins
+# 8. Install tmux plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # Then in tmux: prefix + I to install plugins
 
 #############
 
-# 8. workmux (see workmux/README.md)
+# 9. workmux (see workmux/README.md)
 brew install raine/workmux/workmux
 cp $HOME/dotfiles/workmux/config.yaml $HOME/.config/workmux/config.yaml
 
-# 9. Claude Code, Obsidian and uv if not installed
+# 10. Claude Code, Obsidian and uv if not installed
 brew install claude-code
 brew install --cask obsidian
 brew install oven-sh/bun/bun uv  # dependencies for QMD scripts
 
-# 10. Run Claude Code setup (plugins, hooks, agents)
+# 11. Run Claude Code setup (plugins, hooks, agents)
 #     Follow instructions in claude/SETUP.md and obsidian/SETUP.md
 cd $HOME/dotfiles && claude
 ```

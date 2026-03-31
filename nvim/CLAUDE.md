@@ -69,7 +69,7 @@ Notable active plugins in the current setup:
 - Jump list navigation (like VS Code back/forward): `<C-o>` jumps back, `<C-i>` jumps forward.
 
 **File & Search:**
-- File operations handled by Neo-tree as the default explorer (`<leader>e`, netrw hijack when opening directories) plus Telescope; Yazi remains available via `<leader>ey`/`<leader>cw` if needed (see `yazi/README.md`).
+- File operations handled by Neo-tree as the default explorer (`<leader>e`, netrw hijack when opening directories) plus Telescope.
 - Search and replace with grug-far plugin
 - `<leader>f/` - Fuzzy search inside the current buffer
 - Buffers: close current with `<leader>x` or `Alt/Option+W`, switch with `<S-l>/<S-h>`.

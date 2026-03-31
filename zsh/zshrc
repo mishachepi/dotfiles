@@ -6,17 +6,12 @@ ZSH_CUSTOM="$HOME/dotfiles/zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="mch"
 plugins=(git)
+ZSH_COMPDUMP=~/.zcompdump
 source $ZSH/oh-my-zsh.sh
 
 # General
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-  export VISUAL='nvim'
-else
-  export EDITOR='nvim'
-  export VISUAL='nvim'
-fi
+export EDITOR='nvim'
+export VISUAL='nvim'
 
 # Additional PATH
 if [[ -d "$HOME/dotfiles/scripts" ]]; then
@@ -29,7 +24,15 @@ set -o vi
 # Aliases
 source $HOME/dotfiles/aliases.sh
 
-ZSH_COMPDUMP=~/.zcompdump
-fpath+=~/.zfunc; autoload -Uz compinit; compinit
+# nnn file manager (plugins via ;key, preview-tui needs tmux)
+export NNN_FIFO='/tmp/nnn.fifo'
+export NNN_PLUG='p:preview-tui;g:gitstatus;o:fzopen;d:dragdrop'
+export NNN_BMS='p:~/projects;d:~/dotfiles;h:~'
+export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
+export NNN_BATTHEME='ansi'
+export NNN_PAGER='less -R'
+
+# Completions (fpath must be before compinit, oh-my-zsh already calls compinit)
+fpath+=~/.zfunc
 
 [ -f "$HOME/.local_env.zsh" ] && source "$HOME/.local_env.zsh"
