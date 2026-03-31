@@ -18,4 +18,5 @@ uv.lock
 __pycache__/
 *.pyc
 
+.nvimlog
 **/.claude/settings.local.json

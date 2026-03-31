@@ -141,11 +141,6 @@ map("n", "<A-w>", "<cmd>bd<CR>", { desc = "Close buffer (Alt/Option+W)" })
 map("n", "<S-l>", ":bnext<CR>", opts)
 map("n", "<S-h>", ":bprevious<CR>", opts)
 
--- resize windows with arrows
-map("n", "<S-Up>", ":resize +2<CR>", opts)
-map("n", "<S-Down>", ":resize -2<CR>", opts)
-map("n", "<S-Left>", ":vertical resize -2<CR>", opts)
-map("n", "<S-Right>", ":vertical resize +2<CR>", opts)
 
 -- toggle numbers
 map("n", "<leader>rn", function()
@@ -192,7 +187,8 @@ local function open_tmux_pane_and_run_python()
 	-- Create a new tmux split below
 	vim.system({ "tmux", "split-window", "-h" }):wait()
 	-- Send the commands to the new pane and keep it open
-	local run_command = "source ~/.venvs/py312/bin/activate && python " .. vim.fn.shellescape(file) .. " ; exec $SHELL"
+	local venv = os.getenv("VIRTUAL_ENV") or os.getenv("HOME") .. "/.venvs/py312"
+	local run_command = "source " .. venv .. "/bin/activate && python " .. vim.fn.shellescape(file) .. " ; exec $SHELL"
 	vim.system({ "tmux", "send-keys", run_command, "Enter" }):wait()
 	-- Switch focus to the newly created pane
 	vim.system({ "tmux", "select-pane", "-D" }):wait()
@@ -216,37 +212,3 @@ end
 
 map("n", "<leader>op", open_url, { desc = "Open URL under cursor", noremap = true, silent = true })
 
--- SEARCH SELECTION IN SCHOLAR
--- map(
--- 	"n",
--- 	"<leader>os",
--- 	[[:<C-u>lua local query = vim.fn.getreg('"'):gsub(" ", "%%20"); vim.fn.system("xdg-open 'https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=" .. query .. "&btnG='")<CR>]],
--- 	{ noremap = true, silent = true, desc = "Open Scholar yanked text" }
--- )
---
---
-
--- -- ### QUICKFIX
--- -- next item
--- map("n", "<leader>jj", "<cmd>cnext<CR>", { desc = "Quickfix Next" })
--- map("n", "<leader>cn", "<cmd>cnext<CR>", { desc = "Quickfix Next" })
--- -- prev item
--- map("n", "<leader>kk", "<cmd>cprev<CR>", { desc = "Quickfix Prev" })
--- map("n", "<leader>cp", "<cmd>cprev<CR>", { desc = "Quickfix Prev" })
--- -- first item
--- map("n", "<leader>cf", "<cmd>cfirst<CR>", { desc = "Quickfix Last" })
--- -- last item
--- map("n", "<leader>cl", "<cmd>clast<CR>", { desc = "Quickfix Do" })
--- -- cdo
--- -- map("n", "<leader>cd", ":cdo ", { desc = "Quickfix Prev" })
--- -- open & close
--- map("n", "<leader>co", "<cmd>copen<CR>", { desc = "Quickfix Open" })
--- map("n", "<leader>cc", "<cmd>cclose<CR>", { desc = "Quickfix Close" })
-
--- REPLACE SELECTION
--- map(
--- 	"v",
--- 	"<C-r>",
--- 	'"hy:%s/<C-r>h//gc<left><left><left>',
--- 	{ noremap = true, silent = true, desc = "substitute selection" }
--- )

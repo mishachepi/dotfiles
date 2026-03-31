@@ -4,7 +4,7 @@ return {
 	version = "*",
 	opts = {
 		options = {
-			mode = "buffer", -- or tabs
+			mode = "buffers",
 			separator_style = "thin",
 		},
 	},

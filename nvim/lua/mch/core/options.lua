@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.cmd("let g:netrw_liststyle = 3")
+-- netrw is disabled by neo-tree
 
 local opt = vim.opt -- for conciseness
 
@@ -15,7 +15,8 @@ opt.timeoutlen = 300
 opt.langmap =
 	"ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
 
--- save session opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+-- save session
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- save history
 opt.undofile = true
@@ -23,14 +24,14 @@ opt.undofile = true
 -- folding
 -- opt.foldopen:append("insert")
 opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevel = 99
 opt.foldlevelstart = 99 -- Start with all folds open
 -- opt.foldminlines = 4
 -- opt.foldcolumn = "0"
 opt.foldenable = true
 -- line numbers
-opt.relativenumber = false -- show relative line numbers
+opt.relativenumber = false -- disable relative line numbers
 opt.number = true -- shows absolute line number on cursor line (when relative number is on)
 
 -- tabs & indentation

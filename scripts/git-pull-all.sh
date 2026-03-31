@@ -11,7 +11,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # reset color
 
 # Find all directories containing a .git folder
-find . -type d -name ".git" | while read -r gitdir; do
+find . -maxdepth 2 -type d -name ".git" | while read -r gitdir; do
   repo_dir=$(dirname "$gitdir")
   echo -e "${YELLOW}→ Updating repository in: $repo_dir${NC}"
   cd "$repo_dir" || continue

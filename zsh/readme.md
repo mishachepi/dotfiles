@@ -1,5 +1,5 @@
 # zsh
-Costimizeble shell
+Customizable shell
 
 ## Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

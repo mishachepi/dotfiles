@@ -2,8 +2,6 @@
 # https://www.nerdfonts.com/#home
 # brew install --cask <font_name>
 
-brew tap homebrew/cask-fonts
-
 brew install --cask font-commit-mono
 brew install --cask font-0xProto
 brew install --cask font-3270-nerd-font

@@ -39,12 +39,7 @@ return {
 				keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
 				opts.desc = "Show LSP definitions"
-				keymap.set("n", "gd", function()
-					vim.lsp.buf.definition()
-				end, opts)
-				keymap.set("n", "<leader>gd", function()
-					vim.lsp.buf.definition()
-				end, opts)
+				keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 
 				opts.desc = "Show documentation for what is under cursor"
 				keymap.set("n", "gh", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
@@ -138,8 +133,7 @@ return {
 							autoSearchPaths = true,
 							diagnosticMode = "openFilesOnly",
 							typeCheckingMode = "basic",
-							useLibraryCodeForTypes = true,
-						},
+							},
 					},
 				},
 			},
