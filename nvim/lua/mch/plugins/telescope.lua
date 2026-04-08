@@ -4,6 +4,63 @@ return {
 	"nvim-telescope/telescope.nvim",
 	branch = "0.1.x",
 	cmd = "Telescope",
+	keys = {
+		{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find buffers" },
+		{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files in cwd" },
+		{ "<D-s>", "<cmd>Telescope find_files<cr>", desc = "Find files in cwd" },
+		{ "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Find recent files" },
+		{ "<leader>fs", "<cmd>Telescope live_grep<cr>", desc = "Find string in cwd" },
+		{ "<leader>fc", "<cmd>Telescope grep_string<cr>", desc = "Find string under cursor in cwd" },
+		{ "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Find keymaps" },
+		{ "<leader>fp", "<cmd>Telescope commands<cr>", desc = "Find commands" },
+		{ "<leader>fx", "<cmd>Telescope diagnostics<cr>", desc = "Find diagnostics" },
+		{
+			"<leader>fn",
+			function()
+				require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
+			end,
+			desc = "Find Neovim files",
+		},
+		{
+			"<leader>fd",
+			function()
+				require("telescope.builtin").lsp_document_symbols({
+					symbols = {
+						"method",
+						"function",
+						"class",
+					},
+					sorting_strategy = "ascending",
+				})
+			end,
+			desc = "Find LSP Document Symbols",
+		},
+		{
+			"<leader>fi",
+			"<cmd>Telescope find_files find_command=rg,--files,--hidden,--no-ignore<cr>",
+			desc = "Find ignored files",
+		},
+		{
+			"<leader>fm",
+			function()
+				require("telescope.builtin").marks()
+			end,
+			desc = "Find existing marks",
+		},
+		{
+			"<leader>f/",
+			function()
+				require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+					winblend = 10,
+					previewer = false,
+					sorting_strategy = "ascending",
+				}))
+			end,
+			desc = "[F/] Find in current buffer",
+		},
+		{ "<leader>gh", "<cmd>GitHistoryFile<cr>", desc = "Find Git history for a file" },
+		{ "<leader>gs", "<cmd>FullGitStatus<cr>", desc = "Find Git Status" },
+	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -34,68 +91,6 @@ return {
 		})
 
 		telescope.load_extension("fzf")
-
-		-- set keymaps
-		local keymap = vim.keymap -- for conciseness
-
-		local telescope_builtin = require("telescope.builtin")
-		keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
-
-		keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files in cwd" })
-		keymap.set("n", "<D-s>", "<cmd>Telescope find_files<cr>", { desc = "Find files in cwd" })
-		keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Find recent files" })
-		keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-		keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
-
-		keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Find keymaps" })
-		keymap.set("n", "<leader>fp", "<cmd>Telescope commands<cr>", { desc = "Find commands" })
-		keymap.set("n", "<leader>fx", "<cmd>Telescope diagnostics<cr>", { desc = "Find diagnostics" })
-
-		keymap.set("n", "<leader>fn", function()
-			telescope_builtin.find_files({ cwd = vim.fn.stdpath("config") })
-		end, { desc = "Find Neovim files" })
-
-		-- SEARCH FOR SYMBOLS IN CURRENT FILE
-		local function filtered_document_symbols()
-			telescope_builtin.lsp_document_symbols({
-				symbols = {
-					"method",
-					"function",
-					"class",
-					--"constant",
-				},
-				sorting_strategy = "ascending", -- Ensures order follows LSP
-			})
-		end
-		keymap.set(
-			"n",
-			"<leader>fd",
-			filtered_document_symbols,
-			{ noremap = true, silent = true, desc = "Find LSP Document Symbols" }
-		)
-		-- SEARCH FILES INLCUDING THOSE IN GITIGNORE
-		keymap.set(
-			"n",
-			"<leader>fi",
-			"<cmd>Telescope find_files find_command=rg,--files,--hidden,--no-ignore<cr>",
-			{ desc = "Find ignored files" }
-		)
-
-		-- SEARCH EXISTING MARKS
-		keymap.set("n", "<leader>fm", function()
-			telescope_builtin.marks()
-		end, { desc = "Find existing marks" })
-
-		-- Slightly advanced example of overriding default behavior and theme
-		vim.keymap.set("n", "<leader>f/", function()
-			-- You can pass additional configuration to Telescope to change the theme, layout, etc.
-			telescope_builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-				winblend = 10,
-				previewer = false,
-				sorting_strategy = "ascending", -- Keeps order as in the buffer
-			}))
-		end, { desc = "[F/] Find in current buffer" })
-
 		-- GIT HISTORY SEARCH
 		vim.api.nvim_create_user_command("GitHistoryFile", function()
 			require("telescope.builtin").git_bcommits({
@@ -112,7 +107,6 @@ return {
 				},
 			})
 		end, {})
-		keymap.set("n", "<leader>gh", "<cmd>GitHistoryFile<cr>", { desc = "Find Git history for a file" })
 
 		-- GIT_STATUS PICKER WITH HORIZONTAL SPLIT
 		vim.api.nvim_create_user_command("FullGitStatus", function()
@@ -120,6 +114,5 @@ return {
 				layout_strategy = "horizontal",
 			})
 		end, {})
-		keymap.set("n", "<leader>gs", "<cmd>FullGitStatus<cr>", { desc = "Find Git Status" })
 	end,
 }

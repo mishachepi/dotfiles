@@ -190,8 +190,8 @@ local function open_tmux_pane_and_run_python()
 	local venv = os.getenv("VIRTUAL_ENV") or os.getenv("HOME") .. "/.venvs/py312"
 	local run_command = "source " .. venv .. "/bin/activate && python " .. vim.fn.shellescape(file) .. " ; exec $SHELL"
 	vim.system({ "tmux", "send-keys", run_command, "Enter" }):wait()
-	-- Switch focus to the newly created pane
-	vim.system({ "tmux", "select-pane", "-D" }):wait()
+	-- split-window -h creates the pane on the right
+	vim.system({ "tmux", "select-pane", "-R" }):wait()
 end
 
 map(
@@ -211,4 +211,3 @@ local function open_url()
 end
 
 map("n", "<leader>op", open_url, { desc = "Open URL under cursor", noremap = true, silent = true })
-
