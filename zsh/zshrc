@@ -12,10 +12,15 @@ source $ZSH/oh-my-zsh.sh
 # General
 export EDITOR='nvim'
 export VISUAL='nvim'
+export VAULT_HOME="$HOME/Volumes/mch"
 
 # Additional PATH
 if [[ -d "$HOME/dotfiles/scripts" ]]; then
   path=("$HOME/dotfiles/scripts" $path)
+fi
+# bun global packages (qmd, etc.)
+if [[ -d "$HOME/.bun/bin" ]]; then
+  path=("$HOME/.bun/bin" $path)
 fi
 
 # set vi mode

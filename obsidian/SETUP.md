@@ -16,7 +16,17 @@ cd <vault>/vault_scripts/ && uv tool install .
 # Install per ccbot repo instructions
 ```
 
-## 2. QMD — Vault Indexing
+## 2. Claude Code symlink
+
+Claude Code looks for `<vault>/.claude/` directory. Symlink it to `claude/` (tracked in git):
+
+```bash
+ln -sf $VAULT_HOME/claude $VAULT_HOME/.claude
+```
+
+This makes `settings.json`, `rules/`, `skills/`, `commands/`, `scripts/` visible to Claude Code when working in the vault.
+
+## 3. QMD — Vault Indexing
 
 Requires `qmd` CLI — installed as part of [Claude Code setup](../claude/SETUP.md#1-install).
 
@@ -31,7 +41,7 @@ qmd embed   # optional — enables semantic/vector search
 > **Note:** QMD resolves paths relative to CWD. The collection name becomes
 > a subfolder under CWD, so run from the parent directory.
 
-## 3. Claude Code Plugins for Obsidian
+## 4. Claude Code Plugins for Obsidian
 
 QMD plugin is installed as part of [Claude Code setup](../claude/SETUP.md#2-plugins).
 
@@ -73,7 +83,7 @@ Enable plugins in project settings (`<vault>/claude/settings.json`):
 }
 ```
 
-## 4. App Config
+## 5. App Config
 
 Copy configs from `obsidian/configs/` to `<vault>/.obsidian/`:
 

@@ -72,7 +72,18 @@ claude plugin enable research@m-claude-plugins
 | `superpowers` (optional) | Full dev workflow — brainstorm, plan, TDD, subagent-driven development |
 
 
-## 3. Global Settings: `~/.claude/settings.json`
+## 3. VAULT_HOME
+
+All vault scripts/hooks use `$VAULT_HOME` instead of hardcoded paths.
+
+```bash
+# Add to zshrc (already in dotfiles/zsh/zshrc)
+export VAULT_HOME="$HOME/Volumes/mch"
+```
+
+Also set in `~/.claude/settings.json` `env` (below) so Claude Code subprocesses see it.
+
+## 4. Global Settings: `~/.claude/settings.json`
 
 ```json
 {
@@ -82,7 +93,8 @@ claude plugin enable research@m-claude-plugins
   "env": {
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
     "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "VAULT_HOME": "<path-to-vault>"
   }
 }
 ```
@@ -96,7 +108,7 @@ claude plugin enable research@m-claude-plugins
 
 > **Note:** workmux status hooks (`working`/`waiting`/`done`) are managed by `workmux-status` plugin — no manual config needed.
 
-## 4. Statusline
+## 5. Statusline
 
 Displays `[ModelName]  folder | branch` in the terminal status bar.
 
@@ -105,7 +117,7 @@ cp ~/dotfiles/claude/statusline.sh ~/.claude/statusline.sh
 chmod +x ~/.claude/statusline.sh
 ```
 
-## 5. Stop Hook (TTS)
+## 6. Stop Hook (TTS)
 
 Speaks text after trigger emoji using VoiceMode CLI. Voice: `shimmer` (OpenAI), speed `1.0`.
 
@@ -115,7 +127,7 @@ cp ~/dotfiles/claude/hooks/speak-summary.py ~/.claude/hooks/
 chmod +x ~/.claude/hooks/speak-summary.py
 ```
 
-## 6. workmux
+## 7. workmux
 
 Git worktree + tmux orchestrator for multi-agent workflows. Docs: https://workmux.raine.dev
 
@@ -174,7 +186,7 @@ workmux run <branch> <cmd>         # run shell command in agent's worktree
 - `/worktree` — fire and forget, you review later
 - `/coordinator` — full automation: wait, review, send follow-ups, merge
 
-## 7. MCP Servers
+## 8. MCP Servers
 
 | Server | Source | Purpose |
 |--------|--------|---------|
@@ -195,3 +207,16 @@ After installing plugins in a running session, use `/reload-plugins` to activate
 ### Obsidian setup
 
 Obsidian-specific plugins — see [obsidian/SETUP.md](../obsidian/SETUP.md#4-claude-code-plugins-for-obsidian).
+Vault symlink — see [obsidian/SETUP.md](../obsidian/SETUP.md#2-claude-code-symlink).
+
+### SteamOS (Steam Deck)
+
+Obsidian runs via Flatpak on SteamOS, which sandboxes the CLI socket. The `obsidian` CLI (and tools that depend on it: `fm`, `oq`) can't find Obsidian without a symlink.
+
+```bash
+# Symlink Flatpak-sandboxed socket to where CLI expects it
+ln -sf /run/user/1000/.flatpak/md.obsidian.Obsidian/xdg-run/.obsidian-cli.sock \
+  "$XDG_RUNTIME_DIR/.obsidian-cli.sock"
+```
+
+> **Note:** The symlink breaks on each Obsidian restart (new socket). Re-run after restarting Obsidian, or add to a startup script.
