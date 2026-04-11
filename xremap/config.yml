@@ -99,7 +99,7 @@ keymap:
       Super_L-q: Alt-F4
       Super_L-h: Super_L-d           # KDE: show desktop (hide all)
       Super_L-m: Super_L-PageDown    # KDE: minimize window
-      Super_L-d: Ctrl-d              # Prevent KDE show desktop
+      Super_L-d: Super_L-Shift-d     # Ghostty: new split
       Super_L-e: Ctrl-e              # Prevent KDE file manager
       Super_L-1: Ctrl-1              # Prevent KDE virtual desktops
       Super_L-2: Ctrl-2

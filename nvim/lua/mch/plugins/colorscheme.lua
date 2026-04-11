@@ -1,12 +1,11 @@
 return {
   {
-    'catppuccin/nvim',
+    "rose-pine/neovim",
+    name = "rose-pine",
     lazy = false,
-    priority = 1000, -- make sure to load this before all the other start plugins
+    priority = 1000,
     config = function()
-      -- Optionally configure and load the colorscheme
-      -- directly inside the plugin declaration.      -- load the colorscheme here
-      vim.cmd("colorscheme catppuccin")
+      vim.cmd("colorscheme rose-pine")
     end,
   },
 }

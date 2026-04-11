@@ -5,6 +5,9 @@
 
 keybind = super+shift+e=text:\x1b:Neotree toggle\r
 keybind = ctrl+shift+e=text:\x1b:Neotree toggle\r
+
+keybind = super+shift+d=new_split:right
+
 #keybind = ctrl+d=new_split:right
 #keybind = cmd+d=new_split:right
 #keybind = ctrl+d=unbind

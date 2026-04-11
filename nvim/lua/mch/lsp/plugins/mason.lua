@@ -21,17 +21,11 @@ return {
 			},
 		})
 
-		local ensure_lsp = servers
-		if mason_lspconfig.get_available_servers then
-			local available = mason_lspconfig.get_available_servers()
-			local allowed = {}
-			for _, name in ipairs(available) do
-				allowed[name] = true
-			end
-			ensure_lsp = vim.tbl_filter(function(name)
-				return allowed[name] == true
-			end, servers)
-		end
+		-- Filter out servers that Mason can't install
+		local skip = { jinja_lsp = true }
+		local ensure_lsp = vim.tbl_filter(function(name)
+			return not skip[name]
+		end, servers)
 
 		mason_lspconfig.setup({ ensure_installed = ensure_lsp, automatic_enable = false })
 
