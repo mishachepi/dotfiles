@@ -90,6 +90,9 @@ ln -sf $HOME/dotfiles/nvim $HOME/.config/
 ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/dotfiles/ghostty $HOME/.config/
 ln -sf $HOME/dotfiles/gitconfig $HOME/.gitconfig
+mkdir -p $HOME/.ssh/config.d
+ln -sf $HOME/dotfiles/ssh/config $HOME/.ssh/config
+ln -sf $HOME/dotfiles/ssh/config.d/term $HOME/.ssh/config.d/term
 
 # 5. Install nnn plugins
 curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
