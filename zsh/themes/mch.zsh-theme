@@ -41,3 +41,7 @@ PROMPT='$(_mch_prompt_host)%F{blue}%3~%f $(git_prompt_info)$(git_prompt_status)
 $(_mch_prompt_python)%(?.%F{white}\$.%F{red}✗)%f '
 
 RPROMPT=""
+
+# Reset oh-my-zsh LS_COLORS (cyan=pink in Rose Pine, use blue for dirs)
+export LS_COLORS="${LS_COLORS/di=1;36/di=1;34}"
+export LSCOLORS="Exfxcxdxbxegedabagacad"
