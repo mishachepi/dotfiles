@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Switch to Gaming Mode
+Exec=steamos-session-select gamescope
+Icon=gaming-return
+Terminal=false
+Type=Application
+StartupNotify=false

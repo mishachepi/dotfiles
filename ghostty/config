@@ -4,18 +4,41 @@
 # Empty values reset the configuration to the default value
 
 keybind = super+shift+e=text:\x1b:Neotree toggle\r
+keybind = ctrl+shift+e=text:\x1b:Neotree toggle\r
 #keybind = ctrl+d=new_split:right
 #keybind = cmd+d=new_split:right
 #keybind = ctrl+d=unbind
 #keybind = super+d=unbind
 
+# Cmd+1..9 → Ghostty tabs (xremap sends Ctrl+1..9)
+keybind = ctrl+1=goto_tab:1
+keybind = ctrl+2=goto_tab:2
+keybind = ctrl+3=goto_tab:3
+keybind = ctrl+4=goto_tab:4
+keybind = ctrl+5=goto_tab:5
+keybind = ctrl+6=goto_tab:6
+keybind = ctrl+7=goto_tab:7
+keybind = ctrl+8=goto_tab:8
+keybind = ctrl+9=goto_tab:9
+
+# Unbind Alt+number so it passes through to tmux as M-1..M-9
+keybind = alt+1=unbind
+keybind = alt+2=unbind
+keybind = alt+3=unbind
+keybind = alt+4=unbind
+keybind = alt+5=unbind
+keybind = alt+6=unbind
+keybind = alt+7=unbind
+keybind = alt+8=unbind
+keybind = alt+9=unbind
+
 font-family = "Inconsolata LGC Nerd Font"
-font-size = 16
-theme = Catppuccin Macchiato
+font-size = 13
+theme = Rose Pine Moon
 
 scrollback-limit = 99999999
 
 copy-on-select = true
 macos-icon-ghost-color = 000000
 macos-option-as-alt = left
-#macos-icon = holographic
+# macos-icon = holographic

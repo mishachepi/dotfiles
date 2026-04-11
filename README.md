@@ -54,8 +54,8 @@ tmux/worktree orchestrator for multi-agent workflows. See [workmux/README.md](wo
 - install tools via brew from apps.md
 - install fonts [instruction](fonts/readme.md)
 
-### Linux specifics
-- TODO: desktop env
+### SteamOS (Steam Deck) specifics
+macOS-like keyboard experience via xremap, setup script, systemd services. See [steamos/README.md](steamos/README.md)
 
 ### Windows specifics
 - use WSL (wsl --install)

@@ -1,0 +1,184 @@
+# xremap config — macOS-like keyboard for KDE on Steam Deck
+# Super = Cmd, Ctrl = terminal-only, Alt+hjkl = arrows
+# Left Super alone = English, Right Super alone = Russian
+
+modmap:
+  - name: Caps Lock to Control
+    remap:
+      CapsLock: Ctrl_L
+
+  - name: Language switching via Super alone
+    remap:
+      Super_L:
+        held: Super_L
+        alone: F1
+        alone_timeout_millis: 300
+      Super_R:
+        held: Super_R
+        alone: F2
+        alone_timeout_millis: 300
+
+keymap:
+  # macOS-like Super shortcuts for all non-terminal apps
+  - name: Super to Ctrl (GUI apps)
+    application:
+      not:
+        - ghostty
+        - Ghostty
+        - konsole
+        - kitty
+        - Alacritty
+    remap:
+      Super_L-c: Ctrl-c
+      Super_L-v: Ctrl-v
+      Super_L-x: Ctrl-x
+      Super_L-z: Ctrl-z
+      Super_L-Shift-z: Ctrl-y
+      Super_L-a: Ctrl-a
+      Super_L-s: Ctrl-s
+      Super_L-f: Ctrl-f
+      Super_L-w: Ctrl-w
+      Super_L-t: Ctrl-t
+      Super_L-n: Ctrl-n
+      Super_L-Shift-t: Ctrl-Shift-t
+      Super_L-l: Ctrl-l
+      Super_L-r: Ctrl-r
+      Super_L-p: Ctrl-p
+      Super_L-Shift-p: Ctrl-Shift-p
+      Super_L-d: Ctrl-d              # Prevent KDE show desktop
+      Super_L-e: Ctrl-e              # Prevent KDE file manager
+      Super_L-b: Ctrl-b              # Bookmarks
+      Super_L-g: Ctrl-g              # Go to / find next
+      Super_L-o: Ctrl-o              # Open file
+      Super_L-i: Ctrl-i              # Italic / info
+      Super_L-u: Ctrl-u              # Underline
+      Super_L-k: Ctrl-k              # Insert link
+      Super_L-Shift-s: Ctrl-Shift-s  # Save as
+      Super_L-Shift-n: Ctrl-Shift-n  # New window
+      Super_L-1: Ctrl-1              # Tab/panel switching
+      Super_L-2: Ctrl-2
+      Super_L-3: Ctrl-3
+      Super_L-4: Ctrl-4
+      Super_L-5: Ctrl-5
+      Super_L-6: Ctrl-6
+      Super_L-7: Ctrl-7
+      Super_L-8: Ctrl-8
+      Super_L-9: Ctrl-9
+      Super_L-0: Ctrl-0
+      Super_L-q: Alt-F4
+      Super_L-h: Super_L-d           # KDE: show desktop (hide all)
+      Super_L-m: Super_L-PageDown    # KDE: minimize window
+      Super_L-comma: Ctrl-comma      # Settings
+      Super_L-LeftBrace: Alt-Left    # Back
+      Super_L-RightBrace: Alt-Right  # Forward
+      Super_R-c: Ctrl-c
+      Super_R-v: Ctrl-v
+      Super_R-x: Ctrl-x
+      Super_R-z: Ctrl-z
+      Super_R-a: Ctrl-a
+      Super_R-s: Ctrl-s
+      Super_R-q: Alt-F4
+
+  # Terminal apps: Super → Ctrl+Shift (Ctrl+C stays as SIGINT)
+  - name: Super shortcuts (terminals)
+    application:
+      only:
+        - ghostty
+        - Ghostty
+        - konsole
+        - kitty
+        - Alacritty
+    remap:
+      Super_L-c: Ctrl-Shift-c
+      Super_L-v: Ctrl-Shift-v
+      Super_L-t: Ctrl-Shift-t
+      Super_L-w: Ctrl-Shift-w
+      Super_L-n: Ctrl-Shift-n
+      Super_L-f: Ctrl-Shift-f
+      Super_L-Shift-e: Ctrl-Shift-e    # Neotree toggle (via Ghostty keybind)
+      Super_L-q: Alt-F4
+      Super_L-h: Super_L-d           # KDE: show desktop (hide all)
+      Super_L-m: Super_L-PageDown    # KDE: minimize window
+      Super_L-d: Ctrl-d              # Prevent KDE show desktop
+      Super_L-e: Ctrl-e              # Prevent KDE file manager
+      Super_L-1: Ctrl-1              # Prevent KDE virtual desktops
+      Super_L-2: Ctrl-2
+      Super_L-3: Ctrl-3
+      Super_L-4: Ctrl-4
+      Super_L-5: Ctrl-5
+      Super_L-6: Ctrl-6
+      Super_L-7: Ctrl-7
+      Super_L-8: Ctrl-8
+      Super_L-9: Ctrl-9
+      Super_L-0: Ctrl-0
+      Alt_L-1: [Ctrl-b, "1"]         # tmux: prefix + window number
+      Alt_L-2: [Ctrl-b, "2"]
+      Alt_L-3: [Ctrl-b, "3"]
+      Alt_L-4: [Ctrl-b, "4"]
+      Alt_L-5: [Ctrl-b, "5"]
+      Alt_L-6: [Ctrl-b, "6"]
+      Alt_L-7: [Ctrl-b, "7"]
+      Alt_L-8: [Ctrl-b, "8"]
+      Alt_L-9: [Ctrl-b, "9"]
+
+  # macOS navigation (everywhere)
+  - name: Cmd+Arrow navigation
+    remap:
+      Super_L-Left: Home
+      Super_L-Right: End
+      Super_L-Up: Ctrl-Home
+      Super_L-Down: Ctrl-End
+      Super_L-Shift-Left: Shift-Home
+      Super_L-Shift-Right: Shift-End
+      Super_L-Shift-Up: Ctrl-Shift-Home
+      Super_L-Shift-Down: Ctrl-Shift-End
+      Super_L-BackSpace: Delete         # Forward delete (fn+Backspace on mac)
+
+  - name: Option+Arrow word navigation
+    remap:
+      Alt_L-Left: Ctrl-Left             # Word back
+      Alt_L-Right: Ctrl-Right           # Word forward
+      Alt_L-Shift-Left: Ctrl-Shift-Left   # Select word back
+      Alt_L-Shift-Right: Ctrl-Shift-Right # Select word forward
+      Alt_L-BackSpace: Ctrl-BackSpace   # Delete word backward
+
+  # Cmd+Tab → Alt+Tab (app switching)
+  - name: Cmd+Tab app switcher
+    remap:
+      Super_L-Tab: Alt-Tab
+      Super_L-Shift-Tab: Alt-Shift-Tab
+
+  # Cmd+Space → KDE runner
+  - name: Cmd+Space launcher
+    remap:
+      Super_L-space: Alt-F2
+
+  # Lock screen (Cmd+Ctrl+Q like macOS)
+  - name: Lock screen
+    remap:
+      Super_L-Ctrl-q:
+        launch: ["loginctl", "lock-session"]
+
+  # Screenshots (macOS-like: Cmd+Shift+3 fullscreen, Cmd+Shift+4 region)
+  - name: Screenshots
+    remap:
+      Super_L-Shift-3: Print           # Spectacle: full screen
+      Super_L-Shift-4: Shift-Print     # Spectacle: region select
+
+  # Switch desktops (Ctrl+Left/Right like macOS Ctrl+Arrow for Spaces)
+  - name: Switch desktops
+    remap:
+      Ctrl_L-Left: Super_L-Ctrl-Left    # KDE default: Switch One Desktop to the Left
+      Ctrl_L-Right: Super_L-Ctrl-Right  # KDE default: Switch One Desktop to the Right
+
+  # Vim arrows with Alt (everywhere)
+  - name: Alt+hjkl arrows
+    remap:
+      Alt_L-h: Left
+      Alt_L-j: Down
+      Alt_L-k: Up
+      Alt_L-l: Right
+      Alt_L-Shift-h: Shift-Left
+      Alt_L-Shift-j: Shift-Down
+      Alt_L-Shift-k: Shift-Up
+      Alt_L-Shift-l: Shift-Right
