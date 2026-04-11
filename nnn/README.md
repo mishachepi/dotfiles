@@ -16,6 +16,8 @@ brew install bat chafa mediainfo
 
 Plugins install to `~/.config/nnn/plugins/`.
 
+**Important:** Plugins are not included with nnn — you must run the install script above after installing nnn. Without it, `;p`, `;o`, etc. will do nothing.
+
 ## Config
 
 nnn is configured via env vars in `zsh/zshrc`:
@@ -23,7 +25,7 @@ nnn is configured via env vars in `zsh/zshrc`:
 | Variable | Value | Purpose |
 |----------|-------|---------|
 | `NNN_FIFO` | `/tmp/nnn.fifo` | Required for preview-tui |
-| `NNN_PLUG` | `p:preview-tui;g:gitstatus;o:fzopen;d:dragdrop` | Active plugins |
+| `NNN_PLUG` | `p:preview-tui;o:fzopen;d:dragdrop` | Active plugins |
 | `NNN_BMS` | `p:~/projects;d:~/dotfiles;h:~` | Bookmarks |
 | `NNN_FCOLORS` | `c1e2272e006033f7c6d6abc4` | File type colors |
 | `NNN_BATTHEME` | `ansi` | bat syntax theme |
@@ -77,7 +79,6 @@ Edit bookmarks in `NNN_BMS` env var. Format: `key:path;key:path`.
 | Key | Plugin | What it does |
 |-----|--------|-------------|
 | `p` | preview-tui | Live file preview in tmux split |
-| `g` | gitstatus | Show git status for files (staged, modified, untracked) |
 | `o` | fzopen | Fuzzy find and open files with fzf |
 | `d` | dragdrop | Drag and drop files (GUI) |
 

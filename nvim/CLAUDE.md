@@ -25,7 +25,7 @@ This is a personal Neovim configuration built using Lazy.nvim package manager. T
 ### Language Support
 - **Russian keyboard layout support** via `langmap` in options.lua
 - **LSP configuration** with Mason for language servers (Python, TypeScript, Lua, YAML, Bash, GraphQL)
-- **Treesitter** for syntax highlighting and code parsing; parser installs stay explicit (`auto_install = false`)
+- **Treesitter** for syntax highlighting and code parsing; parser installs stay explicit (`auto_install = false`). Requires `tree-sitter-cli` (`brew install tree-sitter-cli`) — the CLI is needed to compile parsers on nvim 0.12+ with the `main` branch of nvim-treesitter
 - **Jinja/JSON filetype defaults** - Jinja templates get `{# %s #}` comments, JSON uses `// %s` for line comments
 
 ### Notable Custom Functions

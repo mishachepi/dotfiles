@@ -31,7 +31,7 @@ source $HOME/dotfiles/aliases.sh
 
 # nnn file manager (plugins via ;key, preview-tui needs tmux)
 export NNN_FIFO='/tmp/nnn.fifo'
-export NNN_PLUG='p:preview-tui;g:gitstatus;o:fzopen;d:dragdrop'
+export NNN_PLUG='p:preview-tui;o:fzopen;d:dragdrop'
 export NNN_BMS='p:~/projects;d:~/dotfiles;h:~'
 export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
 export NNN_BATTHEME='ansi'
