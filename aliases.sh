@@ -7,6 +7,7 @@ alias hg="history | grep"
 alias lg=lazygit
 alias n=nvim
 alias vf='nvim $(fzf)'
+alias awswho='aws sts get-caller-identity'
 
 # Git
 alias gs="git status"

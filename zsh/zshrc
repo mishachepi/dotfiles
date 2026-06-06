@@ -2,8 +2,7 @@
 [[ $- != *i* ]] && return
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_CUSTOM="$HOME/dotfiles/zsh"
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_CUSTOM="$HOME/dotfiles/zsh" # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="mch"
 plugins=(git)
 ZSH_COMPDUMP=~/.zcompdump
@@ -12,7 +11,7 @@ source $ZSH/oh-my-zsh.sh
 # General
 export EDITOR='nvim'
 export VISUAL='nvim'
-export VAULT_HOME="$HOME/Volumes/mch"
+export VAULT_HOME="/Volumes/mch"
 
 # Additional PATH
 if [[ -d "$HOME/dotfiles/scripts" ]]; then
@@ -37,7 +36,23 @@ export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
 export NNN_BATTHEME='ansi'
 export NNN_PAGER='less -R'
 
+# devtools
+export KUBECONFIG=$HOME/.kube/config:$(find ~/.kube/configs -type f | tr '\n' ':' | sed 's/:$//')
+
+awslogin() {
+  local profile
+  profile=$(aws configure list-profiles | fzf) || return
+  export AWS_PROFILE="$profile"
+  echo "AWS_PROFILE=$AWS_PROFILE"
+  aws sso login
+  aws sts get-caller-identity
+}
+
 # Completions (fpath must be before compinit, oh-my-zsh already calls compinit)
 fpath+=~/.zfunc
 
 [ -f "$HOME/.local_env.zsh" ] && source "$HOME/.local_env.zsh"
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+zstyle ':completion:*' menu select

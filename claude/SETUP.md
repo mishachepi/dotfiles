@@ -1,222 +1,69 @@
 # Claude Code Setup
 
+Single source of truth: `~/dotfiles/claude/`. Live `~/.claude/` keeps runtime state (cache, sessions); config files are symlinked back here.
+
+Audit current state: `bash ~/dotfiles/claude/ai-setup-info.sh`.
+
+- Plugins: [PLUGINS.md](PLUGINS.md)
+- Settings, hooks, agents, MCP: [CONFIG.md](CONFIG.md)
+- workmux: [../workmux/README.md](../workmux/README.md)
+- Obsidian-specific (vault layout, plugins): [../obsidian/SETUP.md](../obsidian/SETUP.md)
+
 ## 1. Install
 
 ```bash
-brew install claude-code
-
-# QMD — local hybrid search over markdown (MCP server dependency)
+brew install claude-code codex gemini-cli codex
 bun install -g @tobilu/qmd
-
-# workmux — tmux/worktree orchestrator for multi-agent workflows
 curl -fsSL https://raw.githubusercontent.com/raine/workmux/main/scripts/install.sh | bash
 ```
 
-## 2. Plugins
-
-```bash
-# Marketplaces
-claude plugin marketplace add tobi/qmd
-claude plugin marketplace add raine/workmux
-claude plugin marketplace add mishachepi/m-claude
-
-# Plugins
-claude plugin install qmd@qmd
-claude plugin install workmux-status
-claude plugin install github@claude-plugins-official
-claude plugin install plugin-dev@claude-plugins-official
-claude plugin install playwright@claude-plugins-official
-claude plugin install pr-review-toolkit@claude-plugins-official
-claude plugin install pyright-lsp@claude-plugins-official
-claude plugin install ralph-loop@claude-plugins-official
-claude plugin install security-guidance@claude-plugins-official
-claude plugin install core@m-claude-plugins
-claude plugin install lead@m-claude-plugins
-claude plugin install docs@m-claude-plugins
-claude plugin install research@m-claude-plugins
-# claude plugin install superpowers@claude-plugins-official  # full dev workflow (brainstorm, plan, TDD, parallel agents)
-
-# Enable plugins (install ≠ enable, must do both)
-claude plugin enable qmd@qmd
-claude plugin enable workmux-status@workmux
-claude plugin enable github@claude-plugins-official
-claude plugin enable plugin-dev@claude-plugins-official
-claude plugin enable playwright@claude-plugins-official
-claude plugin enable pr-review-toolkit@claude-plugins-official
-claude plugin enable pyright-lsp@claude-plugins-official
-claude plugin enable ralph-loop@claude-plugins-official
-claude plugin enable security-guidance@claude-plugins-official
-claude plugin enable core@m-claude-plugins
-claude plugin enable lead@m-claude-plugins
-claude plugin enable docs@m-claude-plugins
-claude plugin enable research@m-claude-plugins
-```
-
-> After installing/enabling in a running session, use `/reload-plugins` to activate.
-
-| Plugin | Purpose |
-|--------|---------|
-| `qmd@qmd` | MCP server for hybrid search (lex/vec/hyde) over markdown |
-| `workmux-status` | tmux window status hooks (working/waiting/done) |
-| `github` | GitHub integration (issues, PRs, checks) |
-| `plugin-dev` | Plugin development tools |
-| `playwright` | Browser automation |
-| `pr-review-toolkit` | Code review agents |
-| `pyright-lsp` | Python LSP integration |
-| `ralph-loop` | Loop agent |
-| `security-guidance` | Security checks |
-| `core@m-claude-plugins` | Self-learning workflow — init, learn, optimize, prompt engineering |
-| `lead@m-claude-plugins` | Parallel implementation orchestrator — workmux worktree agents |
-| `docs@m-claude-plugins` | Documentation management — init docs, update from code |
-| `research@m-claude-plugins` | Research and brainstorming — multi-agent research, structured specs |
-| `superpowers` (optional) | Full dev workflow — brainstorm, plan, TDD, subagent-driven development |
-
-
-## 3. VAULT_HOME
-
-All vault scripts/hooks use `$VAULT_HOME` instead of hardcoded paths.
-
-```bash
-# Add to zshrc (already in dotfiles/zsh/zshrc)
-export VAULT_HOME="$HOME/Volumes/mch"
-```
-
-Also set in `~/.claude/settings.json` `env` (below) so Claude Code subprocesses see it.
-
-## 4. Global Settings: `~/.claude/settings.json`
-
-```json
-{
-  "skipDangerousModePermissionPrompt": true,
-  "spinnerTipsEnabled": true,
-  "autoUpdatesChannel": "stable",
-  "env": {
-    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
-    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-    "VAULT_HOME": "<path-to-vault>"
-  }
-}
-```
-
-### Hooks
-
-| Event | Command | Purpose |
-|-------|---------|---------|
-| `SessionStart` | `ccbot hook` | Datetime context injection |
-| `Stop` | `python3 ~/.claude/hooks/speak-summary.py` | TTS for text after trigger emoji |
-
-> **Note:** workmux status hooks (`working`/`waiting`/`done`) are managed by `workmux-status` plugin — no manual config needed.
-
-## 5. Statusline
-
-Displays `[ModelName]  folder | branch` in the terminal status bar.
-
-```bash
-cp ~/dotfiles/claude/statusline.sh ~/.claude/statusline.sh
-chmod +x ~/.claude/statusline.sh
-```
-
-## 6. Stop Hook (TTS)
-
-Speaks text after trigger emoji using VoiceMode CLI. Voice: `shimmer` (OpenAI), speed `1.0`.
+## 2. Symlinks
 
 ```bash
 mkdir -p ~/.claude/hooks
-cp ~/dotfiles/claude/hooks/speak-summary.py ~/.claude/hooks/
-chmod +x ~/.claude/hooks/speak-summary.py
+
+# Config from dotfiles → ~/.claude
+ln -sf ~/dotfiles/claude/statusline.sh           ~/.claude/statusline.sh
+ln -sf ~/dotfiles/claude/hooks/speak-summary.py  ~/.claude/hooks/speak-summary.py
+
+# Share skills across CLIs (canonical = ~/.claude/skills)
+ln -s ~/.claude/skills ~/.codex/skills
+ln -s ~/.claude/skills ~/.gemini/skills
 ```
 
-## 7. workmux
-
-Git worktree + tmux orchestrator for multi-agent workflows. Docs: https://workmux.raine.dev
-
-### Install & setup
+For each Obsidian vault root:
 
 ```bash
-# CLI (already in §1)
-curl -fsSL https://raw.githubusercontent.com/raine/workmux/main/scripts/install.sh | bash
+ln -s _claude .claude
+ln -s _claude .codex
 ```
 
-### Manual step (requires interactive terminal)
+## 3. Marketplaces
 
 ```bash
-# Install skills (/workmux, /merge, /rebase, /worktree, /coordinator, /open-pr)
-workmux setup --skills
+claude plugin marketplace add anthropics/claude-plugins-official
+claude plugin marketplace add mishachepi/m-claude
+claude plugin marketplace add kepano/obsidian-skills
+claude plugin marketplace add tobi/qmd
+claude plugin marketplace add raine/workmux
 ```
 
-`workmux setup` detects installed agents and copies skills to `~/.claude/skills/`. Requires interactive terminal — run manually after setup.
+Install commands and plugin reference: [PLUGINS.md](PLUGINS.md).
 
-### Config
-
-`~/dotfiles/workmux/config.yaml` — agent (`claude`), pane layout, status icons, merge strategy.
+## 4. Verify
 
 ```bash
-# Symlink global config
-ln -sf ~/dotfiles/workmux/config.yaml ~/.config/workmux/config.yaml
+which claude codex gemini workmux qmd
+bash ~/dotfiles/claude/ai-setup-info.sh
 ```
 
-### CLI commands
+## SteamOS (Steam Deck)
+
+Obsidian runs via Flatpak on SteamOS, sandboxing the CLI socket. Symlink it where the `obsidian` CLI expects:
 
 ```bash
-workmux init                       # generate .workmux.yaml with defaults
-workmux add <branch>               # new worktree + tmux window
-workmux merge <branch>             # merge + cleanup
-workmux remove <branch>            # cleanup after PR merge
-workmux list                       # all worktrees
-workmux send <branch> <msg>        # send prompt to agent
-workmux capture <branch>           # get agent output
-workmux status                     # check agent statuses
-workmux wait                       # block until agents reach target status
-workmux run <branch> <cmd>         # run shell command in agent's worktree
-```
-
-### Skills
-
-| Skill | Purpose |
-|-------|---------|
-| `/workmux` | Reference — loads workmux docs into agent context |
-| `/merge` | Commit + rebase + merge with smart conflict resolution |
-| `/rebase` | Rebase with flexible target (`/rebase origin`, `/rebase feature-branch`) |
-| `/worktree` | Delegate tasks to parallel worktree agents (fire and forget) |
-| `/coordinator` | Full lifecycle orchestration — spawn, monitor, communicate, merge |
-| `/open-pr` | Write PR description from conversation context, open in browser |
-
-**`/worktree` vs `/coordinator`:**
-- `/worktree` — fire and forget, you review later
-- `/coordinator` — full automation: wait, review, send follow-ups, merge
-
-## 8. MCP Servers
-
-| Server | Source | Purpose |
-|--------|--------|---------|
-| QMD | `qmd@qmd` plugin | Hybrid search over markdown |
-| Google Calendar | Built into Claude Code | Calendar integration |
-| Playwright | `playwright@claude-plugins-official` | Browser automation |
-
-## Verification
-
-```bash
-which claude workmux qmd
-claude plugin list
-cat ~/.claude/settings.json
-```
-
-After installing plugins in a running session, use `/reload-plugins` to activate them without restarting Claude Code.
-
-### Obsidian setup
-
-Obsidian-specific plugins — see [obsidian/SETUP.md](../obsidian/SETUP.md#4-claude-code-plugins-for-obsidian).
-Vault symlink — see [obsidian/SETUP.md](../obsidian/SETUP.md#2-claude-code-symlink).
-
-### SteamOS (Steam Deck)
-
-Obsidian runs via Flatpak on SteamOS, which sandboxes the CLI socket. The `obsidian` CLI (and tools that depend on it: `fm`, `oq`) can't find Obsidian without a symlink.
-
-```bash
-# Symlink Flatpak-sandboxed socket to where CLI expects it
 ln -sf /run/user/1000/.flatpak/md.obsidian.Obsidian/xdg-run/.obsidian-cli.sock \
   "$XDG_RUNTIME_DIR/.obsidian-cli.sock"
 ```
 
-> **Note:** The symlink breaks on each Obsidian restart (new socket). Re-run after restarting Obsidian, or add to a startup script.
+> Symlink breaks on each Obsidian restart (new socket). Re-run after restart, or wire into a startup script.

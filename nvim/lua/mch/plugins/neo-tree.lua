@@ -50,6 +50,10 @@ return {
 						conflict = "",
 					},
 				},
+				symlink_target = {
+					enabled = true,
+					target_display = "auto",
+				},
 			},
 			clipboard = {
 				sync = "universal",
@@ -99,7 +103,8 @@ return {
 					visible = false,
 					hide_dotfiles = false,
 					hide_gitignored = false,
-					hide_hidden = true,
+					hide_ignored = false,
+					hide_hidden = false,
 					hide_by_name = {
 						".DS_Store",
 					},
