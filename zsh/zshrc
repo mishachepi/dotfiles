@@ -11,7 +11,7 @@ source $ZSH/oh-my-zsh.sh
 # General
 export EDITOR='nvim'
 export VISUAL='nvim'
-export VAULT_HOME="/Volumes/mch"
+# VAULT_HOME → ~/.local_env.zsh
 
 # Additional PATH
 if [[ -d "$HOME/dotfiles/scripts" ]]; then
@@ -20,6 +20,10 @@ fi
 # bun global packages (qmd, etc.)
 if [[ -d "$HOME/.bun/bin" ]]; then
   path=("$HOME/.bun/bin" $path)
+fi
+# Go binaries
+if [[ -d "$HOME/go/bin" ]]; then
+  path=("$HOME/go/bin" $path)
 fi
 
 # set vi mode
@@ -53,7 +57,10 @@ fpath+=~/.zfunc
 
 [ -f "$HOME/.local_env.zsh" ] && source "$HOME/.local_env.zsh"
 
-fpath+=~/.zfunc; autoload -Uz compinit; compinit
+fpath+=~/.zfunc
+fpath=(/Users/mikhailchepkin/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
 
 zstyle ':completion:*' menu select
 
