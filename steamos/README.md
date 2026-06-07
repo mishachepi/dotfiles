@@ -21,6 +21,7 @@ bash $HOME/dotfiles/steamos/setup.sh
 - Creates and enables xremap systemd user service (`--watch=device` for Bluetooth keyboard reconnection)
 - Sets default boot to Desktop Mode
 - Ensures `~/.local/bin` in PATH via `~/.local_env.zsh` (needed for claude, xremap, etc.)
+- Installs xhost autostart for xremap app-specific key remapping
 - Configures Ghostty flatpak font access
 
 ## xremap keyboard mappings
@@ -60,6 +61,23 @@ bash $HOME/dotfiles/steamos/setup.sh
 | 3/4-finger swipe down | Show desktop |
 
 Config: `steamos/libinput-gestures.conf`, runs as systemd user service. Uses `qdbus` to invoke KDE actions directly (bypasses xremap).
+
+If gestures stop working (e.g. after trackpad reconnects), restart the service:
+```bash
+systemctl --user restart libinput-gestures.service
+```
+
+## NetBird VPN
+```bash
+# Install via brew
+brew install netbirdio/tap/netbird
+
+# Start service and connect
+sudo /home/linuxbrew/.linuxbrew/bin/netbird service install
+sudo /home/linuxbrew/.linuxbrew/bin/netbird service start
+sudo /home/linuxbrew/.linuxbrew/bin/netbird up
+```
+Note: `sudo` doesn't see brew binaries — use full path. After `netbird up`, open the auth link in browser.
 
 ## After SteamOS updates
 The root filesystem is immutable — `~/.local/bin`, configs, and systemd user services survive updates. Just re-run:
