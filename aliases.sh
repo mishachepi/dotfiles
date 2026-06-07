@@ -5,6 +5,7 @@ alias dotfiles='cd ~/dotfiles/'
 alias note='cd "$NOTES_FOLDER"'
 alias hg="history | grep"
 alias lg=lazygit
+alias j=junior
 alias n=nvim
 alias vf='nvim $(fzf)'
 alias awswho='aws sts get-caller-identity'
