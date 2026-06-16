@@ -12,6 +12,7 @@ alias awswho='aws sts get-caller-identity'
 
 # Git
 alias gs="git status"
+alias gp="git pull"
 alias gpp="git stash push && git pull && git stash pop"
 
 # k8s
