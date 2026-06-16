@@ -34,6 +34,19 @@ ln -sf $VAULT_HOME/_claude $VAULT_HOME/.claude
 
 This makes `settings.json`, `rules/`, `skills/`, `commands/`, `scripts/` visible to Claude Code when working in the vault.
 
+## 2.5. Scion templates mirror for Obsidian Sync
+The scion mesh lives in `.scion/` (real dir — runtime state, scripts, logs, templates). Obsidian doesn't sync dotfolders, so agent templates would be invisible to Sync. Mirror only the templates dir under a `_scion/` wrapper so it shows up in Obsidian:
+
+```bash
+mkdir -p $VAULT_HOME/_scion
+ln -sf ../.scion/templates $VAULT_HOME/_scion/templates
+```
+
+Notes:
+- `.scion/` itself stays real and dotfile-hidden (runtime: agents/, logs/, scripts/, README, routines, etc.). Don't symlink the whole thing — only `templates/` needs Obsidian visibility.
+- `_scion/templates` is whitelisted in `.gitignore` (`!_scion/templates`).
+- macOS crontab entries (`for-agent-dispatcher.sh`, `orchestrator-healthcheck.sh`) reference `/Volumes/mch/.scion/scripts/...` directly — no change needed.
+
 ## 3. QMD — Vault Indexing
 
 Requires `qmd` CLI — installed as part of [Claude Code setup](../claude/SETUP.md#1-install).

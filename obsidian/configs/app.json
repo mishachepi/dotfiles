@@ -3,6 +3,9 @@
   "livePreview": false,
   "vimMode": true,
   "alwaysUpdateLinks": true,
+  "userIgnoreFilters": [
+    "Photo_Films/"
+  ],
   "strictLineBreaks": false,
   "readableLineLength": false,
   "foldIndent": true,
