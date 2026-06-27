@@ -41,6 +41,7 @@ export NNN_BATTHEME='ansi'
 export NNN_PAGER='less -R'
 
 # devtools
+mkdir -p ~/.kube/configs
 export KUBECONFIG=$HOME/.kube/config:$(find ~/.kube/configs -type f | tr '\n' ':' | sed 's/:$//')
 
 awslogin() {

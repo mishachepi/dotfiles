@@ -81,6 +81,7 @@ brew install --cask deepl
 
 ### devops
 brew install kubectl
+brew install kubectx # provides kubectx + kubens
 brew install terraform
 brew install ansible
 brew install --cask lens
