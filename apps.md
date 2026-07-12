@@ -24,19 +24,19 @@
 - netbird
 - outline
 - sshuttle
+- wireguard
 #- tailscale
-#- wireguard
 
 ### passwords
-- keepassxc
 - bitwarden
+- keepassxc
 #- pass (unix)
 
 ### AI
 - ClaudeCode
-- Codex
 - Gemini-cli
-- mods
+- Codex
+- pi
 
 ## Install
 ```bash
@@ -53,7 +53,6 @@ brew install lazygit
 brew install lazydocker
 brew install htop
 brew install ffmpeg
-brew install starship # replase by zsh theme
 brew install raine/workmux/workmux
 
 ### full desktop
@@ -81,6 +80,7 @@ brew install --cask deepl
 
 ### devops
 brew install kubectl
+brew install kubectx # provides kubectx + kubens
 brew install terraform
 brew install ansible
 brew install --cask lens

@@ -1,0 +1,38 @@
+[mgr]
+ratio = [ 1, 2, 3 ]
+sort_dir_first = true
+show_hidden = true
+
+[[plugin.prepend_fetchers]]
+id = "git"
+url = "*"
+run = "git"
+group = "git"
+
+[[plugin.prepend_fetchers]]
+id = "git"
+url = "*/"
+run = "git"
+group = "git"
+
+[git]
+repo_prefix = true
+status_cache = true
+
+[preview]
+max_width = 900
+max_height = 1000
+
+[opener]
+open = [
+  { run = 'open "$1"', desc = "Open", for = "unix" },
+]
+edit = [
+  { run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
+]
+
+[open]
+rules = [
+  # PDF
+  { url = "*.pdf", use = "open" },
+]

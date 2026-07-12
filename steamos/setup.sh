@@ -155,7 +155,21 @@ else
   fail "libinput-gestures service failed to start"
 fi
 
-# 7. Default to Desktop Mode on boot
+# 7. xhost access for xremap (allows app-specific key remapping)
+echo ""
+echo "--- xhost autostart ---"
+XHOST_DESKTOP="$HOME/.config/autostart/xhost-local.desktop"
+mkdir -p "$(dirname "$XHOST_DESKTOP")"
+cat > "$XHOST_DESKTOP" << EOF
+[Desktop Entry]
+Type=Application
+Name=xhost local access
+Exec=xhost +SI:localuser:$USER
+X-KDE-autostart-phase=1
+EOF
+ok "xhost autostart installed"
+
+# 8. Default to Desktop Mode on boot
 echo ""
 echo "--- Boot mode ---"
 if command -v steamos-session-select >/dev/null 2>&1; then
@@ -165,11 +179,11 @@ else
   fail "steamos-session-select not found"
 fi
 
-# 7b. Gaming Mode shortcut on Desktop
+# 8b. Gaming Mode shortcut on Desktop
 cp "$DOTFILES/steamos/Gaming Mode.desktop" "$HOME/Desktop/Gaming Mode.desktop"
 ok "Gaming Mode shortcut installed"
 
-# 8. Local env (PATH for ~/.local/bin — needed for claude, xremap, etc.)
+# 9. Local env (PATH for ~/.local/bin — needed for claude, xremap, etc.)
 echo ""
 echo "--- Local env ---"
 LOCAL_ENV="$HOME/.local_env.zsh"
@@ -187,7 +201,7 @@ else
   ok "$LOCAL_ENV already has ~/.local/bin in PATH"
 fi
 
-# 9. Flatpak overrides
+# 10. Flatpak overrides
 echo ""
 echo "--- Flatpak overrides ---"
 if command -v flatpak >/dev/null 2>&1; then
@@ -197,7 +211,7 @@ else
   fail "flatpak not found"
 fi
 
-# 10. Status
+# 11. Status
 echo ""
 echo "=== Status ==="
 echo -n "Shell: "; zsh --version 2>/dev/null || echo "not found"

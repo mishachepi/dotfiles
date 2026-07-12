@@ -9,22 +9,43 @@ brew install --cask obsidian
 # Obsidian CLI — enable in Obsidian:
 #   Settings -> General -> Command line interface -> Register CLI
 
-# Vault scripts (fm, fm-day, oq, etc.)
-cd <vault>/vault_scripts/ && uv tool install .
+# obsi-tools monorepo (fm, oq, fini, polar-import, life-dashboard, fini-bot)
+git clone git@github.com:mishachepi/obsi-tools.git $VAULT_TOOLS
+cd $VAULT_TOOLS # ask user to provide dir
 
-# ccbot — Obsidian Claude Code bot (creates day notes, processes flow, etc.)
-# Install per ccbot repo instructions
-```
+# Install CLI tools globally
+uv tool install --from packages/fm fm --force
+uv tool install --from packages/oq oq --force
+uv tool install --from packages/fini fini --force
+uv tool install --from packages/polar-import polar-import --force
+
+# life-dashboard: run from workspace
+uv sync  # installs all workspace deps
+uv run life-dashboard  # or: uv run streamlit run packages/life-dashboard/src/life_dashboard/app.py
+
+# fini-bot — Telegram bot for finance tracking
 
 ## 2. Claude Code symlink
-
-Claude Code looks for `<vault>/.claude/` directory. Symlink it to `claude/` (tracked in git):
+Claude Code looks for `<vault>/.claude/` directory. Symlink it to `_claude/` (tracked in git):
 
 ```bash
-ln -sf $VAULT_HOME/claude $VAULT_HOME/.claude
+ln -sf $VAULT_HOME/_claude $VAULT_HOME/.claude
 ```
 
 This makes `settings.json`, `rules/`, `skills/`, `commands/`, `scripts/` visible to Claude Code when working in the vault.
+
+## 2.5. Scion templates mirror for Obsidian Sync
+The scion mesh lives in `.scion/` (real dir — runtime state, scripts, logs, templates). Obsidian doesn't sync dotfolders, so agent templates would be invisible to Sync. Mirror only the templates dir under a `_scion/` wrapper so it shows up in Obsidian:
+
+```bash
+mkdir -p $VAULT_HOME/_scion
+ln -sf ../.scion/templates $VAULT_HOME/_scion/templates
+```
+
+Notes:
+- `.scion/` itself stays real and dotfile-hidden (runtime: agents/, logs/, scripts/, README, routines, etc.). Don't symlink the whole thing — only `templates/` needs Obsidian visibility.
+- `_scion/templates` is whitelisted in `.gitignore` (`!_scion/templates`).
+- macOS crontab entries (`for-agent-dispatcher.sh`, `orchestrator-healthcheck.sh`) reference `/Volumes/mch/.scion/scripts/...` directly — no change needed.
 
 ## 3. QMD — Vault Indexing
 
@@ -59,6 +80,17 @@ claude plugin install obsidian@obsidian-skills
 | `obsidian@obsidian-skills` | `kepano/obsidian-skills` | Official Obsidian skills (markdown, canvas, bases, CLI) |
 
 > **Note:** `mishachepi/m-claude` marketplace (core, lead, docs, research) is installed in [Claude Code setup](../claude/SETUP.md#2-plugins).
+
+### Global Rules
+
+```bash
+mkdir -p ~/.claude/rules
+cp ~/dotfiles/obsidian/rules/*.md ~/.claude/rules/
+```
+
+| Rule | Purpose |
+|------|---------|
+| `session-log.md` | After every meaningful action, append log entry to today's day note via `echo >> $VAULT_HOME/days/...` |
 
 ### Agents
 
@@ -125,29 +157,29 @@ Full plugin list (installed in `.obsidian/plugins/`):
 | `advanced-merger` | Note merging |
 | `file-diff` | Diff between notes |
 | `folders2graph` | Folder -> graph visualization |
-### tasknotes config
 
-```json
-{
-  "tasksFolder": "tasks",
-  "taskIdentificationMethod": "property",
-  "taskPropertyName": "type_key",
-  "taskPropertyValue": "task",
-  "defaultTaskStatus": "Backlog",
-  "defaultTaskPriority": "Medium",
-  "taskFilenameFormat": "zettel",
-  "storeTitleInFilename": true,
-  "customFilenameTemplate": "{title}",
-  "excludedFolders": "Archive",
-  "moveArchivedTasks": true,
-  "archiveFolder": "Archive/tasks"
-}
+## 6. Daily Auto-Commit
+
+Cron job runs every night: ETL (fm day, fm polar, fm area) → git commit.
+
+```bash
+# Scripts live in vault-tools, symlinked to vault
+# Symlinks are created during vault-tools setup (see vault-tools README)
+# Just add crontab:
+(crontab -l 2>/dev/null; echo '42 23 * * * $VAULT_HOME/_claude/scripts/vault-commit.sh $VAULT_HOME >> $VAULT_HOME/_inbox/tmp/vault-commit.log 2>&1') | crontab -
 ```
+
+**What it does (in order):**
+1. `fm -y day` — parse day notes → frontmatter metrics (time, habits, finance)
+2. `fm -y polar` — import Polar watch data (sleep, steps, HR)
+3. `fm -y area` — aggregate area health from children
+4. `git add -A && git commit` — snapshot with date + day-of-week
+5. Log each step to today's day note
 
 ## Verification
 
 ```bash
-which obsidian qmd fm-day oq fm
+which obsidian qmd fm oq fini polar-import
 qmd status
 obsidian --version
 ```

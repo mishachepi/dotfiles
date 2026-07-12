@@ -35,9 +35,9 @@ keybind = alt+7=unbind
 keybind = alt+8=unbind
 keybind = alt+9=unbind
 
-font-family = "Inconsolata LGC Nerd Font"
-font-size = 13
 theme = Rose Pine Moon
+font-family = "Inconsolata LGC Nerd Font"
+font-size = 15
 
 scrollback-limit = 99999999
 

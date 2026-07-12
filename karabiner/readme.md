@@ -1,10 +1,20 @@
 # Karabiner setup
 
+Rule files (complex modifications):
+- `language_switcher.json` — left ⌘ → English layout; right ⌘ → Russian layout
+- `common.json` — common remaps/hotkeys
+- `hotkeys.json` — app/window hotkeys
+
+## Install
+
 ```bash
+# Open Karabiner-Elements once first (creates ~/.config/karabiner + grants permissions)
 mkdir -p ~/.config/karabiner/assets/complex_modifications/
-cp ./language_switcher.json ./common.json ./hotkeys.json ~/.config/karabiner/assets/complex_modifications/
+cp ~/dotfiles/karabiner/*.json ~/.config/karabiner/assets/complex_modifications/
 ```
 
-1. Press ⌘ + shift + g and navigate to the folder: ~/.config/karabiner/assets/complex_modifications/. If the folder doesn't exist, open Karabiner-Elements first.
-2. Place a file named language_switcher.json in this folder with the following content. The config does only two things: left command enables the English layout; right command enables the Russian layout.
-3. Open Karabiner-Elements, click Complex Modifications, then Add rule, and add "Change input source to En by pressing left_command; Ru by pressing right_command" from the list.
+Then in Karabiner-Elements: **Complex Modifications → Add rule** — enable the rules from each file.
+
+> Note: `~/.config/karabiner/karabiner.json` (which rules are enabled, devices, profiles)
+> is NOT tracked in dotfiles — after copying the files, rules must be enabled in the UI
+> manually on a new machine. Don't symlink the assets dir: Karabiner rewrites files there.

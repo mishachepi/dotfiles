@@ -2,7 +2,7 @@
 
 return {
 	"nvim-telescope/telescope.nvim",
-	branch = "0.1.x",
+	branch = "master",
 	cmd = "Telescope",
 	keys = {
 		{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find buffers" },

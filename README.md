@@ -35,7 +35,7 @@ session manager
 Zsh framework with plugins and themes
 #### Ghostty
 Terminal
-#### nnn
+#### yazi
 File manager with git status, preview, fzf integration
 
 ### AI Tools
@@ -87,6 +87,7 @@ ln -sf $HOME/dotfiles/.gitignore $HOME/.config/git/ignore
 ln -sf $HOME/dotfiles/vim/vimrc $HOME/.vimrc
 ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 ln -sf $HOME/dotfiles/nvim $HOME/.config/
+ln -sf $HOME/dotfiles/yazi $HOME/.config/
 ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/dotfiles/ghostty $HOME/.config/
 ln -sf $HOME/dotfiles/gitconfig $HOME/.gitconfig
@@ -94,8 +95,8 @@ mkdir -p $HOME/.ssh/config.d
 ln -sf $HOME/dotfiles/ssh/config $HOME/.ssh/config
 ln -sf $HOME/dotfiles/ssh/config.d/term $HOME/.ssh/config.d/term
 
-# 5. Install nnn plugins
-curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
+# 5. Machine-local env (not tracked in git): VAULT_HOME, NOTES_FOLDER, work aliases, extra PATH
+touch $HOME/.local_env.zsh
 
 # 6. Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -111,7 +112,8 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # 9. workmux (see workmux/README.md)
 brew install raine/workmux/workmux
-cp $HOME/dotfiles/workmux/config.yaml $HOME/.config/workmux/config.yaml
+mkdir -p $HOME/.config/workmux
+ln -sf $HOME/dotfiles/workmux/config.yaml $HOME/.config/workmux/config.yaml
 
 # 10. Claude Code, Obsidian and uv if not installed
 brew install claude-code
