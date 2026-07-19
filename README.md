@@ -2,12 +2,12 @@
 ## Common
 Minimalism, Universatility, Understandability, Secutiry -> It is what I want to have -> "want" not mean "have"
 
-- Desktop navigation is Amethist and Karabiner hotkeys
 - nvim config and VScode config like nvim
 - nvim plugins (sometimes need to check and update it)
 - scripts/ folder with useful scripts
 - raycast flow/snippets
-- AI tools: [Claude Code](claude/SETUP.md), [Obsidian](obsidian/SETUP.md), [workmux](workmux/README.md)
+- Desktop navigation via Karabiner hotkeys
+- AI tools: [Claude Code](claude/SETUP.md), [Obsidian](obsidian/SETUP.md), [workmux](workmux/README.md), [Junior](https://github.com/mishachepi/junior)
 
 ### Setup:
 - [Bash](https://www.gnu.org/software/bash/)
@@ -53,6 +53,7 @@ tmux/worktree orchestrator for multi-agent workflows. See [workmux/README.md](wo
 ```
 - install tools via brew from apps.md
 - install fonts [instruction](fonts/readme.md)
+- karabiner hotkeys (symlink rule files, enable in UI) [instruction](karabiner/readme.md)
 
 ### SteamOS (Steam Deck) specifics
 macOS-like keyboard experience via xremap, setup script, systemd services. See [steamos/README.md](steamos/README.md)
@@ -78,6 +79,8 @@ git clone git@github.com:mishachepi/dotfiles.git $HOME/dotfiles
 
 # 3. Install core tools
 brew install {app} # For packages see [apps.md](apps.md)
+# Terminal font — ghostty is configured for "Inconsolata LGC Nerd Font":
+brew install --cask font-inconsolata-lgc-nerd-font
 
 # 4. Create symlinks
 mkdir -p $HOME/.config/git
@@ -91,11 +94,8 @@ ln -sf $HOME/dotfiles/yazi $HOME/.config/
 ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/dotfiles/ghostty $HOME/.config/
 ln -sf $HOME/dotfiles/gitconfig $HOME/.gitconfig
-mkdir -p $HOME/.ssh/config.d
-ln -sf $HOME/dotfiles/ssh/config $HOME/.ssh/config
-ln -sf $HOME/dotfiles/ssh/config.d/term $HOME/.ssh/config.d/term
 
-# 5. Machine-local env (not tracked in git): VAULT_HOME, NOTES_FOLDER, work aliases, extra PATH
+# 5. Machine-local env (not tracked in git): VAULT_HOME, work aliases, extra PATH
 touch $HOME/.local_env.zsh
 
 # 6. Install oh-my-zsh
@@ -116,9 +116,10 @@ mkdir -p $HOME/.config/workmux
 ln -sf $HOME/dotfiles/workmux/config.yaml $HOME/.config/workmux/config.yaml
 
 # 10. Claude Code, Obsidian and uv if not installed
-brew install claude-code
+brew install claude-code                         # brew cask: no self-update, tends to lag behind native
 brew install --cask obsidian
 brew install oven-sh/bun/bun uv  # dependencies for QMD scripts
+uv tool install "junior @ git+https://github.com/mishachepi/junior.git"  # runbook runner, see claude/SETUP.md §Junior
 
 # 11. Run Claude Code setup (plugins, hooks, agents)
 #     Follow instructions in claude/SETUP.md and obsidian/SETUP.md

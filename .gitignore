@@ -20,3 +20,6 @@ __pycache__/
 
 .nvimlog
 **/.claude/settings.local.json
+
+# junior run records (audit trail)
+.junior/output/
