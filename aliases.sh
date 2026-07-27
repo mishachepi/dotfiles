@@ -1,8 +1,6 @@
 # Aliases
 alias home='$EDITOR ~'
 alias config='$EDITOR ~/dotfiles'
-alias dotfiles='cd ~/dotfiles/'
-alias note='cd "$NOTES_FOLDER"'
 alias hg="history | grep"
 alias lg=lazygit
 alias j=junior
