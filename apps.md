@@ -64,11 +64,11 @@ brew install --cask amethyst
 brew install uv
 brew install go
 brew install bun
+brew install node
 
 ### additional
-brew install docker
+brew install colima docker
 brew install gh
-brew install --cask keepassxc
 brew install --cask obs
 brew install --cask outline-manager
 brew install --cask visual-studio-code
@@ -83,12 +83,12 @@ brew install kubectl
 brew install kubectx # provides kubectx + kubens
 brew install terraform
 brew install ansible
-brew install --cask lens
 brew install k9s
 brew install iperf3
 brew install trivy
 brew install dive
 brew install bruno
+brew install --cask lens
 
 ### Google
 brew install --cask google-drive
