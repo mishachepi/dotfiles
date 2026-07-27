@@ -6,15 +6,17 @@ Audit current state: `bash ~/dotfiles/claude/ai-setup-info.sh`.
 
 - Plugins: [PLUGINS.md](PLUGINS.md)
 - Settings, hooks, agents, MCP: [CONFIG.md](CONFIG.md)
-- workmux: [../workmux/README.md](../workmux/README.md)
 - Obsidian-specific (vault layout, plugins): [../obsidian/SETUP.md](../obsidian/SETUP.md)
 
 ## 1. Install
 
 ```bash
-brew install claude-code codex gemini-cli codex
+brew install claude-code                         # brew cask: no self-update, lags behind native
+brew install --cask codex
+brew install --cask antigravity-cli               # Google Antigravity CLI (command: agy)
+brew install node
 bun install -g @tobilu/qmd
-curl -fsSL https://raw.githubusercontent.com/raine/workmux/main/scripts/install.sh | bash
+uv tool install "junior @ git+https://github.com/mishachepi/junior.git"   # runbook runner, see §Junior
 ```
 
 ## 2. Symlinks
@@ -23,22 +25,18 @@ curl -fsSL https://raw.githubusercontent.com/raine/workmux/main/scripts/install.
 mkdir -p ~/.claude/hooks
 
 # Config from dotfiles → ~/.claude
+ln -sf ~/dotfiles/claude/settings.json           ~/.claude/settings.json
 ln -sf ~/dotfiles/claude/statusline.sh           ~/.claude/statusline.sh
 ln -sf ~/dotfiles/claude/hooks/speak-summary.py  ~/.claude/hooks/speak-summary.py
 
-# Enable statusline in ~/.claude/settings.json (symlink alone is not enough):
-#   "statusLine": { "type": "command", "command": "~/.claude/statusline.sh" }
-
 # Share skills across CLIs (canonical = ~/.claude/skills)
 ln -s ~/.claude/skills ~/.codex/skills
-ln -s ~/.claude/skills ~/.gemini/skills
 ```
 
-For each Obsidian vault root:
+For each Obsidian vault root (Claude Code looks for `<vault>/.claude`):
 
 ```bash
 ln -s _claude .claude
-ln -s _claude .codex
 ```
 
 ## 3. Marketplaces
@@ -48,7 +46,6 @@ claude plugin marketplace add anthropics/claude-plugins-official
 claude plugin marketplace add mishachepi/m-claude
 claude plugin marketplace add kepano/obsidian-skills
 claude plugin marketplace add tobi/qmd
-claude plugin marketplace add raine/workmux
 ```
 
 Install commands and plugin reference: [PLUGINS.md](PLUGINS.md).
@@ -56,9 +53,19 @@ Install commands and plugin reference: [PLUGINS.md](PLUGINS.md).
 ## 4. Verify
 
 ```bash
-which claude codex gemini workmux qmd
+which claude codex agy qmd junior
 bash ~/dotfiles/claude/ai-setup-info.sh
 ```
+
+## Junior (runbooks)
+
+[Junior](https://github.com/mishachepi/junior) — deterministic runbook runner: `collect` (shell) → **one schema-validated LLM call** → `publish` (shell). Fits between skills (interactive) and cron scripts (no LLM): use it when a job needs exactly one structured LLM step and must run headless.
+
+- Install: `uv tool install "junior @ git+https://github.com/mishachepi/junior.git"` (default harness `claudecode` drives the `claude` CLI — no API key needed).
+- Built-in runbooks: `local_review` (review the local git diff), `github_pr_review`, `weather_advice` (smoke test). `junior list` shows runbooks + harness status, `junior dry-run` previews without an LLM call.
+- Custom runbooks live per-project in `.junior/runbooks/<name>/` (YAML manifest + `prompt.md` + `schema.json` + collect/publish scripts). Config: `.junior.yaml` at the project root.
+- **Vault runbooks** (morning-start, end-day, expense-parse, …) live in the vault: docs + prompts in `$VAULT_HOME/_junior/runbooks/` (see its `README.md` for ownership and conventions); run from the vault root, cron via `loop-init` on the mesh host.
+- Rule of thumb from the vault README: CLI-backed jobs → junior runbooks; MCP-backed integrations (Gmail, Jira, Confluence) stay in interactive skills/agents.
 
 ## SteamOS (Steam Deck)
 

@@ -23,3 +23,6 @@ __pycache__/
 
 # junior run records (audit trail)
 .junior/output/
+
+# scion mesh infra — personal, lives machine-local (~/.scion) + private vault, NEVER in public dotfiles
+scion/

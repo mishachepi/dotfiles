@@ -7,7 +7,7 @@ Minimalism, Universatility, Understandability, Secutiry -> It is what I want to 
 - scripts/ folder with useful scripts
 - raycast flow/snippets
 - Desktop navigation via Karabiner hotkeys
-- AI tools: [Claude Code](claude/SETUP.md), [Obsidian](obsidian/SETUP.md), [workmux](workmux/README.md), [Junior](https://github.com/mishachepi/junior)
+- AI tools: [Claude Code](claude/SETUP.md), [Obsidian](obsidian/SETUP.md), Scion, [Junior](https://github.com/mishachepi/junior)
 
 ### Setup:
 - [Bash](https://www.gnu.org/software/bash/)
@@ -43,8 +43,8 @@ File manager with git status, preview, fzf integration
 AI CLI — plugins, hooks, statusline. See [claude/SETUP.md](claude/SETUP.md)
 #### Obsidian
 PKM — app configs, vault tools, QMD indexing. See [obsidian/SETUP.md](obsidian/SETUP.md)
-#### workmux
-tmux/worktree orchestrator for multi-agent workflows. See [workmux/README.md](workmux/README.md)
+#### Scion
+LLM agent mesh — hub, runtime broker, credential bridging.
 
 ### MacOS specifics
 - use homebrew
@@ -110,12 +110,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 #############
 
-# 9. workmux (see workmux/README.md)
-brew install raine/workmux/workmux
-mkdir -p $HOME/.config/workmux
-ln -sf $HOME/dotfiles/workmux/config.yaml $HOME/.config/workmux/config.yaml
-
-# 10. Claude Code, Obsidian and uv if not installed
+# 9. Claude Code, Obsidian and uv if not installed
 brew install claude-code                         # brew cask: no self-update, tends to lag behind native
 brew install --cask obsidian
 brew install oven-sh/bun/bun uv  # dependencies for QMD scripts

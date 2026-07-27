@@ -27,6 +27,3 @@ alias kd="kubectl describe"
 
 # tmux
 alias tma="tmux attach"
-
-# workmux
-alias wm="workmux"

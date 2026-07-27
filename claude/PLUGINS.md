@@ -11,7 +11,6 @@ claude plugin marketplace add anthropics/claude-plugins-official
 claude plugin marketplace add mishachepi/m-claude          # alias: m-claude-plugins
 claude plugin marketplace add kepano/obsidian-skills
 claude plugin marketplace add tobi/qmd
-claude plugin marketplace add raine/workmux
 ```
 
 ## User scope
@@ -20,12 +19,9 @@ claude plugin marketplace add raine/workmux
 claude plugin install context7@claude-plugins-official
 claude plugin install plugin-dev@claude-plugins-official
 claude plugin install playwright@claude-plugins-official
-claude plugin install pr-review-toolkit@claude-plugins-official
 claude plugin install pyright-lsp@claude-plugins-official
-claude plugin install ralph-loop@claude-plugins-official
 claude plugin install security-guidance@claude-plugins-official
 claude plugin install skill-creator@claude-plugins-official
-claude plugin install workmux-status@workmux
 claude plugin install obsidian@obsidian-skills
 claude plugin install core@m-claude-plugins
 claude plugin install lead@m-claude-plugins
@@ -46,23 +42,26 @@ claude plugin install telegram@claude-plugins-official
 claude plugin install hookify@claude-plugins-official
 ```
 
+## m-claude framework (this machine)
+
+The `m-claude-plugins` marketplace resolves to a **local clone** `~/SNV/m-claude` (remote `mishachepi/m-claude`) and provides `core`, `lead`, `docs`, `research`.
+
+The framework's **skills are versioned in `~/dotfiles/.claude/skills/`** — `brainstorm`, `learn`, `worktree-flow`, `docs-init`, `docs-update`, `lead-research`, `prompt-optimize` — delivered through the plugins, not copied into `~/.claude/skills` (which holds only `notebooklm`, `scion`).
+
 ## Reference
 
 | Plugin | Purpose |
 |--------|---------|
 | `qmd@qmd` | MCP server: hybrid search (lex/vec/hyde) over markdown |
-| `workmux-status@workmux` | tmux window status hooks (working/waiting/done) |
 | `context7@claude-plugins-official` | Library docs lookup |
 | `plugin-dev@claude-plugins-official` | Plugin scaffolding & validation |
 | `playwright@claude-plugins-official` | Browser automation |
-| `pr-review-toolkit@claude-plugins-official` | Code review agents |
 | `pyright-lsp@claude-plugins-official` | Python LSP integration |
-| `ralph-loop@claude-plugins-official` | Loop agent |
 | `security-guidance@claude-plugins-official` | Security review checks |
 | `skill-creator@claude-plugins-official` | Skill scaffolding |
 | `obsidian@obsidian-skills` | Obsidian skills (markdown, bases, canvas, cli, defuddle) |
 | `core@m-claude-plugins` | Self-learning workflow — init, learn, optimize |
-| `lead@m-claude-plugins` | Parallel implementation orchestrator (workmux worktree agents) |
+| `lead@m-claude-plugins` | Parallel implementation orchestrator (native `claude -w` worktree flow) |
 | `docs@m-claude-plugins` | Documentation management (init, update from code) |
 | `research@m-claude-plugins` | Multi-agent research, structured specs |
 | `telegram@claude-plugins-official` | Telegram channel access (project: vault) |

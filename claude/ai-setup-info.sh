@@ -1,8 +1,29 @@
 #!/usr/bin/env bash
 # AI setup audit — Claude Code, Codex, Gemini CLI.
 # Read-only. Outputs Markdown.
+#
+# Audits the operator's home ($HOME by default). Run from a scion agent
+# session and $HOME is the agent's fake-HOME — the audit would silently
+# describe the wrong environment. Override with:  --home /Users/<you>
+# (a loud warning is printed if $HOME looks like an agent fake-HOME).
 
 set -u
+
+# ---------- Resolve target home ----------
+TARGET_HOME=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --home) TARGET_HOME="${2:-}"; shift 2 ;;
+    --home=*) TARGET_HOME="${1#*=}"; shift ;;
+    *) shift ;;
+  esac
+done
+[[ -n "$TARGET_HOME" ]] && HOME="$TARGET_HOME"
+
+FAKE_HOME_WARNING=""
+if [[ "$HOME" == */.scion/agents/* ]]; then
+  FAKE_HOME_WARNING="⚠️ **\$HOME is a scion agent fake-HOME** (\`$HOME\`) — this audits the AGENT, not the operator. Re-run with an explicit target, e.g. \`bash $0 --home /Users/mch\`."
+fi
 
 # Vault root comes from the environment (set in ~/.local_env.zsh per machine).
 # Not exported -> the vault section says so explicitly; no guessing.
@@ -42,9 +63,12 @@ list_dir() {
 
 H1 "AI Setup Audit — $(date '+%Y-%m-%d %H:%M')"
 
+[[ -n "$FAKE_HOME_WARNING" ]] && printf '%s\n\n' "$FAKE_HOME_WARNING"
+KV "Home audited" "\`$HOME\`"
+
 # ---------- CLI tools present ----------
 H2 "CLI tools"
-for cmd in claude codex gemini; do
+for cmd in claude codex agy junior; do
   if command -v "$cmd" >/dev/null 2>&1; then
     KV "$cmd" "$(command -v "$cmd")"
   else
@@ -54,12 +78,12 @@ done
 
 # ---------- Global config layout ----------
 H2 "Global config roots"
-for d in ~/.claude ~/.codex ~/.gemini; do
+for d in ~/.claude ~/.codex; do
   printf -- '- %s\n' "$(path_info "$d")"
 done
 
 H3 "Skills directories (canonical: ~/.claude/skills)"
-for d in ~/.claude/skills ~/.codex/skills ~/.gemini/skills; do
+for d in ~/.claude/skills ~/.codex/skills; do
   printf -- '- %s\n' "$(path_info "$d")"
 done
 
@@ -101,7 +125,7 @@ fi
 H2 "Settings files"
 for f in ~/.claude/settings.json ~/.claude/settings.local.json \
          ~/.claude/settings-personal.json ~/.claude/settings-bedrock.json \
-         ~/.codex/config.toml ~/.gemini/settings.json; do
+         ~/.codex/config.toml; do
   if [[ -e "$f" ]]; then
     KV "$f" "$(wc -c < "$f" | tr -d ' ') bytes, modified $(stat -f '%Sm' -t '%Y-%m-%d' "$f")"
   fi
@@ -151,10 +175,4 @@ if [[ -f ~/.codex/config.toml ]]; then
   grep -E '^\[mcp_servers\.' ~/.codex/config.toml \
     | sed -E 's/^\[mcp_servers\.([^].]+).*$/\1/' \
     | sort -u | sed 's/^/- /'
-fi
-
-H2 "MCP servers (Gemini — settings.json)"
-if [[ -f ~/.gemini/settings.json ]] && command -v jq >/dev/null 2>&1; then
-  jq -r '.mcpServers // {} | keys[]' ~/.gemini/settings.json 2>/dev/null \
-    | sed 's/^/- /' || true
 fi

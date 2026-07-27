@@ -34,9 +34,10 @@
 
 ### AI
 - ClaudeCode
-- Gemini-cli
+- Antigravity
 - Codex
 - pi
+- [junior](https://github.com/mishachepi/junior) — deterministic runbook runner (uv tool)
 
 ## Install
 ```bash
@@ -53,7 +54,6 @@ brew install lazygit
 brew install lazydocker
 brew install htop
 brew install ffmpeg
-brew install raine/workmux/workmux
 
 ### full desktop
 brew install --cask arc
