@@ -25,6 +25,45 @@ uv run life-dashboard  # or: uv run streamlit run packages/life-dashboard/src/li
 
 # fini-bot — Telegram bot for finance tracking
 
+### Google Tasks CLI (`gtasks`)
+
+CLI-клиент Google Tasks ([BRO3886/gtasks](https://github.com/BRO3886/gtasks)). Используется для синхронизации задач из Google Tasks (входящие письма с конвертацией в task, напоминания) с vault-workflow. Claude Code умеет вызывать его через `gtasks-cli` skill.
+
+```bash
+# Install via brew tap
+brew tap bro3886/tap
+brew install gtasks
+# или одной строкой: brew install bro3886/tap/gtasks
+
+# 1. Создай OAuth2-приложение в Google Cloud Console
+#    - https://console.cloud.google.com/ → новый/существующий проект
+#    - Enable APIs → Google Tasks API
+#    - Credentials → Create OAuth client ID → Application type: "Desktop app"
+#    - Сохрани client_id и client_secret
+
+# 2. Положи credentials в конфиг (chmod 600 обязательно)
+mkdir -p ~/.config/gtasks
+cat > ~/.config/gtasks/config.toml <<'EOF'
+[credentials]
+client_id     = "PASTE_CLIENT_ID.apps.googleusercontent.com"
+client_secret = "PASTE_CLIENT_SECRET"
+
+[tasks]
+# default_task_list = "Backlog"  # опционально — список по умолчанию для -l
+EOF
+chmod 600 ~/.config/gtasks/config.toml
+
+# 3. OAuth-login (откроется браузер, токен уйдёт в Keychain)
+gtasks login
+
+# 4. Skill для Claude Code (положит skill в ~/.claude/skills/gtasks-cli/)
+gtasks skills install --agent claude
+
+# Проверка
+gtasks tasklists view
+gtasks skills status
+```
+
 ## 2. Claude Code symlink
 Claude Code looks for `<vault>/.claude/` directory. Symlink it to `_claude/` (tracked in git):
 
