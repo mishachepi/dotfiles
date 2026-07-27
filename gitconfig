@@ -1,6 +1,6 @@
-[user]
-    name = Mikhail Chepkin
-    email = mihchepi@gmail.com
+[include]
+    # Identity lives outside this public repo — see ~/.gitconfig.local
+    path = ~/.gitconfig.local
 [core]
     editor = nvim
 [color]
