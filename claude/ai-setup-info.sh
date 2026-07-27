@@ -4,8 +4,9 @@
 
 set -u
 
-# Vault root comes from the environment (set in ~/.local_env.zsh per machine)
-VAULT_MAIN="${VAULT_HOME:-}"
+# Vault root comes from the environment (set in ~/.local_env.zsh per machine).
+# Not exported -> the vault section says so explicitly; no guessing.
+VAULT_HOME="${VAULT_HOME:-}"
 
 H1() { printf '\n# %s\n\n' "$1"; }
 H2() { printf '\n## %s\n\n' "$1"; }
@@ -132,8 +133,8 @@ vault_info() {
   done
 }
 
-if [[ -n "$VAULT_MAIN" ]]; then
-  vault_info "Main vault" "$VAULT_MAIN"
+if [[ -n "$VAULT_HOME" ]]; then
+  vault_info "Main vault" "$VAULT_HOME"
 else
   echo "_(no vault configured — set VAULT_HOME in ~/.local_env.zsh)_"
 fi
