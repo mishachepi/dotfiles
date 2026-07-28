@@ -174,6 +174,7 @@ cp ~/dotfiles/obsidian/agents/*.md ~/.claude/agents/
 | Agent | Trigger | Purpose |
 |-------|---------|---------|
 | `/note <vault>` | "save to obsidian", "remember this", "запомни" | Create note in `_inbox/` with frontmatter + inbox tag. Reads vault's `CLAUDE.md` first. All `obsidian:*` skills available. File: `obsi-note.md` |
+| `/task <vault>` | "create a task", "log this as a task", "создай таску" | Create/update a task via Obsidian CLI — full frontmatter in one step (never quick-capture, which drops custom fields), DoD required, one context anchor. Vault's own task skill/schema (e.g. `obsi-tasks`) always overrides the defaults. File: `obsi-task.md` |
 | `/ask` | "find in notes", "what do I have about", "найди в заметках" | Search vault via QMD (hybrid search), retrieve content via Obsidian CLI, synthesize answer with `[[wikilinks]]` to sources. File: `obsi-ask.md` |
 
 Enable plugins in project settings (`<vault>/.claude/settings.json`):
