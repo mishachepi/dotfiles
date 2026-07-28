@@ -22,7 +22,7 @@ done
 
 FAKE_HOME_WARNING=""
 if [[ "$HOME" == */.scion/agents/* ]]; then
-  FAKE_HOME_WARNING="⚠️ **\$HOME is a scion agent fake-HOME** (\`$HOME\`) — this audits the AGENT, not the operator. Re-run with an explicit target, e.g. \`bash $0 --home /Users/mch\`."
+  FAKE_HOME_WARNING="⚠️ **\$HOME is a scion agent fake-HOME** (\`$HOME\`) — this audits the AGENT, not the operator. Re-run with an explicit target: \`bash $0 --home \$(dscl . -read /Users/\$(logname) NFSHomeDirectory | awk '{print \$2}')\`, or just pass the operator's home path."
 fi
 
 # Vault root comes from the environment (set in ~/.local_env.zsh per machine).

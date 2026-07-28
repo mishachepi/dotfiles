@@ -1,28 +1,162 @@
 {
+  "model": "sonnet",
+  "language": "Russian",
+  "theme": "dark",
+  "editorMode": "vim",
+  "verbose": true,
+  "autoCompactEnabled": true,
+  "askUserQuestionTimeout": "never",
+  "tui": "fullscreen",
+  "outputStyle": "Assistant General",
   "permissions": {
+    "deny": [
+      "EnterPlanMode",
+      "ExitPlanMode",
+      "DesignSync",
+      "NotebookEdit",
+      "SendMessage",
+      "PushNotification",
+      "RemoteTrigger",
+      "ReportFindings",
+      "ScheduleWakeup",
+      "AskUserQuestion",
+      "CronCreate",
+      "CronDelete",
+      "CronList"
+    ],
     "defaultMode": "bypassPermissions"
   },
-  "model": "sonnet",
+  "skipDangerousModePermissionPrompt": true,
+  "disableBundledSkills": true,
+  "disableWorkflows": true,
+  "disableRemoteControl": true,
+  "disableClaudeAiConnectors": true,
+  "disableArtifacts": true,
+  "includeCoAuthoredBy": false,
+  "gitAttribution": false,
+  "autoUpdater": {
+    "disabled": true
+  },
+  "telemetry": {
+    "enabled": false
+  },
+  "remoteControlAtStartup": false,
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "voiceEnabled": true,
+  "preferredNotifChannel": "auto",
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sciontool hook --dialect=claude"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sciontool hook --dialect=claude"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sciontool hook --dialect=claude"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sciontool hook --dialect=claude"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sciontool hook --dialect=claude"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sciontool hook --dialect=claude"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sciontool hook --dialect=claude"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "ToolPermission",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sciontool hook --dialect=claude"
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "obsidian@obsidian-skills": true,
     "qmd@qmd": true,
-    "playwright@claude-plugins-official": true
+    "playwright@claude-plugins-official": true,
+    "core@m-claude-plugins": true,
+    "docs@m-claude-plugins": true,
+    "research@m-claude-plugins": true,
+    "worktree-flow@m-claude-plugins": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
       "source": {
         "source": "github",
         "repo": "anthropics/claude-plugins-official"
-      }
-    },
-    "m-claude-plugins": {
-      "source": {
-        "source": "github",
-        "repo": "mishachepi/m-claude"
       }
     },
     "obsidian-skills": {
@@ -37,22 +171,5 @@
         "repo": "tobi/qmd"
       }
     }
-  },
-  "language": "Russian",
-  "askUserQuestionTimeout": "never",
-  "tui": "fullscreen",
-  "voice": {
-    "enabled": true,
-    "mode": "hold"
-  },
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "dark",
-  "editorMode": "vim",
-  "verbose": true,
-  "preferredNotifChannel": "auto",
-  "autoCompactEnabled": true,
-  "remoteControlAtStartup": false,
-  "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true,
-  "voiceEnabled": true
+  }
 }

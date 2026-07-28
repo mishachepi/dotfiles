@@ -1,6 +1,6 @@
 # Claude Code Setup
 
-Single source of truth: `~/dotfiles/claude/`. Live `~/.claude/` keeps runtime state (cache, sessions); config files are symlinked back here.
+Single source of truth: `~/dotfiles/claude/`. Live `~/.claude/` keeps runtime state (cache, sessions, plugin registry). Scripts are symlinked back here; `settings.json` is **copied** — see §2.
 
 Audit current state: `bash ~/dotfiles/claude/ai-setup-info.sh`.
 
@@ -19,19 +19,42 @@ bun install -g @tobilu/qmd
 uv tool install "junior @ git+https://github.com/mishachepi/junior.git"   # runbook runner, see §Junior
 ```
 
-## 2. Symlinks
+## 2. Config → `~/.claude`
 
 ```bash
 mkdir -p ~/.claude/hooks
 
-# Config from dotfiles → ~/.claude
-ln -sf ~/dotfiles/claude/settings.json           ~/.claude/settings.json
+# Scripts: symlink (edits here take effect immediately)
 ln -sf ~/dotfiles/claude/statusline.sh           ~/.claude/statusline.sh
 ln -sf ~/dotfiles/claude/hooks/speak-summary.py  ~/.claude/hooks/speak-summary.py
+ln -sf ~/dotfiles/claude/output-styles           ~/.claude/output-styles
 
+# Settings: copy, then re-register the local marketplace (§3 — its path is machine-specific)
+cp ~/dotfiles/claude/settings.json ~/.claude/settings.json
+claude plugin marketplace add ~/SNV/m-claude
+```
+
+> **`settings.json` is copied, not symlinked.** Claude Code and its installers rewrite this file in place (`/config`, statusline setup, `claude plugin install/uninstall`), which replaces a symlink with a regular file and silently ends the link. Copying makes that write the normal case instead of a failure mode.
+>
+> The cost is that the copy drifts. **Both directions are manual:**
+> ```bash
+> cp ~/dotfiles/claude/settings.json ~/.claude/settings.json    # deploy repo → machine
+> cp ~/.claude/settings.json ~/dotfiles/claude/settings.json    # capture machine → repo, then review the diff
+> ```
+> Capture back after anything that edits settings — `/config`, plugin install/uninstall, enabling a plugin. Review before committing: the live file also carries the machine's own marketplace paths.
+
+```bash
 # Share skills across CLIs (canonical = ~/.claude/skills)
 ln -s ~/.claude/skills ~/.codex/skills
 ```
+
+### Framework: skills, agents, commands
+
+The entire personal Claude Code framework (skills, research agents, `init` command, CLAUDE.md templates, worktree-flow) lives in its own repo/marketplace, **not** dotfiles: `~/SNV/m-claude` (`m-claude-plugins`, plugins `core`/`docs`/`research`/`worktree-flow`). Consolidated there 28.07 — the framework used to be forked into dotfiles as the `mch@dotfiles` plugin, which caused real drift (same output-style file, two diverging copies, one fix never reaching the other). `mch@dotfiles` no longer exists — dotfiles carries no Claude Code plugin at all anymore, only plain config (statusline, hooks, output-styles below). Install/refresh workflow: [PLUGINS.md](PLUGINS.md) §Local marketplace.
+
+**Output-styles are plain dotfiles content, not plugin content** — `claude/output-styles/` above, symlinked whole-dir into `~/.claude/output-styles` (native Claude Code lookup path, no plugin/marketplace involved). scion agents get the same dir via `pre_start_tmux.sh`'s generic `~/.claude/*` symlink loop (`_scion/client-setup/scripts/pre_start_tmux.sh` — canonical copy, vault-tracked; every machine's `~/.scion/scripts/pre_start_tmux.sh` is a symlink into it, no per-machine drift possible).
+
+Native `~/.claude/skills` entries are untouched by any plugin: `gtasks-cli`, `junior`, `validate` (real dirs) and `scion`, `team-creation` (symlinks into `~/SNV/scion/skills/`).
 
 For each Obsidian vault root (Claude Code looks for `<vault>/.claude`):
 
@@ -43,10 +66,12 @@ ln -s _claude .claude
 
 ```bash
 claude plugin marketplace add anthropics/claude-plugins-official
-claude plugin marketplace add mishachepi/m-claude
 claude plugin marketplace add kepano/obsidian-skills
 claude plugin marketplace add tobi/qmd
+claude plugin marketplace add ~/SNV/m-claude             # local — the whole personal framework
 ```
+
+The three GitHub marketplaces are declared in the tracked `settings.json`, so the commands are idempotent. The local one is **not** declared there: its source is an absolute path that differs per machine. `marketplace add` resolves `~` and records the correct path in this machine's `~/.claude/settings.json` itself — which is why it has to be re-run after every `cp` of settings (§2).
 
 Install commands and plugin reference: [PLUGINS.md](PLUGINS.md).
 

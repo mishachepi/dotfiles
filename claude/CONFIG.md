@@ -4,25 +4,26 @@
 
 | File | Tracked? | Contents |
 |------|----------|----------|
-| `~/.claude/settings.json` | **symlink → `~/dotfiles/claude/settings.json`** | Portable config: model, permissions.defaultMode, theme, tui, language, editorMode (vim), verbose, worktree.baseRef, useAutoModeDuringPlan, statusLine, enabledPlugins, marketplaces, notification prefs |
+| `~/.claude/settings.json` | **copy of `~/dotfiles/claude/settings.json`** ([SETUP.md](SETUP.md) §2) | Preferences (model, theme, language, editorMode, tui, verbose, outputStyle, notifications) · `permissions` (`defaultMode` + deny list) · the `disable*` hardening flags · `statusLine` · scion `hooks` · `enabledPlugins` · GitHub marketplaces. Plus the local marketplace path, added per machine and not tracked |
 | `~/.claude/settings.local.json` | no (gitignored) | Machine-local permission grants |
 | `~/.claude.json` | **never** | App state Claude rewrites constantly: machineID, project history, caches, onboarding + UI toggles that live only here (copyOnSelect, leftArrowOpensAgents, defaultToAgentsView, respectGitignore, workflowSizeGuideline) |
 
-> `/config` writes portable options into `settings.json` (picked up by dotfiles automatically via the symlink) and UI/app toggles into `~/.claude.json` (stay per-machine — re-set them via `/config` on a new machine).
+> `/config` writes portable options into the **live** `~/.claude/settings.json` and UI/app toggles into `~/.claude.json` (per-machine — re-set them via `/config` on a new machine). Since settings is a copy, a `/config` change does not reach the repo on its own: `cp ~/.claude/settings.json ~/dotfiles/claude/settings.json` and review the diff.
 
 ## Hooks
 
-The portable `~/.claude/settings.json` registers **no hooks** (the `hooks` key is absent). Hooks run in two other layers, neither of them in this file:
+Three layers register hooks; they stack, they do not replace each other:
 
 | Layer | Where | What runs |
 |-------|-------|-----------|
+| Own sessions | `~/.claude/settings.json` → 8 events | `sciontool hook --dialect=claude` — reports your own sessions to the scion hub. Tracked in dotfiles, so it deploys with the settings copy |
 | Vault (project) | `<vault>/_claude/settings.json` → `PostToolUse` | `validate-hook.sh` → `obsi-validate` after edits (see [../obsidian/SETUP.md](../obsidian/SETUP.md)) |
-| Scion agent sessions | agent harness config `~/.scion/harness-configs/<dialect>/…/settings.json` | `sciontool hook --dialect=<dialect>` (SessionStart etc.), mesh-injected per agent |
+| Scion agent sessions | agent harness config `~/.scion/harness-configs/<dialect>/…/settings.json` | the same `sciontool hook`, seeded per agent — agents never read your `~/.claude/settings.json` |
 
-`speak-summary.py` (TTS after the 🫦 trigger) is symlinked into `~/.claude/hooks/` but is **not wired to any event** — an available opt-in, not an active hook. To enable it, add a `Stop` hook to `settings.json`:
+`speak-summary.py` (TTS after the 🫦 trigger) is symlinked into `~/.claude/hooks/` but is **not wired to any event** — an available opt-in, not an active hook. To enable it, append an entry to the existing `hooks.Stop` array (do not replace it — `sciontool` lives there):
 
 ```json
-"hooks": { "Stop": [{ "hooks": [{ "type": "command", "command": "python3 ~/.claude/hooks/speak-summary.py" }] }] }
+{ "matcher": "*", "hooks": [{ "type": "command", "command": "python3 ~/.claude/hooks/speak-summary.py" }] }
 ```
 
 ### speak-summary.py (optional TTS helper)
@@ -51,7 +52,7 @@ How to add an MCP server, per CLI:
 
 | CLI    | Where                              | Format                                      |
 |--------|------------------------------------|---------------------------------------------|
-| Claude | `~/.claude/mcp-needs-auth-cache.json`, plugin-bundled `.mcp.json`, or via `claude mcp add` | JSON entry with `command`/`url` + auth |
+| Claude | `claude mcp add`, a project `.mcp.json`, or a plugin that declares `mcpServers` in its marketplace manifest (this is how `qmd` arrives) | JSON entry with `command`/`url` + auth |
 | Codex  | `~/.codex/config.toml`             | `[mcp_servers.<name>]` TOML table           |
 
 Live audit (lists what's actually configured): `bash ~/dotfiles/claude/ai-setup-info.sh` → sections **MCP servers (...)**.
