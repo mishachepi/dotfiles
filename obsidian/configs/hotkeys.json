@@ -1,30 +1,4 @@
 {
-  "obsidian-pandoc:pandoc-export-pdf": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "."
-    }
-  ],
-  "obsidian-pandoc:pandoc-export-docx": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": ","
-    }
-  ],
-  "obsidian-google-tasks:insert-uncompleted-google-tasks": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "G"
-    }
-  ],
   "graph:open": [],
   "file-explorer:move-file": [
     {
@@ -57,16 +31,23 @@
       "modifiers": [
         "Alt"
       ],
-      "key": "T"
+      "key": "D"
     }
   ],
-  "obsidian-regex-replace:obsidian-regex-replace": [
+  "templater-obsidian:_templates/snippets/a-line.md": [
     {
       "modifiers": [
-        "Mod",
-        "Shift"
+        "Alt"
       ],
-      "key": "G"
+      "key": "A"
+    }
+  ],
+  "templater-obsidian:_templates/snippets/t-line.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "T"
     }
   ],
   "global-search:open": [
@@ -83,23 +64,6 @@
         "Shift"
       ],
       "key": "S"
-    }
-  ],
-  "workspaces:load": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "O"
-    }
-  ],
-  "workspaces:open-modal": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "O"
     }
   ],
   "file-explorer:new-folder": [
@@ -205,6 +169,15 @@
         "Mod"
       ],
       "key": "A"
+    }
+  ],
+  "property-validator:validate-current-file": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "V"
     }
   ]
 }

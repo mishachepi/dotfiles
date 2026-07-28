@@ -1,8 +1,10 @@
 {
   "cssTheme": "",
+  "accentColor": "#24bf22",
   "theme": "moonstone",
   "translucency": false,
   "showRibbon": true,
   "textFontFamily": "",
-  "interfaceFontFamily": ""
+  "interfaceFontFamily": "",
+  "baseFontSize": 16
 }

@@ -1,5 +1,8 @@
 [
-  "table-editor-obsidian",
+  "tasknotes",
+  "property-validator",
   "dataview",
-  "tasknotes"
+  "obsidian-excalidraw-plugin",
+  "table-editor-obsidian",
+  "templater-obsidian"
 ]
