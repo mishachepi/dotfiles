@@ -55,9 +55,9 @@ Invoke `obsidian:obsidian-markdown` skill for proper Obsidian Flavored Markdown.
    obsidian search query="<topic>" --vault <vault>
    ```
 
-2. **Create note** in `inbox/` folder with frontmatter and `inbox` tag:
+2. **Create note** in `_inbox/` folder with frontmatter and `inbox` tag:
    ```bash
-   obsidian create name="inbox/<Note Title>" --vault <vault> content="---
+   obsidian create name="_inbox/<Note Title>" --vault <vault> content="---
    tags:
      - inbox
    created: YYYY-MM-DD
@@ -69,12 +69,12 @@ Invoke `obsidian:obsidian-markdown` skill for proper Obsidian Flavored Markdown.
 
 3. **Verify** the note was created:
    ```bash
-   obsidian read file="inbox/<Note Title>" --vault <vault>
+   obsidian read file="_inbox/<Note Title>" --vault <vault>
    ```
 
 ## Rules
 
-1. **Always save to `inbox/`** — all new notes go to the inbox folder in the vault root
+1. **Always save to `_inbox/`** — all new notes go to the _inbox folder in the vault root
 2. **Always add `inbox` tag** — so the user can triage later
 3. **Always add frontmatter** — at minimum: `tags: [inbox]`, `created: YYYY-MM-DD`
 4. **Use Obsidian Flavored Markdown** — wikilinks `[[Note]]`, callouts, etc. (invoke `obsidian-markdown` skill)

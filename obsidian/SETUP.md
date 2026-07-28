@@ -9,21 +9,40 @@ brew install --cask obsidian
 # Obsidian CLI — enable in Obsidian:
 #   Settings -> General -> Command line interface -> Register CLI
 
-# obsi-tools monorepo (fm, oq, fini, polar-import, life-dashboard, fini-bot)
-git clone git@github.com:mishachepi/obsi-tools.git $VAULT_TOOLS
-cd $VAULT_TOOLS # ask user to provide dir
+# obsi-tools monorepo (fm, oq, fini, logi, polar-import, gtasks-sync, life-dashboard, log-bot)
+git clone git@github.com:mishachepi/obsi-tools.git ~/obsi-tools
+cd ~/obsi-tools
 
-# Install CLI tools globally
-uv tool install --from packages/fm fm --force
-uv tool install --from packages/oq oq --force
-uv tool install --from packages/fini fini --force
-uv tool install --from packages/polar-import polar-import --force
+# Install CLI tools globally.
+# Use --reinstall --no-cache, NOT --force: --force silently reuses a cached
+# build, reports success, and leaves the old binary in place.
+uv tool install --from packages/fm fm --reinstall --no-cache
+uv tool install --from packages/oq oq --reinstall --no-cache
+uv tool install --from packages/fini fini --reinstall --no-cache
+uv tool install --from packages/logi logi --reinstall --no-cache
+uv tool install --from packages/polar-import polar-import --reinstall --no-cache
+uv tool install --from packages/gtasks-sync gtasks-sync --reinstall --no-cache
 
 # life-dashboard: run from workspace
 uv sync  # installs all workspace deps
 uv run life-dashboard  # or: uv run streamlit run packages/life-dashboard/src/life_dashboard/app.py
 
-# fini-bot — Telegram bot for finance tracking
+# log-bot — Telegram bot for whole-day capture (finance via fini)
+```
+
+### obsi-validate (blocking validate hook)
+
+`obsi-validate` is a **separate repo** (`mishachepi/obsi-validate`), installed as a **bun global tool** — not part of the obsi-tools monorepo. The vault's PostToolUse validate hook (`_claude/scripts/validate-hook.sh`) calls it as bare `obsi-validate` and **fails if it is not on PATH**, so `~/.bun/bin` must be on PATH.
+
+```bash
+git clone git@github.com:mishachepi/obsi-validate.git ~/SNV/obsi-validate
+cd ~/SNV/obsi-validate
+bun install
+npm run build:cli && bun link      # links ~/.bun/bin/obsi-validate
+
+# ensure ~/.bun/bin is on PATH (add to ~/.zshrc if missing), then verify:
+command -v obsi-validate
+```
 
 ### Google Tasks CLI (`gtasks`)
 
@@ -68,23 +87,32 @@ gtasks skills status
 Claude Code looks for `<vault>/.claude/` directory. Symlink it to `_claude/` (tracked in git):
 
 ```bash
-ln -sf $VAULT_HOME/_claude $VAULT_HOME/.claude
+# relative target — survives moving the vault to a different path
+# -h: replace an existing symlink instead of following it into the directory
+ln -sfh _claude $VAULT_HOME/.claude
+
+# junior runbooks (vault keeps them in _junior/ so Obsidian Sync sees them;
+# junior discovers .junior/ — symlinks don't sync, re-create per machine)
+ln -sfh _junior $VAULT_HOME/.junior
 ```
 
 This makes `settings.json`, `rules/`, `skills/`, `commands/`, `scripts/` visible to Claude Code when working in the vault.
 
-## 2.5. Scion templates mirror for Obsidian Sync
-The scion mesh lives in `.scion/` (real dir — runtime state, scripts, logs, templates). Obsidian doesn't sync dotfolders, so agent templates would be invisible to Sync. Mirror only the templates dir under a `_scion/` wrapper so it shows up in Obsidian:
+## 2.5. Scion templates for Obsidian Sync
+The scion mesh runtime lives in `.scion/` (real dotfolder: agents/, logs/, scripts/, routines). Obsidian Sync ignores dotfolders **and does not carry symlinks** — so agent templates must live as REAL files under a non-dot, synced path, and the runtime points at them (not the other way around).
+
+Therefore the real dir is `_scion/templates` (Sync carries it), and `.scion/templates` is a symlink into it:
 
 ```bash
-mkdir -p $VAULT_HOME/_scion
-ln -sf ../.scion/templates $VAULT_HOME/_scion/templates
+mkdir -p $VAULT_HOME/_scion/templates      # REAL dir — Obsidian Sync carries these files
+ln -sfh ../_scion/templates $VAULT_HOME/.scion/templates
 ```
 
 Notes:
-- `.scion/` itself stays real and dotfile-hidden (runtime: agents/, logs/, scripts/, README, routines, etc.). Don't symlink the whole thing — only `templates/` needs Obsidian visibility.
+- The rest of `.scion/` stays a real dotfolder (runtime: agents/, logs/, scripts/, README, routines). Only `templates/` is redirected to the synced `_scion/templates`.
 - `_scion/templates` is whitelisted in `.gitignore` (`!_scion/templates`).
-- macOS crontab entries (`for-agent-dispatcher.sh`, `orchestrator-healthcheck.sh`) reference `/Volumes/mch/.scion/scripts/...` directly — no change needed.
+- **Obsidian → Settings → Sync → "Sync all other file types" must be ON**, or the `.sh` boot scripts under `templates/*/home/` silently never propagate to other machines (they are not markdown, and Sync is markdown-only by default). Symptom: a freshly-spawned agent boots with an empty `home/` and a missing `context.sh`.
+- macOS crontab sets `VAULT_HOME` in its header and references `$VAULT_HOME/...` throughout — no absolute paths, so layout changes need only the one crontab line.
 
 ## 3. QMD — Vault Indexing
 
@@ -122,14 +150,18 @@ claude plugin install obsidian@obsidian-skills
 
 ### Global Rules
 
+Rules are **copied**, so `~/.claude/rules/*` silently drifts from the repo — re-run the `cp` after editing any rule (or symlink instead for live updates):
+
 ```bash
 mkdir -p ~/.claude/rules
 cp ~/dotfiles/obsidian/rules/*.md ~/.claude/rules/
+# live alternative — edits in the repo take effect immediately:
+# for f in ~/dotfiles/obsidian/rules/*.md; do ln -sf "$f" ~/.claude/rules/; done
 ```
 
 | Rule | Purpose |
 |------|---------|
-| `session-log.md` | After every meaningful action, append log entry to today's day note via `echo >> $VAULT_HOME/days/...` |
+| `session-log.md` | After every meaningful outcome, log one line to today's day note via `logi a` (`echo >>` only as fallback on machines without vault tooling) |
 
 ### Agents
 
@@ -141,10 +173,10 @@ cp ~/dotfiles/obsidian/agents/*.md ~/.claude/agents/
 
 | Agent | Trigger | Purpose |
 |-------|---------|---------|
-| `/note <vault>` | "save to obsidian", "remember this", "запомни" | Create note in `inbox/` with frontmatter + inbox tag. Reads vault's `CLAUDE.md` first. All `obsidian:*` skills available. File: `obsi-note.md` |
+| `/note <vault>` | "save to obsidian", "remember this", "запомни" | Create note in `_inbox/` with frontmatter + inbox tag. Reads vault's `CLAUDE.md` first. All `obsidian:*` skills available. File: `obsi-note.md` |
 | `/ask` | "find in notes", "what do I have about", "найди в заметках" | Search vault via QMD (hybrid search), retrieve content via Obsidian CLI, synthesize answer with `[[wikilinks]]` to sources. File: `obsi-ask.md` |
 
-Enable plugins in project settings (`<vault>/claude/settings.json`):
+Enable plugins in project settings (`<vault>/.claude/settings.json`):
 
 ```json
 {
@@ -205,7 +237,7 @@ Cron job runs every night: ETL (fm day, fm polar, fm area) → git commit.
 # Scripts live in vault-tools, symlinked to vault
 # Symlinks are created during vault-tools setup (see vault-tools README)
 # Just add crontab:
-(crontab -l 2>/dev/null; echo '42 23 * * * $VAULT_HOME/_claude/scripts/vault-commit.sh $VAULT_HOME >> $VAULT_HOME/_inbox/tmp/vault-commit.log 2>&1') | crontab -
+(crontab -l 2>/dev/null; echo '42 23 * * * $VAULT_HOME/_claude/scripts/vault-commit.sh $VAULT_HOME >> $VAULT_HOME/_claude/logs/cron-commit.log 2>&1') | crontab -
 ```
 
 **What it does (in order):**
@@ -218,7 +250,11 @@ Cron job runs every night: ETL (fm day, fm polar, fm area) → git commit.
 ## Verification
 
 ```bash
-which obsidian qmd fm oq fini polar-import
+# obsidian and oq are zsh wrapper functions (they set HOME= before calling the real
+# binary) — `which`/`type` reports a shell function, not a path. That is expected.
+which qmd fm fini polar-import logi gtasks-sync obsi-validate
+type obsidian oq
 qmd status
-obsidian --version
+# NB: `obsidian --version` is not a valid flag (prints help). Smoke-test with:
+obsidian help
 ```
