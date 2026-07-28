@@ -1,13 +1,5 @@
 {
-  "model": "sonnet",
-  "language": "Russian",
-  "theme": "dark",
-  "editorMode": "vim",
-  "verbose": true,
-  "autoCompactEnabled": true,
-  "askUserQuestionTimeout": "never",
-  "tui": "fullscreen",
-  "outputStyle": "Assistant General",
+  "includeCoAuthoredBy": false,
   "permissions": {
     "deny": [
       "EnterPlanMode",
@@ -26,33 +18,9 @@
     ],
     "defaultMode": "bypassPermissions"
   },
-  "skipDangerousModePermissionPrompt": true,
-  "disableBundledSkills": true,
-  "disableWorkflows": true,
-  "disableRemoteControl": true,
+  "model": "sonnet",
   "disableClaudeAiConnectors": true,
-  "disableArtifacts": true,
-  "includeCoAuthoredBy": false,
-  "gitAttribution": false,
-  "autoUpdater": {
-    "disabled": true
-  },
-  "telemetry": {
-    "enabled": false
-  },
-  "remoteControlAtStartup": false,
-  "voice": {
-    "enabled": true,
-    "mode": "hold"
-  },
-  "voiceEnabled": true,
-  "preferredNotifChannel": "auto",
-  "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true,
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh"
-  },
+  "disableBundledSkills": true,
   "hooks": {
     "SessionStart": [
       {
@@ -143,6 +111,12 @@
       }
     ]
   },
+  "disableRemoteControl": true,
+  "disableWorkflows": true,
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
   "enabledPlugins": {
     "obsidian@obsidian-skills": true,
     "qmd@qmd": true,
@@ -170,6 +144,38 @@
         "source": "github",
         "repo": "tobi/qmd"
       }
+    },
+    "m-claude-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "mishachepi/m-claude"
+      }
     }
+  },
+  "outputStyle": "Assistant General",
+  "language": "Russian",
+  "askUserQuestionTimeout": "never",
+  "tui": "fullscreen",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
+  "editorMode": "vim",
+  "verbose": true,
+  "preferredNotifChannel": "auto",
+  "autoCompactEnabled": true,
+  "remoteControlAtStartup": false,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true,
+  "disableArtifacts": true,
+  "gitAttribution": false,
+  "autoUpdater": {
+    "disabled": true
+  },
+  "telemetry": {
+    "enabled": false
   }
 }

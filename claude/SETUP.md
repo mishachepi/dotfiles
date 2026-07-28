@@ -29,9 +29,9 @@ ln -sf ~/dotfiles/claude/statusline.sh           ~/.claude/statusline.sh
 ln -sf ~/dotfiles/claude/hooks/speak-summary.py  ~/.claude/hooks/speak-summary.py
 ln -sf ~/dotfiles/claude/output-styles           ~/.claude/output-styles
 
-# Settings: copy, then re-register the local marketplace (§3 — its path is machine-specific)
+# Settings: copy — all four marketplaces (incl. m-claude) are GitHub sources declared
+# in settings.json itself, so the copy alone restores them (§3)
 cp ~/dotfiles/claude/settings.json ~/.claude/settings.json
-claude plugin marketplace add ~/SNV/m-claude
 ```
 
 > **`settings.json` is copied, not symlinked.** Claude Code and its installers rewrite this file in place (`/config`, statusline setup, `claude plugin install/uninstall`), which replaces a symlink with a regular file and silently ends the link. Copying makes that write the normal case instead of a failure mode.
@@ -50,7 +50,7 @@ ln -s ~/.claude/skills ~/.codex/skills
 
 ### Framework: skills, agents, commands
 
-The entire personal Claude Code framework (skills, research agents, `init` command, CLAUDE.md templates, worktree-flow) lives in its own repo/marketplace, **not** dotfiles: `~/SNV/m-claude` (`m-claude-plugins`, plugins `core`/`docs`/`research`/`worktree-flow`). Consolidated there 28.07 — the framework used to be forked into dotfiles as the `mch@dotfiles` plugin, which caused real drift (same output-style file, two diverging copies, one fix never reaching the other). `mch@dotfiles` no longer exists — dotfiles carries no Claude Code plugin at all anymore, only plain config (statusline, hooks, output-styles below). Install/refresh workflow: [PLUGINS.md](PLUGINS.md) §Local marketplace.
+The entire personal Claude Code framework (skills, research agents, `init` command, CLAUDE.md templates, worktree-flow) lives in its own repo/marketplace, **not** dotfiles: `mishachepi/m-claude` (public GitHub, `m-claude-plugins`, plugins `core`/`docs`/`research`/`worktree-flow`; dev checkout at `~/SNV/m-claude`). Consolidated there 28.07 — the framework used to be forked into dotfiles as the `mch@dotfiles` plugin, which caused real drift (same output-style file, two diverging copies, one fix never reaching the other). `mch@dotfiles` no longer exists — dotfiles carries no Claude Code plugin at all anymore, only plain config (statusline, hooks, output-styles below). Install/refresh workflow: [PLUGINS.md](PLUGINS.md) §`m-claude` marketplace.
 
 **Output-styles are plain dotfiles content, not plugin content** — `claude/output-styles/` above, symlinked whole-dir into `~/.claude/output-styles` (native Claude Code lookup path, no plugin/marketplace involved). scion agents get the same dir via `pre_start_tmux.sh`'s generic `~/.claude/*` symlink loop (`_scion/client-setup/scripts/pre_start_tmux.sh` — canonical copy, vault-tracked; every machine's `~/.scion/scripts/pre_start_tmux.sh` is a symlink into it, no per-machine drift possible).
 
@@ -68,10 +68,10 @@ ln -s _claude .claude
 claude plugin marketplace add anthropics/claude-plugins-official
 claude plugin marketplace add kepano/obsidian-skills
 claude plugin marketplace add tobi/qmd
-claude plugin marketplace add ~/SNV/m-claude             # local — the whole personal framework
+claude plugin marketplace add mishachepi/m-claude        # GitHub (public) — the whole personal framework
 ```
 
-The three GitHub marketplaces are declared in the tracked `settings.json`, so the commands are idempotent. The local one is **not** declared there: its source is an absolute path that differs per machine. `marketplace add` resolves `~` and records the correct path in this machine's `~/.claude/settings.json` itself — which is why it has to be re-run after every `cp` of settings (§2).
+All four are GitHub sources, so all four are declared in the tracked `settings.json` — the commands are idempotent and the copy in §2 alone restores them on a new machine.
 
 Install commands and plugin reference: [PLUGINS.md](PLUGINS.md).
 

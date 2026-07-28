@@ -4,7 +4,7 @@ Live state lives in `~/.claude/plugins/installed_plugins.json`; this file is the
 
 > Install ≠ enable. Enable only what you actively use; the enabled set is tracked in `~/.claude/settings.json` `enabledPlugins` (currently: `obsidian@obsidian-skills`, `qmd@qmd`, `playwright@claude-plugins-official`, `core@m-claude-plugins`, `docs@m-claude-plugins`, `research@m-claude-plugins`, `worktree-flow@m-claude-plugins`). After enabling in a running session: `/reload-plugins`.
 >
-> The entire personal framework (skills, research agents, `init` command, CLAUDE.md templates, worktree-flow) lives in its own repo/marketplace `~/SNV/m-claude` (`m-claude-plugins`) — see §Local marketplace below. dotfiles carries **no Claude Code plugin at all** — the `mch@dotfiles` plugin that used to live here was retired 28.07 (its content was either a stale fork of m-claude, or — `worktree-flow`, the one non-duplicate — migrated into m-claude as its own plugin). Output-styles are plain dotfiles content (`claude/output-styles/`, symlinked into `~/.claude/output-styles`), not a plugin at all — see [SETUP.md](SETUP.md) §2.
+> The entire personal framework (skills, research agents, `init` command, CLAUDE.md templates, worktree-flow) lives in its own repo/marketplace `mishachepi/m-claude` (`m-claude-plugins`) — see §`m-claude` marketplace below. dotfiles carries **no Claude Code plugin at all** — the `mch@dotfiles` plugin that used to live here was retired 28.07 (its content was either a stale fork of m-claude, or — `worktree-flow`, the one non-duplicate — migrated into m-claude as its own plugin). Output-styles are plain dotfiles content (`claude/output-styles/`, symlinked into `~/.claude/output-styles`), not a plugin at all — see [SETUP.md](SETUP.md) §2.
 
 ## Marketplaces
 
@@ -12,39 +12,36 @@ Live state lives in `~/.claude/plugins/installed_plugins.json`; this file is the
 claude plugin marketplace add anthropics/claude-plugins-official
 claude plugin marketplace add kepano/obsidian-skills
 claude plugin marketplace add tobi/qmd
-claude plugin marketplace add ~/SNV/m-claude             # local — the whole personal framework
+claude plugin marketplace add mishachepi/m-claude        # GitHub (public) — the whole personal framework
 ```
 
-## Local marketplace (`m-claude` → `m-claude-plugins`)
+All four are GitHub sources, so all four are declared in the tracked `settings.json` (`extraKnownMarketplaces`) — `marketplace add` is idempotent and the declarations travel with the repo, no per-machine re-registration step.
 
-`~/SNV/m-claude` is its own repo, own marketplace, own versioning per plugin (`plugins/{core,docs,research,worktree-flow}/`, each with its own `plugin.json`). Canonical home for the personal framework — skills (`learn`, `prompt-optimize`, `docs:init`, `docs:update`, `research:brainstorm`, `research:lead-research`, `worktree-flow`), research agents, `init` command, CLAUDE.md templates.
+## `m-claude` marketplace (`m-claude-plugins`)
+
+`mishachepi/m-claude` (public) is its own repo, own marketplace, own versioning per plugin (`plugins/{core,docs,research,worktree-flow}/`, each with its own `plugin.json`). Canonical home for the personal framework — skills (`learn`, `prompt-optimize`, `docs:init`, `docs:update`, `research:brainstorm`, `research:lead-research`, `worktree-flow`), research agents, `init` command, CLAUDE.md templates. Dev checkout for editing stays at `~/SNV/m-claude` (own git remote, independent of dotfiles).
 
 ```bash
-claude plugin marketplace add ~/SNV/m-claude
+claude plugin marketplace add mishachepi/m-claude
 claude plugin install core@m-claude-plugins
 claude plugin install docs@m-claude-plugins
 claude plugin install research@m-claude-plugins
 claude plugin install worktree-flow@m-claude-plugins
 ```
 
-> **Refresh after editing the framework.** The marketplace reads `~/SNV/m-claude` live, but `install` copies each plugin into `~/.claude/plugins/cache/m-claude-plugins/<plugin>/<version>/` **once**. `plugin update` is version-gated (no-op unless `version` in the plugin's `.claude-plugin/plugin.json` **and** the marketplace entry are bumped); `install` on an already-installed plugin is also a no-op. So to pick up content edits without a version bump, force a re-copy per plugin:
+> **Refresh after editing the framework.** Edits in `~/SNV/m-claude` need `git commit && git push` before the marketplace can see them — GitHub source, not live-read like a `directory` source. Then pull the marketplace metadata and force a re-copy of the cached plugin content (`install` on an already-installed plugin, or a no-op `plugin update`, won't pick up unversioned content edits):
 > ```bash
+> claude plugin marketplace update m-claude-plugins
 > claude plugin uninstall core@m-claude-plugins && claude plugin install core@m-claude-plugins
 > ```
-> Then `/reload-plugins` in any running session. (Bumping `version` + `claude plugin marketplace update m-claude-plugins && claude plugin update <plugin>@m-claude-plugins` is the release-style alternative.)
-
-> **The path is machine-specific and never tracked.** A `directory` marketplace resolves against an absolute path, and `~/SNV/m-claude` expands differently per user and OS. So the tracked `settings.json` deliberately declares only the three GitHub marketplaces; the local one is registered by command:
-> ```bash
-> claude plugin marketplace add ~/SNV/m-claude
-> ```
-> The shell expands `~`, and Claude Code writes the resulting absolute path into this machine's own `~/.claude/settings.json` and `~/.claude/plugins/known_marketplaces.json`. Re-run after every `cp` of settings ([SETUP.md](SETUP.md) §2) — the copy from the repo has no local entry to inherit. Nothing to override, nothing to fork per machine.
+> Then `/reload-plugins` in any running session. (Bumping `version` in the plugin's `.claude-plugin/plugin.json` **and** the marketplace entry makes `claude plugin update <plugin>@m-claude-plugins` pick it up without the uninstall/install dance.)
 
 ## User scope
 
 ```bash
 claude plugin install obsidian@obsidian-skills
 claude plugin install playwright@claude-plugins-official
-claude plugin install core@m-claude-plugins               # framework — see §Local marketplace
+claude plugin install core@m-claude-plugins               # framework — see §`m-claude` marketplace
 claude plugin install docs@m-claude-plugins
 claude plugin install research@m-claude-plugins
 claude plugin install worktree-flow@m-claude-plugins
@@ -79,10 +76,10 @@ claude plugin install pyright-lsp@claude-plugins-official
 
 | Plugin | Purpose |
 |--------|---------|
-| `core@m-claude-plugins` | Self-learning workflow — `init`, `learn`, `prompt-optimize`, CLAUDE.md templates (local marketplace) |
-| `docs@m-claude-plugins` | Docs management — init docs structure, update docs from code changes (local marketplace) |
-| `research@m-claude-plugins` | Research/brainstorming — multi-agent research, structured spec creation (local marketplace) |
-| `worktree-flow@m-claude-plugins` | Parallel Claude Code agents on native git worktrees (local marketplace) |
+| `core@m-claude-plugins` | Self-learning workflow — `init`, `learn`, `prompt-optimize`, CLAUDE.md templates (mishachepi/m-claude) |
+| `docs@m-claude-plugins` | Docs management — init docs structure, update docs from code changes (mishachepi/m-claude) |
+| `research@m-claude-plugins` | Research/brainstorming — multi-agent research, structured spec creation (mishachepi/m-claude) |
+| `worktree-flow@m-claude-plugins` | Parallel Claude Code agents on native git worktrees (mishachepi/m-claude) |
 | `obsidian@obsidian-skills` | Obsidian skills (markdown, bases, canvas, cli, defuddle) |
 | `playwright@claude-plugins-official` | Browser automation |
 | `qmd@qmd` | MCP server: hybrid search (lex/vec/hyde) over markdown |
