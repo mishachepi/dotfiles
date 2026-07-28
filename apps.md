@@ -9,9 +9,6 @@
 - [Reaper](https://www.reaper.fm/)
 - [Davinchi Resolve](https://www.blackmagicdesign.com/products/davinciresolve)
 
-### Check in the future:
-- zed.dev as alternatove for VSCode
-
 ### Base
 - ghostty
 - obsidian
@@ -29,7 +26,7 @@
 
 ### passwords
 - bitwarden
-- keepassxc
+#- keepassxc
 #- pass (unix)
 
 ### AI
@@ -37,7 +34,7 @@
 - Antigravity
 - Codex
 - pi
-- [junior](https://github.com/mishachepi/junior) — deterministic runbook runner (uv tool)
+- [junior](https://github.com/mishachepi/junior)
 
 ## Install
 ```bash
@@ -59,6 +56,7 @@ brew install ffmpeg
 brew install --cask arc
 brew install --cask obsidian
 brew install --cask amethyst
+brew install --cask raycast
 
 ### languages
 brew install uv
