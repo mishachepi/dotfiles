@@ -2,7 +2,7 @@
 ## Common
 Minimalism, Universatility, Understandability, Secutiry -> It is what I want to have -> "want" not mean "have"
 
-- nvim config and VScode config like nvim
+- nvim config
 - nvim plugins (sometimes need to check and update it)
 - scripts/ folder with useful scripts
 - raycast flow/snippets
