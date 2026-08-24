@@ -7,7 +7,7 @@ Minimalism, Universatility, Understandability, Secutiry -> It is what I want to 
 - scripts/ folder with useful scripts
 - raycast flow/snippets
 - Desktop navigation via Karabiner hotkeys
-- AI tools: [Claude Code](claude/SETUP.md), [Obsidian](obsidian/SETUP.md), Scion, [Junior](https://github.com/mishachepi/junior)
+- AI tools: [Claude Code](claude/SETUP.md), [Obsidian](obsidian/SETUP.md), [Junior](https://github.com/mishachepi/junior)
 
 ### Setup:
 - [Bash](https://www.gnu.org/software/bash/)
@@ -43,8 +43,6 @@ File manager with git status, preview, fzf integration
 AI CLI — plugins, hooks, statusline. See [claude/SETUP.md](claude/SETUP.md)
 #### Obsidian
 PKM — app configs, vault tools, QMD indexing. See [obsidian/SETUP.md](obsidian/SETUP.md)
-#### Scion
-LLM agent mesh — hub, runtime broker, credential bridging.
 
 ### MacOS specifics
 - use homebrew

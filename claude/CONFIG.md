@@ -4,7 +4,7 @@
 
 | File | Tracked? | Contents |
 |------|----------|----------|
-| `~/.claude/settings.json` | **copy of `~/dotfiles/claude/settings.json`** ([SETUP.md](SETUP.md) §2) | Preferences (model, theme, language, editorMode, tui, verbose, outputStyle, notifications) · `permissions` (`defaultMode` + deny list) · the `disable*` hardening flags · `statusLine` · scion `hooks` · `enabledPlugins` · GitHub marketplaces. Plus the local marketplace path, added per machine and not tracked |
+| `~/.claude/settings.json` | **copy of `~/dotfiles/claude/settings.json`** ([SETUP.md](SETUP.md) §2) | Preferences (model, theme, language, editorMode, tui, verbose, outputStyle, notifications) · `permissions` (`defaultMode` + deny list) · the `disable*` hardening flags · `statusLine` · `enabledPlugins` · GitHub marketplaces. Plus the local marketplace path, added per machine and not tracked |
 | `~/.claude/settings.local.json` | no (gitignored) | Machine-local permission grants |
 | `~/.claude.json` | **never** | App state Claude rewrites constantly: machineID, project history, caches, onboarding + UI toggles that live only here (copyOnSelect, leftArrowOpensAgents, defaultToAgentsView, respectGitignore, workflowSizeGuideline) |
 
@@ -12,15 +12,15 @@
 
 ## Hooks
 
-Three layers register hooks; they stack, they do not replace each other:
+`~/dotfiles/claude/settings.json` ships with **no `hooks` key at all** — the base Claude Code setup here has no dependency on anything beyond Claude Code itself.
 
 | Layer | Where | What runs |
 |-------|-------|-----------|
-| Own sessions | `~/.claude/settings.json` → 8 events | `sciontool hook --dialect=claude` — reports your own sessions to the scion hub. Tracked in dotfiles, so it deploys with the settings copy |
 | Vault (project) | `<vault>/_claude/settings.json` → `PostToolUse` | `validate-hook.sh` → `obsi-validate` after edits (see [../obsidian/SETUP.md](../obsidian/SETUP.md)) |
-| Scion agent sessions | agent harness config `~/.scion/harness-configs/<dialect>/…/settings.json` | the same `sciontool hook`, seeded per agent — agents never read your `~/.claude/settings.json` |
 
-`speak-summary.py` (TTS after the 🫦 trigger) is symlinked into `~/.claude/hooks/` but is **not wired to any event** — an available opt-in, not an active hook. To enable it, append an entry to the existing `hooks.Stop` array (do not replace it — `sciontool` lives there):
+Agent-mesh session hooks (own sessions reporting to a hub, per-agent harness hooks) are **not a dotfiles concern** — that setup, if this machine runs it, lives entirely in its own separate private repo and layers on top via its own install script; dotfiles neither knows nor cares whether it's present.
+
+`speak-summary.py` (TTS after the 🫦 trigger) is symlinked into `~/.claude/hooks/` but is **not wired to any event** — an available opt-in, not an active hook. To enable it: if `~/.claude/settings.json`'s `hooks.Stop` array already has entries (e.g. layered in by the agent-mesh install script above), append to it, don't replace it; otherwise add the key directly:
 
 ```json
 { "matcher": "*", "hooks": [{ "type": "command", "command": "python3 ~/.claude/hooks/speak-summary.py" }] }

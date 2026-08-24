@@ -52,9 +52,9 @@ ln -s ~/.claude/skills ~/.codex/skills
 
 The entire personal Claude Code framework (skills, research agents, `init` command, CLAUDE.md templates, worktree-flow) lives in its own repo/marketplace, **not** dotfiles: `mishachepi/m-claude` (public GitHub, `m-claude-plugins`, plugins `core`/`docs`/`research`/`worktree-flow`; dev checkout at `~/SNV/m-claude`). Consolidated there 28.07 — the framework used to be forked into dotfiles as the `mch@dotfiles` plugin, which caused real drift (same output-style file, two diverging copies, one fix never reaching the other). `mch@dotfiles` no longer exists — dotfiles carries no Claude Code plugin at all anymore, only plain config (statusline, hooks, output-styles below). Install/refresh workflow: [PLUGINS.md](PLUGINS.md) §`m-claude` marketplace.
 
-**Output-styles are plain dotfiles content, not plugin content** — `claude/output-styles/` above, symlinked whole-dir into `~/.claude/output-styles` (native Claude Code lookup path, no plugin/marketplace involved). scion agents get the same dir via `pre_start_tmux.sh`'s generic `~/.claude/*` symlink loop (`_scion/client-setup/scripts/pre_start_tmux.sh` — canonical copy, vault-tracked; every machine's `~/.scion/scripts/pre_start_tmux.sh` is a symlink into it, no per-machine drift possible).
+**Output-styles are plain dotfiles content, not plugin content** — `claude/output-styles/` above, symlinked whole-dir into `~/.claude/output-styles` (native Claude Code lookup path, no plugin/marketplace involved).
 
-Native `~/.claude/skills` entries are untouched by any plugin: `gtasks-cli`, `junior`, `validate` (real dirs) and `scion`, `team-creation` (symlinks into `~/SNV/scion/skills/`).
+Native `~/.claude/skills` entries are untouched by any plugin: `gtasks-cli`, `junior`, `validate` (real dirs). Additional skill dirs may be symlinked in by other setups on this machine — not a dotfiles concern.
 
 For each Obsidian vault root (Claude Code looks for `<vault>/.claude`):
 
