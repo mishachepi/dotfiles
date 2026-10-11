@@ -2,7 +2,7 @@
 
 Live state lives in `~/.claude/plugins/installed_plugins.json`; this file is the install playbook.
 
-> Install ≠ enable. Enable only what you actively use; the enabled set is tracked in `~/.claude/settings.json` `enabledPlugins` (currently: `obsidian@obsidian-skills`, `qmd@qmd`, `playwright@claude-plugins-official`, `core@m-claude-plugins`, `docs@m-claude-plugins`, `research@m-claude-plugins`, `worktree-flow@m-claude-plugins`). After enabling in a running session: `/reload-plugins`.
+> Install ≠ enable. Enable only what you actively use; the enabled set is tracked in `~/.claude/settings.json` `enabledPlugins` (currently: `obsidian@obsidian-skills`, `qmd@qmd`, `playwright@claude-plugins-official` + the m-claude set listed in `claude/settings.json`). After enabling in a running session: `/reload-plugins`.
 >
 > The entire personal framework (skills, research agents, `init` command, CLAUDE.md templates, worktree-flow) lives in its own repo/marketplace `mishachepi/m-claude` (`m-claude-plugins`) — see §`m-claude` marketplace below. dotfiles carries **no Claude Code plugin at all** — the `mch@dotfiles` plugin that used to live here was retired 28.07 (its content was either a stale fork of m-claude, or — `worktree-flow`, the one non-duplicate — migrated into m-claude as its own plugin). Output-styles are plain dotfiles content (`claude/output-styles/`, symlinked into `~/.claude/output-styles`), not a plugin at all — see [SETUP.md](SETUP.md) §2.
 
@@ -12,27 +12,25 @@ Live state lives in `~/.claude/plugins/installed_plugins.json`; this file is the
 claude plugin marketplace add anthropics/claude-plugins-official
 claude plugin marketplace add kepano/obsidian-skills
 claude plugin marketplace add tobi/qmd
-claude plugin marketplace add mishachepi/m-claude        # GitHub (public) — the whole personal framework
+claude plugin marketplace add mishachepi/m-claude
 ```
 
 All four are GitHub sources, so all four are declared in the tracked `settings.json` (`extraKnownMarketplaces`) — `marketplace add` is idempotent and the declarations travel with the repo, no per-machine re-registration step.
 
 ## `m-claude` marketplace (`m-claude-plugins`)
 
-`mishachepi/m-claude` (public) is its own repo, own marketplace, own versioning per plugin (`plugins/{core,docs,research,worktree-flow}/`, each with its own `plugin.json`). Canonical home for the personal framework — skills (`learn`, `prompt-optimize`, `docs:init`, `docs:update`, `research:brainstorm`, `research:lead-research`, `worktree-flow`), research agents, `init` command, CLAUDE.md templates. Dev checkout for editing stays at `~/SNV/m-claude` (own git remote, independent of dotfiles).
+`mishachepi/m-claude` (public) is its own repo, own marketplace, own versioning per plugin (one skill = one plugin). The plugin list, what each does and the install commands live in its [README](https://github.com/mishachepi/m-claude#plugins) — not duplicated here; the enabled set on this machine is `enabledPlugins` in `claude/settings.json`. Dev checkout for editing stays at `~/SNV/m-claude` (own git remote, independent of dotfiles).
 
 ```bash
 claude plugin marketplace add mishachepi/m-claude
-claude plugin install core@m-claude-plugins
-claude plugin install docs@m-claude-plugins
-claude plugin install research@m-claude-plugins
-claude plugin install worktree-flow@m-claude-plugins
+claude plugin install learn@m-claude-plugins       # …one line per plugin, see the m-claude README
+claude plugin install arc@m-claude-plugins         # Arc browser MCP — macOS only, not on SteamOS
 ```
 
 > **Refresh after editing the framework.** Edits in `~/SNV/m-claude` need `git commit && git push` before the marketplace can see them — GitHub source, not live-read like a `directory` source. Then pull the marketplace metadata and force a re-copy of the cached plugin content (`install` on an already-installed plugin, or a no-op `plugin update`, won't pick up unversioned content edits):
 > ```bash
 > claude plugin marketplace update m-claude-plugins
-> claude plugin uninstall core@m-claude-plugins && claude plugin install core@m-claude-plugins
+> claude plugin uninstall <plugin>@m-claude-plugins && claude plugin install <plugin>@m-claude-plugins
 > ```
 > Then `/reload-plugins` in any running session. (Bumping `version` in the plugin's `.claude-plugin/plugin.json` **and** the marketplace entry makes `claude plugin update <plugin>@m-claude-plugins` pick it up without the uninstall/install dance.)
 
@@ -41,24 +39,28 @@ claude plugin install worktree-flow@m-claude-plugins
 ```bash
 claude plugin install obsidian@obsidian-skills
 claude plugin install playwright@claude-plugins-official
-claude plugin install core@m-claude-plugins               # framework — see §`m-claude` marketplace
-claude plugin install docs@m-claude-plugins
-claude plugin install research@m-claude-plugins
-claude plugin install worktree-flow@m-claude-plugins
+# + the m-claude framework plugins — see §`m-claude` marketplace
 
 # Optional — full dev workflow (brainstorm, plan, TDD, parallel agents)
 # claude plugin install superpowers@claude-plugins-official
 ```
 
-## Project scope (vault `/Volumes/mch`)
+## Project scope (vault `<vault>`)
 
 ```bash
-cd /Volumes/mch
+cd <vault>
 claude plugin install qmd@qmd
 claude plugin install plugin-dev@claude-plugins-official
 claude plugin install telegram@claude-plugins-official
 claude plugin install hookify@claude-plugins-official
 ```
+
+> The vault's `.claude` is a symlink to `_claude`, and `claude plugin install/uninstall` refuses to write through it (`SymlinkWriteRefusedError`). Swap it for the duration of the install, then restore:
+> ```bash
+> cd <vault> && rm .claude && mv _claude .claude
+> claude plugin install <plugin> -s project
+> mv .claude _claude && ln -s _claude .claude
+> ```
 
 ## Local / dev scope (per-project, ad-hoc)
 
@@ -76,10 +78,7 @@ claude plugin install pyright-lsp@claude-plugins-official
 
 | Plugin | Purpose |
 |--------|---------|
-| `core@m-claude-plugins` | Self-learning workflow — `init`, `learn`, `prompt-optimize`, CLAUDE.md templates (mishachepi/m-claude) |
-| `docs@m-claude-plugins` | Docs management — init docs structure, update docs from code changes (mishachepi/m-claude) |
-| `research@m-claude-plugins` | Research/brainstorming — multi-agent research, structured spec creation (mishachepi/m-claude) |
-| `worktree-flow@m-claude-plugins` | Parallel Claude Code agents on native git worktrees (mishachepi/m-claude) |
+| `*@m-claude-plugins` | Personal framework — one plugin per skill, list in the [m-claude README](https://github.com/mishachepi/m-claude#plugins) |
 | `obsidian@obsidian-skills` | Obsidian skills (markdown, bases, canvas, cli, defuddle) |
 | `playwright@claude-plugins-official` | Browser automation |
 | `qmd@qmd` | MCP server: hybrid search (lex/vec/hyde) over markdown |

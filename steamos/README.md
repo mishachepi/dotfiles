@@ -84,3 +84,14 @@ The root filesystem is immutable — `~/.local/bin`, configs, and systemd user s
 ```bash
 bash ~/dotfiles/steamos/setup.sh
 ```
+
+## Obsidian CLI socket
+
+Obsidian runs via Flatpak on SteamOS, sandboxing the CLI socket. Symlink it where the `obsidian` CLI expects:
+
+```bash
+ln -sf "$XDG_RUNTIME_DIR"/.flatpak/md.obsidian.Obsidian/xdg-run/.obsidian-cli.sock \
+  "$XDG_RUNTIME_DIR/.obsidian-cli.sock"
+```
+
+> Symlink breaks on each Obsidian restart (new socket). Re-run after restart, or wire into a startup script.

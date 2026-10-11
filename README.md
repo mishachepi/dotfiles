@@ -8,6 +8,7 @@ Minimalism, Universatility, Understandability, Secutiry -> It is what I want to 
 - raycast flow/snippets
 - Desktop navigation via Karabiner hotkeys
 - AI tools: [Claude Code](claude/SETUP.md), [Obsidian](obsidian/SETUP.md), [Junior](https://github.com/mishachepi/junior)
+- Other
 
 ### Setup:
 - [Bash](https://www.gnu.org/software/bash/)
@@ -22,12 +23,12 @@ Minimalism, Universatility, Understandability, Secutiry -> It is what I want to 
 - [kanagawa](https://github.com/rebelot/kanagawa.nvim)
 - [decaycs](https://github.com/decaycs)
 
+### Common
 #### Bash
 just aliases
 #### Vim
 simple config
 #### nvim
-nvchad IDE
 see nvim/readme.md
 #### Tmux
 session manager

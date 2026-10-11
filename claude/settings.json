@@ -1,5 +1,4 @@
 {
-  "includeCoAuthoredBy": false,
   "permissions": {
     "deny": [
       "EnterPlanMode",
@@ -18,7 +17,11 @@
     ],
     "defaultMode": "bypassPermissions"
   },
-  "model": "sonnet",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "model": "opus[1m]",
   "disableClaudeAiConnectors": true,
   "disableBundledSkills": true,
   "disableRemoteControl": true,
@@ -30,11 +33,15 @@
   "enabledPlugins": {
     "obsidian@obsidian-skills": true,
     "qmd@qmd": true,
-    "playwright@claude-plugins-official": true,
-    "core@m-claude-plugins": true,
-    "docs@m-claude-plugins": true,
-    "research@m-claude-plugins": true,
-    "worktree-flow@m-claude-plugins": true
+    "learn@m-claude-plugins": true,
+    "prompt-optimize@m-claude-plugins": true,
+    "init@m-claude-plugins": true,
+    "update@m-claude-plugins": true,
+    "brainstorm@m-claude-plugins": true,
+    "lead-research@m-claude-plugins": true,
+    "worktree-flow@m-claude-plugins": true,
+    "mcp-installer@m-claude-plugins": true,
+    "plugin-preflight@m-claude-plugins": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -64,7 +71,6 @@
   },
   "outputStyle": "Assistant General",
   "language": "Russian",
-  "askUserQuestionTimeout": "never",
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
@@ -76,16 +82,9 @@
   "verbose": true,
   "preferredNotifChannel": "auto",
   "autoCompactEnabled": true,
-  "remoteControlAtStartup": false,
-  "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
-  "disableArtifacts": true,
-  "gitAttribution": false,
-  "autoUpdater": {
-    "disabled": true
-  },
-  "telemetry": {
-    "enabled": false
+  "disableArtifact": true,
+  "env": {
+    "DISABLE_AUTOUPDATER": "1",
+    "DISABLE_TELEMETRY": "1"
   }
 }

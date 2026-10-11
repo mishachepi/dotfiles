@@ -55,4 +55,8 @@ awslogin() {
 
 [ -f "$HOME/.local_env.zsh" ] && source "$HOME/.local_env.zsh"
 
+# ai-local — oMLX env + shortcuts (secret OMLX_API_KEY comes from ~/.local_env.zsh above)
+for f in "$HOME/dotfiles/ai-local/env.zsh" "$HOME/dotfiles/ai-local/aliases.zsh"; do [ -f "$f" ] && source "$f"; done
+
 zstyle ':completion:*' menu select
+[ -f "$HOME/scion-local/.scion/scion-local.sh" ] && source "$HOME/scion-local/.scion/scion-local.sh"   # machine-local scion hub, absent elsewhere
