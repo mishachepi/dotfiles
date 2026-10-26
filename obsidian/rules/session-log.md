@@ -19,7 +19,8 @@ logi a "<outcome / decision>" --task "Task"    # or --epic / --area (exactly ONE
 3. **Log what YOU did or decided — never what you received.** Inbound messages, acks, "X confirmed" are already logged by whoever originated them. Re-logging the other side of a handshake is the #1 source of noise.
 4. **Exactly one context link**, most specific: `[task::[[…]]]` > `[epic::[[…]]]` > `[area::[[…]]]`. Never two. If genuinely unclear what you're working on — ask.
 5. **Use `[[wikilinks]]`**, never paraphrase strategic docs.
-6. **`[f]` finance — only via `fini`** (`logi f` delegates to it). Never write `[f]` by hand.
+6. **`[f]` finance — only via `logi f`** (front door → `fini add`). Never write `[f]` by hand, never call `fini add` directly.
+7. **Missing datum = omit it, never invent, never placeholder**. The user didn't name a time/value → don't substitute the current time as the event's time (`--time` is not for guessing) and don't write a textual placeholder like "(время не названо)" — just leave the word out. The line's HH:MM stamps *when it was logged*, it never claims to be the fact's own time.
 
 ## Don't log
 
@@ -34,4 +35,4 @@ Work past midnight goes into the **actual calendar day it happens** — the next
 
 ---
 
-> Markers (all via the `logi` skill): `- [a] HH:MM …` outcome/decision · `- [t] HH:MM-HH:MM …` time-block · `- [f]` finance (fini only). Full tracking mechanics: [[tracking-rule]].
+> Markers (all via the `logi` skill): `- [a] HH:MM …` outcome/decision · `- [t] HH:MM-HH:MM …` time-block · `- [f]` finance (via `logi f`). Full tracking mechanics: [[tracking-rule]].
