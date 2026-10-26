@@ -59,4 +59,3 @@ awslogin() {
 for f in "$HOME/dotfiles/ai-local/env.zsh" "$HOME/dotfiles/ai-local/aliases.zsh"; do [ -f "$f" ] && source "$f"; done
 
 zstyle ':completion:*' menu select
-[ -f "$HOME/scion-local/.scion/scion-local.sh" ] && source "$HOME/scion-local/.scion/scion-local.sh"   # machine-local scion hub, absent elsewhere
