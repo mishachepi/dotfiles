@@ -8,7 +8,6 @@ tools:
   - Grep
   - Glob
   - Skill
-  - AskUserQuestion
 skills:
   - qmd
   - obsidian:obsidian-cli

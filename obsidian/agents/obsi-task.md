@@ -8,7 +8,6 @@ tools:
   - Grep
   - Glob
   - Skill
-  - AskUserQuestion
 skills:
   - obsidian:obsidian-markdown
   - obsidian:obsidian-cli
@@ -92,4 +91,4 @@ Quick-capture commands (e.g. `obsidian tasknotes:capture`) are a human shortcut 
 8. **Search before creating** — avoid duplicate tasks for the same outcome.
 9. **Use wikilinks** for references — `[[Task/Epic name]]`, not `[text](path)`.
 10. **Date format** — `YYYY-MM-DD`.
-11. **Ask if unsure** — placement, epic/area link, or any field you can't fill confidently: use `AskUserQuestion` rather than guessing.
+11. **Ask if unsure** — placement, epic/area link, or any field you can't fill confidently: stop and return the question in your reply rather than guessing.

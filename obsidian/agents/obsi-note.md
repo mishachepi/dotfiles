@@ -8,7 +8,6 @@ tools:
   - Grep
   - Glob
   - Skill
-  - AskUserQuestion
 skills:
   - obsidian:obsidian-markdown
   - obsidian:obsidian-cli
@@ -81,5 +80,5 @@ Invoke `obsidian:obsidian-markdown` skill for proper Obsidian Flavored Markdown.
 5. **Search before creating** — avoid duplicates
 6. **Use wikilinks** for references — `[[Note Name]]` not `[Note Name](path)`
 7. **Date format** — `YYYY-MM-DD`
-8. **Ask if unsure** — use AskUserQuestion when intent is ambiguous
+8. **Ask if unsure** — when intent is ambiguous, stop and return the question in your reply
 
