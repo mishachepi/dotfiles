@@ -2,9 +2,9 @@
 
 Live state lives in `~/.claude/plugins/installed_plugins.json`; this file is the install playbook.
 
-> Install ≠ enable. Enable only what you actively use; the enabled set is tracked in `~/.claude/settings.json` `enabledPlugins` (currently: `obsidian@obsidian-skills`, `qmd@qmd`, `playwright@claude-plugins-official` + the m-claude set listed in `claude/settings.json`). After enabling in a running session: `/reload-plugins`.
+> Install ≠ enable. Enable only what you actively use. The tracked `claude/settings.json` `enabledPlugins` holds `obsidian@obsidian-skills`, `qmd@qmd` and the m-claude set; `playwright@claude-plugins-official` is enabled only in the live `~/.claude/settings.json`. After enabling in a running session: `/reload-plugins`.
 >
-> The entire personal framework (skills, research agents, `init` command, CLAUDE.md templates, worktree-flow) lives in its own repo/marketplace `mishachepi/m-claude` (`m-claude-plugins`) — see §`m-claude` marketplace below. dotfiles carries **no Claude Code plugin at all** — the `mch@dotfiles` plugin that used to live here was retired 28.07 (its content was either a stale fork of m-claude, or — `worktree-flow`, the one non-duplicate — migrated into m-claude as its own plugin). Output-styles are plain dotfiles content (`claude/output-styles/`, symlinked into `~/.claude/output-styles`), not a plugin at all — see [SETUP.md](SETUP.md) §2.
+> The personal framework (skills, research agents, `init` command, CLAUDE.md templates, worktree-flow) lives in its own repo and marketplace — see §`m-claude` marketplace below. dotfiles carries no Claude Code plugin. Output-styles are plain dotfiles content (`claude/output-styles/`, symlinked into `~/.claude/output-styles`) — see [SETUP.md](SETUP.md) §2.
 
 ## Marketplaces
 
@@ -19,7 +19,7 @@ All four are GitHub sources, so all four are declared in the tracked `settings.j
 
 ## `m-claude` marketplace (`m-claude-plugins`)
 
-`mishachepi/m-claude` (public) is its own repo, own marketplace, own versioning per plugin (one skill = one plugin). The plugin list, what each does and the install commands live in its [README](https://github.com/mishachepi/m-claude#plugins) — not duplicated here; the enabled set on this machine is `enabledPlugins` in `claude/settings.json`. Dev checkout for editing stays at `~/SNV/m-claude` (own git remote, independent of dotfiles).
+Marketplace `m-claude-plugins` is a GitHub source: `mishachepi/m-claude` (public), its own repo, own marketplace, own versioning per plugin (one skill = one plugin). The plugin list, what each does and the install commands live in its [README](https://github.com/mishachepi/m-claude#plugins) — not duplicated here; the enabled set on this machine is `enabledPlugins` in `claude/settings.json`. Dev checkout for editing stays at `~/SNV/m-claude` (own git remote, independent of dotfiles).
 
 ```bash
 claude plugin marketplace add mishachepi/m-claude

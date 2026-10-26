@@ -6,7 +6,8 @@
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash   # native → ~/.local/bin/claude
-brew install --cask codex antigravity-cli        # codex, agy
+brew install --cask antigravity-cli              # agy
+brew install --cask codex                        # optional
 brew install node
 bun install -g @tobilu/qmd
 uv tool install "junior @ git+https://github.com/mishachepi/junior.git"
@@ -20,7 +21,7 @@ ln -sf ~/dotfiles/claude/statusline.sh           ~/.claude/statusline.sh
 ln -sf ~/dotfiles/claude/hooks/speak-summary.py  ~/.claude/hooks/speak-summary.py
 ln -sf ~/dotfiles/claude/output-styles           ~/.claude/output-styles
 cp     ~/dotfiles/claude/settings.json           ~/.claude/settings.json   # also restores all marketplaces
-ln -s  ~/.claude/skills ~/.codex/skills                                     # share skills with Codex
+ln -s  ~/.claude/skills ~/.codex/skills                                     # only with Codex: share skills
 cd <vault> && ln -s _claude .claude                                         # per Obsidian vault
 ```
 
@@ -31,13 +32,13 @@ cp ~/dotfiles/claude/settings.json ~/.claude/settings.json   # repo → machine
 cp ~/.claude/settings.json ~/dotfiles/claude/settings.json   # machine → repo, then review the diff
 ```
 
-When capturing back, drop machine state: `sciontool hook` entries (written by scion on the mesh host) and local marketplace paths.
+When capturing back, drop machine state: `sciontool hook` entries (written by scion), `tgch-server` hook entries (written by tgch) and local marketplace paths.
 
 The personal framework (skills, agents, commands) is the `m-claude` marketplace, not dotfiles — see [PLUGINS.md](PLUGINS.md).
 
 ## 3. Verify
 
 ```bash
-which claude codex agy qmd junior
+which claude agy qmd junior      # + codex if installed
 bash ~/dotfiles/claude/ai-setup-info.sh
 ```
