@@ -5,7 +5,6 @@ Minimalism, Universatility, Understandability, Secutiry -> It is what I want to 
 - nvim config
 - nvim plugins (sometimes need to check and update it)
 - scripts/ folder with useful scripts
-- raycast flow/snippets
 - Desktop navigation via Karabiner hotkeys
 - AI tools: [Claude Code](claude/SETUP.md), [Obsidian](obsidian/SETUP.md), [Junior](https://github.com/mishachepi/junior)
 - Other
@@ -110,12 +109,14 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 #############
 
 # 9. Claude Code, Obsidian and uv if not installed
-brew install claude-code                         # brew cask: no self-update, tends to lag behind native
+curl -fsSL https://claude.ai/install.sh | bash   # Claude Code, native installer (see claude/SETUP.md)
 brew install --cask obsidian
 brew install oven-sh/bun/bun uv  # dependencies for QMD scripts
-uv tool install "junior @ git+https://github.com/mishachepi/junior.git"  # runbook runner, see claude/SETUP.md §Junior
+uv tool install "junior @ git+https://github.com/mishachepi/junior.git"  # runbook runner
 
-# 11. Run Claude Code setup (plugins, hooks, agents)
+# 10. Run Claude Code setup (plugins, hooks, agents)
 #     Follow instructions in claude/SETUP.md and obsidian/SETUP.md
 cd $HOME/dotfiles && claude
 ```
+
+Host scion config is restored from a separate private dotscion repo, not from here.
