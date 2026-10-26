@@ -9,9 +9,11 @@ brew install --cask obsidian
 # Obsidian CLI — enable in Obsidian:
 #   Settings -> General -> Command line interface -> Register CLI
 
-# obsi-tools monorepo (fm, oq, fini, logi, polar-import, gtasks-sync, life-dashboard, log-bot)
-git clone git@github.com:mishachepi/obsi-tools.git ~/obsi-tools
-cd ~/obsi-tools
+# vault-tools monorepo (repo: mishachepi/obsi-tools)
+# packages/: fm, oq, fini, logi, doctor, polar-import, gtasks-sync, log-bot, life-dashboard
+#            + shared libraries botkit, obsidian-core (not installed on their own)
+git clone git@github.com:mishachepi/obsi-tools.git ~/MCH/vault-tools
+cd ~/MCH/vault-tools
 
 # Install CLI tools globally.
 # Use --reinstall --no-cache, NOT --force: --force silently reuses a cached
@@ -22,23 +24,23 @@ uv tool install --from packages/fini fini --reinstall --no-cache
 uv tool install --from packages/logi logi --reinstall --no-cache
 uv tool install --from packages/polar-import polar-import --reinstall --no-cache
 uv tool install --from packages/gtasks-sync gtasks-sync --reinstall --no-cache
+uv tool install --from packages/doctor vault-doctor --reinstall --no-cache   # CLI: doctor
+uv tool install --from packages/log-bot log-bot --reinstall --no-cache      # Telegram bot for day capture
 
 # life-dashboard: run from workspace
 uv sync  # installs all workspace deps
 uv run life-dashboard  # or: uv run streamlit run packages/life-dashboard/src/life_dashboard/app.py
-
-# log-bot — Telegram bot for whole-day capture (finance via fini)
 ```
 
 ### obsi-validate (blocking validate hook)
 
-`obsi-validate` is a **separate repo** (`mishachepi/obsi-validate`), installed as a **bun global tool** — not part of the obsi-tools monorepo. The vault's PostToolUse validate hook (`_claude/scripts/validate-hook.sh`) calls it as bare `obsi-validate` and **fails if it is not on PATH**, so `~/.bun/bin` must be on PATH.
+`obsi-validate` is a separate repo (`mishachepi/obsi-validate`), not part of vault-tools. It is linked from a local checkout with `bun link`: `~/.bun/bin/obsi-validate` → `dist/cli.js` of the checkout, so a rebuild takes effect at once. The vault's validate hook calls bare `obsi-validate` and fails if it is not on PATH, so `~/.bun/bin` must be on PATH.
 
 ```bash
-git clone git@github.com:mishachepi/obsi-validate.git ~/SNV/obsi-validate
-cd ~/SNV/obsi-validate
+git clone git@github.com:mishachepi/obsi-validate.git ~/SNV/obsi-pydantic
+cd ~/SNV/obsi-pydantic
 bun install
-npm run build:cli && bun link      # links ~/.bun/bin/obsi-validate
+bun run build:cli && bun link      # links ~/.bun/bin/obsi-validate
 
 # ensure ~/.bun/bin is on PATH (add to ~/.zshrc if missing), then verify:
 command -v obsi-validate
@@ -98,22 +100,6 @@ ln -sfh _junior $VAULT_HOME/.junior
 
 This makes `settings.json`, `rules/`, `skills/`, `commands/`, `scripts/` visible to Claude Code when working in the vault.
 
-## 2.5. Scion templates for Obsidian Sync
-The scion mesh runtime lives in `.scion/` (real dotfolder: agents/, logs/, scripts/, routines). Obsidian Sync ignores dotfolders **and does not carry symlinks** — so agent templates must live as REAL files under a non-dot, synced path, and the runtime points at them (not the other way around).
-
-Therefore the real dir is `_scion/templates` (Sync carries it), and `.scion/templates` is a symlink into it:
-
-```bash
-mkdir -p $VAULT_HOME/_scion/templates      # REAL dir — Obsidian Sync carries these files
-ln -sfh ../_scion/templates $VAULT_HOME/.scion/templates
-```
-
-Notes:
-- The rest of `.scion/` stays a real dotfolder (runtime: agents/, logs/, scripts/, README, routines). Only `templates/` is redirected to the synced `_scion/templates`.
-- `_scion/templates` is whitelisted in `.gitignore` (`!_scion/templates`).
-- **Obsidian → Settings → Sync → "Sync all other file types" must be ON**, or the `.sh` boot scripts under `templates/*/home/` silently never propagate to other machines (they are not markdown, and Sync is markdown-only by default). Symptom: a freshly-spawned agent boots with an empty `home/` and a missing `context.sh`.
-- macOS crontab sets `VAULT_HOME` in its header and references `$VAULT_HOME/...` throughout — no absolute paths, so layout changes need only the one crontab line.
-
 ## 3. QMD — Vault Indexing
 
 Requires `qmd` CLI — installed as part of [Claude Code setup](../claude/SETUP.md#1-install).
@@ -131,22 +117,7 @@ qmd embed   # optional — enables semantic/vector search
 
 ## 4. Claude Code Plugins for Obsidian
 
-QMD plugin is installed as part of [Claude Code setup](../claude/SETUP.md#2-plugins).
-
-```bash
-# QMD skill for Claude Code (search over markdown)
-qmd skill install
-
-# Official Obsidian skills
-claude plugin marketplace add kepano/obsidian-skills
-claude plugin install obsidian@obsidian-skills
-```
-
-| Plugin | Source | Purpose |
-|--------|--------|---------|
-| `obsidian@obsidian-skills` | `kepano/obsidian-skills` | Official Obsidian skills (markdown, canvas, bases, CLI) |
-
-> **Note:** `mishachepi/m-claude` marketplace (core, lead, docs, research) is installed in [Claude Code setup](../claude/SETUP.md#2-plugins).
+Plugins (`qmd@qmd` with its skill, `obsidian@obsidian-skills`, the m-claude set) are installed per [claude/PLUGINS.md](../claude/PLUGINS.md).
 
 ### Global Rules
 
@@ -232,28 +203,27 @@ Full plugin list (installed in `.obsidian/plugins/`):
 
 ## 6. Daily Auto-Commit
 
-Cron job runs every night: ETL (fm day, fm polar, fm area) → git commit.
+Cron job runs every night: ETL (fm day, fm area) → git commit → history update.
 
 ```bash
-# Scripts live in vault-tools, symlinked to vault
-# Symlinks are created during vault-tools setup (see vault-tools README)
-# Just add crontab:
+# vault-commit.sh ships with the vault; add the crontab entry:
 (crontab -l 2>/dev/null; echo '42 23 * * * $VAULT_HOME/_claude/scripts/vault-commit.sh $VAULT_HOME >> $VAULT_HOME/_claude/logs/cron-commit.log 2>&1') | crontab -
 ```
 
 **What it does (in order):**
 1. `fm -y day` — parse day notes → frontmatter metrics (time, habits, finance)
-2. `fm -y polar` — import Polar watch data (sleep, steps, HR)
-3. `fm -y area` — aggregate area health from children
-4. `git add -A && git commit` — snapshot with date + day-of-week
-5. Log each step to today's day note
+2. `fm -y area` — aggregate area health from children
+3. `git add -A && git commit` — snapshot with date + day-of-week
+4. `fm history update` — incremental frontmatter history snapshot
+
+Polar watch import runs from its own cron job, not in the commit.
 
 ## Verification
 
 ```bash
 # obsidian and oq are zsh wrapper functions (they set HOME= before calling the real
 # binary) — `which`/`type` reports a shell function, not a path. That is expected.
-which qmd fm fini polar-import logi gtasks-sync obsi-validate
+which qmd fm fini logi doctor polar-import gtasks-sync log-bot obsi-validate
 type obsidian oq
 qmd status
 # NB: `obsidian --version` is not a valid flag (prints help). Smoke-test with:
