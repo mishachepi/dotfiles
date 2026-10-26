@@ -1,28 +1,7 @@
-.DS_Store
+# Repo-only rules. Global rules: git/ignore
 backups
 tmpp
-.venv
-.vscode
 uv.lock
 
-# Editor swap files
-*.swp
-*.swo
-*~
-
-# Environment files
-.env*
-!.env.example
-
-# Python cache
-__pycache__/
-*.pyc
-
-.nvimlog
-**/.claude/settings.local.json
-
-# junior run records (audit trail)
-.junior/output/
-
-# scion mesh infra — personal, lives machine-local (~/.scion) + private vault, NEVER in public dotfiles
+# scion host config — kept in a private repo, never here
 scion/

@@ -1,0 +1,26 @@
+# Global git ignore — linked as ~/.config/git/ignore, applies to every repo
+
+# OS
+.DS_Store
+
+# Editors
+.vscode
+.nvimlog
+*.swp
+*.swo
+*~
+
+# Environment files
+.env*
+!.env.example
+
+# Python
+.venv
+__pycache__/
+*.pyc
+
+# Claude Code machine-local grants
+**/.claude/settings.local.json
+
+# junior run records
+.junior/output/

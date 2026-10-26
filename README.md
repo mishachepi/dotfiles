@@ -85,7 +85,7 @@ brew install --cask font-inconsolata-lgc-nerd-font
 mkdir -p $HOME/.config/git
 mkdir -p $HOME/.config
 
-ln -sf $HOME/dotfiles/.gitignore $HOME/.config/git/ignore
+ln -sf $HOME/dotfiles/git/ignore $HOME/.config/git/ignore   # global git ignore
 ln -sf $HOME/dotfiles/vim/vimrc $HOME/.vimrc
 ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 ln -sf $HOME/dotfiles/nvim $HOME/.config/
